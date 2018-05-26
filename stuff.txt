@@ -1,0 +1,8 @@
+- Run all of the transactions and get an idea of the average cost of each of them and use that to figure out how much we can do with a single crackGeode call (.75 gwei gas)
+
+
+- Create storage contract (store the ether) seperate from code contract
+- Run our own local ethereum node to pay for mineGeode (not crackGeode)
+
+- Crack a geode
+- Consume for daily buffs to your mining speed
