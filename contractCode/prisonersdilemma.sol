@@ -21,6 +21,9 @@ contract PrisonersDilemmaStorage {
     // - Contract will be patched and unlocked to prevent future loss otherwise
     uint stopLoss = 0;
     
+    // Expected value for this contract to be left with after every turn, used to calculate stopLoss
+    int expectedValue = 0;
+    
     // Mapping of players and everything associated with them
     mapping(address => bool[]) public playerHistory; // history for each player
     mapping(address => bool) public banned; // stores banned addresses (for cheaters, bots, etc)
@@ -70,10 +73,22 @@ contract PrisonersDilemmaStorage {
     }
     
     // Setter for stopLoss
-    function setStopLoss(uint _stopLoss) onlyAdmin() {
+    function setStopLoss(uint _stopLoss) public onlyAdmin() {
         
         // Set stopLoss
         stopLoss = _stopLoss;
+    }
+    
+    // Set expected value
+    function setExpectedValue(int _expectedValue) external onlyCode() {
+        
+        // Set expected value
+        expectedValue = _expectedValue;
+    }
+    
+    // Get expected value
+    function getExpectedValue() public view returns (int) {
+        return expectedValue;
     }
     
     // Setter for admin address
@@ -89,7 +104,7 @@ contract PrisonersDilemmaStorage {
     }
     
     // Setter for code address
-    function setCodeAddress(address _address) onlyAdmin() public {
+    function setCodeAddress(address _address) onlyAdmin() external {
         
         // Set code address
         codeAddress = _address;
@@ -206,6 +221,16 @@ contract PrisonersDilemmaCode {
         
         // Set storage contract
         storageContract = PrisonersDilemmaStorage(_storageAddress);
+    }
+    
+    // Must be run after code address has been set
+    function init() public {
+        
+        // Only admin can call this
+        require(msg.sender == storageContract.getAdminAddress());
+                
+        // Set expected value
+        storageContract.setExpectedValue(((40 -2*int(COOPERATE_PAYOUT)) + (40 - int(TEMPTATION_PAYOUT))*2 + (40 - int(PUNISHMENT_PAYOUT)*2))/4);
     }
     
     ///////////////
