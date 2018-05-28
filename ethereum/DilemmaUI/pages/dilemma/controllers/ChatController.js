@@ -90,7 +90,7 @@ class ChatController {
 				} else if (json.type === 'history') { // entire message history
 					// insert every single message to the chat window
 					for (var i=0; i < json.data.length; i++) {
-						var jsonMsg = json.parse(json.data[i].text);
+						var jsonMsg = JSON.parse(json.data[i].text);
 						var newText = jsonMsg.message;
 						var address = jsonMsg.addr;
 						
@@ -99,7 +99,7 @@ class ChatController {
 					}
 				} else if (json.type === 'message') { // it's a single message
 					input.removeAttr('disabled'); // let the user write another message
-					var jsonMsg = json.parse(json.data.text);
+					var jsonMsg = JSON.parse(json.data.text);
 					var newText = jsonMsg.message;
 					var address = jsonMsg.addr;
 					addMessage(json.data.author, newText, address,
