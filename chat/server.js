@@ -76,10 +76,10 @@ wsServer.on('request', function(request) {
     connection.on('message', function(message) {
         if (message.type === 'utf8') { // accept only text
 			
-			console.log('Message: ' + message.utf8data);
+			console.log('Message: ' + message.utf8Data);
 			
 			// Unpack message
-			var unpacked = JSON.parse(message.utf8data);
+			var unpacked = JSON.parse(message.utf8Data);
 			message = unpacked.message;
 			//var userAddress = unpacked.address;
 		
