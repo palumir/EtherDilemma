@@ -26,6 +26,8 @@ class ChatController {
 	// Run JS for chat
 	runChat() {
 		
+		var that = this;
+		
 		$(function () {
 			"use strict";
 
@@ -88,7 +90,11 @@ class ChatController {
 				} else if (json.type === 'history') { // entire message history
 					// insert every single message to the chat window
 					for (var i=0; i < json.data.length; i++) {
-						addMessage(json.data[i].author, json.data[i].text,
+						var jsonMsg = json.parse(json.data[i].text);
+						var newText = jsonMsg.message;
+						var address = jsonMsg.addr;
+						
+						addMessage(json.data[i].author, newText, address,
 								   json.data[i].color, new Date(json.data[i].time));
 					}
 				} else if (json.type === 'message') { // it's a single message
@@ -110,7 +116,7 @@ class ChatController {
 						return;
 					}
 					// send the message as an ordinary text
-					connection.send(msg);
+					connection.send(JSON.stringify({ message: msg, addr: web3.eth.accounts[0] }));
 					$(this).val('');
 					// disable the input field to make the user wait until server
 					// sends back response
@@ -139,8 +145,8 @@ class ChatController {
 			/**
 			 * Add message to the chat window
 			 */
-			function addMessage(author, message, color, dt) {
-				content.prepend('<p><span style="color:' + color + '">' + author + '</span> @ ' +
+			function addMessage(author, message, address, color, dt) {
+				content.prepend('<p><span style="color:' + color + '">' + address + author + '</span> @ ' +
 					 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 					 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 					 + ': ' + message + '</p>');

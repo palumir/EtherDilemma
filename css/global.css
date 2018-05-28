@@ -1,7 +1,6 @@
 /* Main HTML Stuff */
 
 /* Chat */
-* { font-family:tahoma; font-size:12px; padding:0px; margin:0px; }
 p { line-height:18px; }
 #content { padding:5px; background:#ddd; border-radius:5px; overflow-y: scroll;
 		   border:1px solid #CCC; margin-top:10px; height: 160px; }
