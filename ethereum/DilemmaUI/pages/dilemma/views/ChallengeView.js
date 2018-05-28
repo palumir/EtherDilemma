@@ -28,6 +28,7 @@ class ChallengeView {
 		
 		// Prepend HTML
 		if(dilemmaController.contractLocked) displayObj.append("<br>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.");
+		else if(dilemmaController.challengeActive) displayObj.append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
 		else displayObj.append("<button id='challengeButton'>Play</button>");
 		
 		// Make it a block chain button

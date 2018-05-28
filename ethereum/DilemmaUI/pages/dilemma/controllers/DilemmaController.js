@@ -9,7 +9,7 @@
 			this.initialized = true;
 			
 			// Set the selected div in the dropdown
-			this.selectedDiv = 0; // Defaults to the first option
+			this.selectedDiv = 1; // Defaults to the second option
 					
 			// Get first div
 			var firstDiv = $(that);
@@ -163,15 +163,19 @@ class DilemmaController {
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
 		
+		// Create chat stuff, FOR TESTING
+		var chatView = new ChatView(dilemmaUI);
+		var chatController = new ChatController(dilemmaUI, this);
+		chatView.setController(chatController);
+		chatController.setView(chatView);
+		chatController.createDisplay('dilemmaWrapper');
+		
 		// Create challenge stuff
 		var challengeView = new ChallengeView(dilemmaUI);
 		var challengeController = new ChallengeController(dilemmaUI);
 		challengeView.setController(challengeController);
 		challengeController.setView(challengeView);
 		challengeController.createDisplay('dilemmaWrapper');
-		
-		// Check if dilemma is active
-		if(this.challengeActive) $("#dilemmaWrapper").append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
 	}
 	
 	// Create end view

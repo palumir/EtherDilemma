@@ -9,6 +9,8 @@
 			// Add our callback and arguments to the array so if the transaction is rejected, our geode cracking GIF resets
 			dilemmaUI.pushRejectCallback([function(args) {
 				$('#loader').remove();
+				$('#dilemmaWrapper').append("<button id='challengeButton'>Play</button>");
+				$('#challengeButton').blockChainButtonSimple(dilemmaUI.codeContract.hostChallenge);
 			},
 			[]]);
 			
@@ -19,8 +21,12 @@
 			function(error,result) {
 					if(!error) {
 						
+						// Remove play button
+						
 						// Set loading image and text
+						$("#challengeButton").remove();
 						$("#dilemmaWrapper").append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
+						
 						
 						// Then call the function
 						contractFunction.sendTransaction(

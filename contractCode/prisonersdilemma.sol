@@ -250,9 +250,9 @@ contract PrisonersDilemmaCode {
     ///////////////
     
     // Block wait time constants
-    uint constant BLOCKS_TO_DECIDE = 3; // How long do we give people to decide?
-    uint constant BLOCKS_UNTIL_AFK = 10; // How long until we decide somebody's AFK
-    uint constant MISSED_TURNS_UNTIL_CHEATING = 5; // How many turns can somebody miss before they just lose?
+    uint constant BLOCKS_TO_DECIDE = 2; // How long do we give people to decide?
+    uint constant BLOCKS_UNTIL_AFK = 1; // How long until we decide somebody's AFK
+    uint constant MISSED_TURNS_UNTIL_CHEATING = 1; // How many turns can somebody miss before they just lose?
     
     // Cost and payouts
     uint constant COST_IN_GAS = 20 finney; // Cost to play
@@ -262,6 +262,7 @@ contract PrisonersDilemmaCode {
     uint constant SUCKERS_PAYOUT = 0; // How much does a cooperating user get if they lose?
     
     // Anti cheating
+    uint constant NUMBER_OF_MATCHMAKING_POOLS = 1; // Number of match-making pools that exist (this dissuades intentionally queueing into friends)
     uint constant NUMBER_OF_DILEMMAS_TO_TRACK_HISTORY = 50; // How many dilemmas do we track, historically?
     uint constant PERCENTAGE_OF_DOUBLE_COOPERATES_TO_LOCK = 90; // What percentage of said dilemmas must be double cooperates to lock contract?
         
@@ -407,7 +408,7 @@ contract PrisonersDilemmaCode {
         
         // Random number for this user
         bytes32 RNGSeed = keccak256(abi.encodePacked(now, msg.sender));
-        whoChallenge.randomNumber = uint(keccak256(abi.encodePacked(RNGSeed, blockhash(block.number-1)))) % 3;
+        whoChallenge.randomNumber = uint(keccak256(abi.encodePacked(RNGSeed, blockhash(block.number-1)))) % NUMBER_OF_MATCHMAKING_POOLS;
         
         // Loop through and find most suitable partner
         for(uint i = 0; i < challengeList.length; i++) {
