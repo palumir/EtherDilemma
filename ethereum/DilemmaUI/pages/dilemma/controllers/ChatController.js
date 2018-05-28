@@ -152,7 +152,7 @@ class ChatController {
 		
 		// The actual function we want to run
 		var fillDisplayFunction = function(display, myself) {
-			
+			that.view.appendHTML();
 		};
 		
 		// Wait Metamask account injection before running the function
