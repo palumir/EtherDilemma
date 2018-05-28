@@ -157,7 +157,7 @@ class ChatController {
 		
 		// The actual function we want to run
 		var fillDisplayFunction = function(display, myself) {
-			that.view.createHTML();
+			that.view.appendHTML();
 			that.runChat();
 		};
 		
