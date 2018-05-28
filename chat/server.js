@@ -79,7 +79,7 @@ wsServer.on('request', function(request) {
 			// Unpack message
 			var unpacked = JSON.parse(message.utf8data);
 			message = unpacked.message;
-			var userAddress = unpacked.address;
+			//var userAddress = unpacked.address;
 		
             if (userName === false) { // first message sent by user is their name
                 // remember user name
@@ -99,7 +99,7 @@ wsServer.on('request', function(request) {
                     time: (new Date()).getTime(),
                     text: htmlEntities(message.utf8Data),
                     author: userName,
-					address: userAddress,
+					//address: userAddress,
                     color: userColor
                 };
                 history.push(obj);

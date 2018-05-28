@@ -82,7 +82,7 @@ $(function () {
                 return;
             }
             // send the message as an ordinary text
-            connection.send(JSON.stringify({ message: msg, address: web3.eth.accounts[0]});
+            connection.send(JSON.stringify({ message: msg, address: web3.eth.accounts[0] });
             $(this).val('');
             // disable the input field to make the user wait until server
             // sends back response
