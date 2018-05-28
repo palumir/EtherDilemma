@@ -90,19 +90,12 @@ class ChatController {
 				} else if (json.type === 'history') { // entire message history
 					// insert every single message to the chat window
 					for (var i=0; i < json.data.length; i++) {
-						var jsonMsg = JSON.parse(json.data[i].text);
-						var newText = jsonMsg.message;
-						var address = jsonMsg.addr;
-						
-						addMessage(json.data[i].author, newText, address,
+						addMessage(json.data[i].author, json.data[i].text,
 								   json.data[i].color, new Date(json.data[i].time));
 					}
 				} else if (json.type === 'message') { // it's a single message
 					input.removeAttr('disabled'); // let the user write another message
-					var jsonMsg = JSON.parse(json.data.text);
-					var newText = jsonMsg.message;
-					var address = jsonMsg.addr;
-					addMessage(json.data.author, newText, address,
+					addMessage(json.data.author, json.data.text,
 							   json.data.color, new Date(json.data.time));
 				} else {
 					console.log('Hmm..., I\'ve never seen JSON like this: ', json);
@@ -119,7 +112,7 @@ class ChatController {
 						return;
 					}
 					// send the message as an ordinary text
-					connection.send(JSON.stringify({ message: msg, addr: web3.eth.accounts[0] }));
+					connection.send(JSON.stringify({ msg, addr: }));
 					$(this).val('');
 					// disable the input field to make the user wait until server
 					// sends back response
@@ -148,8 +141,8 @@ class ChatController {
 			/**
 			 * Add message to the chat window
 			 */
-			function addMessage(author, message, address, color, dt) {
-				content.prepend('<p><span style="color:' + color + '">' + address + author + '</span> @ ' +
+			function addMessage(author, message, color, dt) {
+				content.prepend('<p><span style="color:' + color + '">' + author + '</span> @ ' +
 					 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 					 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 					 + ': ' + message + '</p>');
