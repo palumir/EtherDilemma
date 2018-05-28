@@ -99,7 +99,10 @@ class ChatController {
 					}
 				} else if (json.type === 'message') { // it's a single message
 					input.removeAttr('disabled'); // let the user write another message
-					addMessage(json.data.author, json.data.text,
+					var jsonMsg = json.parse(json.data.text);
+					var newText = jsonMsg.message;
+					var address = jsonMsg.addr;
+					addMessage(json.data.author, newText, address,
 							   json.data.color, new Date(json.data.time));
 				} else {
 					console.log('Hmm..., I\'ve never seen JSON like this: ', json);
