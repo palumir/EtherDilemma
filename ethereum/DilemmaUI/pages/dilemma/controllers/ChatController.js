@@ -15,6 +15,15 @@ class ChatController {
 		// Set dilemmaController
 		this.dilemmaController = dilemmaController;
 		
+	}
+	
+	// Set view
+	setView(view) {
+		this.view = view;
+	}
+	
+	// Run chat
+	runChat() {
 		var that = this;
 		
 		$(function () {
@@ -136,13 +145,7 @@ class ChatController {
 					 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 					 + ': ' + message + '</p>');
 			}
-	});
-		
-	}
-	
-	// Set view
-	setView(view) {
-		this.view = view;
+		});
 	}
 	
 	// Create the actual display with id $(display)
@@ -155,6 +158,7 @@ class ChatController {
 		// The actual function we want to run
 		var fillDisplayFunction = function(display, myself) {
 			that.view.appendHTML();
+			that.runChat();
 		};
 		
 		// Wait Metamask account injection before running the function
