@@ -80,8 +80,8 @@ wsServer.on('request', function(request) {
 			
 			// Unpack message
 			var unpacked = JSON.parse(message.utf8Data);
-			message = unpacked.message;
-			//var userAddress = unpacked.address;
+			var userMessage = unpacked.message;
+			var userAddress = unpacked.address;
 		
             if (userName === false) { // first message sent by user is their name
                 // remember user name
@@ -99,9 +99,9 @@ wsServer.on('request', function(request) {
                 // we want to keep history of all sent messages
                 var obj = {
                     time: (new Date()).getTime(),
-                    text: htmlEntities(message.utf8Data),
+                    text: htmlEntities(unpacked.message),
                     author: userName,
-					//address: userAddress,
+					address: userAdress,
                     color: userColor
                 };
                 history.push(obj);
