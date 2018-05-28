@@ -15,27 +15,29 @@ class ChatController {
 		// Set dilemmaController
 		this.dilemmaController = dilemmaController;
 		
+		var that = this;
+		
 		$(function () {
 			"use strict";
 
 			// for better performance - to avoid searching in DOM
-			var content = $('#content');
-			var input = $('#input');
-			var status = $('#status');
+			that.content = $('#content');
+			that.input = $('#input');
+			that.status = $('#status');
 
 			// my color assigned by the server
-			var myColor = false;
+			that.myColor = false;
 			// my name sent to the server
-			var myName = false;
+			that.myName = false;
 
 			// if user is running mozilla then use it's built-in WebSocket
 			window.WebSocket = window.WebSocket || window.MozWebSocket;
 
 			// if browser doesn't support WebSocket, just show some notification and exit
 			if (!window.WebSocket) {
-				content.html($('<p>', { text: 'Sorry, but your browser doesn\'t '
+				that.content.html($('<p>', { text: 'Sorry, but your browser doesn\'t '
 											+ 'support WebSockets.'} ));
-				input.hide();
+				that.input.hide();
 				$('span').hide();
 				return;
 			}
@@ -45,13 +47,13 @@ class ChatController {
 
 			connection.onopen = function () {
 				// first we want users to enter their names
-				input.removeAttr('disabled');
-				status.text('Choose name:');
+				that.input.removeAttr('disabled');
+				that.status.text('Choose name:');
 			};
 
 			connection.onerror = function (error) {
 				// just in there were some problems with conenction...
-				content.html($('<p>', { text: 'Sorry, but there\'s some problem with your '
+				that.content.html($('<p>', { text: 'Sorry, but there\'s some problem with your '
 											+ 'connection or the server is down.' } ));
 			};
 
@@ -70,9 +72,9 @@ class ChatController {
 				// NOTE: if you're not sure about the JSON structure
 				// check the server source code above
 				if (json.type === 'color') { // first response from the server with user's color
-					myColor = json.data;
-					status.text(myName + ': ').css('color', myColor);
-					input.removeAttr('disabled').focus();
+					that.myColor = json.data;
+					that.status.text(myName + ': ').css('color', myColor);
+					that.input.removeAttr('disabled').focus();
 					// from now user can start sending messages
 				} else if (json.type === 'history') { // entire message history
 					// insert every single message to the chat window
@@ -81,7 +83,7 @@ class ChatController {
 								   json.data[i].color, new Date(json.data[i].time));
 					}
 				} else if (json.type === 'message') { // it's a single message
-					input.removeAttr('disabled'); // let the user write another message
+					that.input.removeAttr('disabled'); // let the user write another message
 					addMessage(json.data.author, json.data.text,
 							   json.data.color, new Date(json.data.time));
 				} else {
@@ -92,7 +94,7 @@ class ChatController {
 			/**
 			 * Send mesage when user presses Enter key
 			 */
-			input.keydown(function(e) {
+			that.input.keydown(function(e) {
 				if (e.keyCode === 13) {
 					var msg = $(this).val();
 					if (!msg) {
@@ -106,8 +108,8 @@ class ChatController {
 					input.attr('disabled', 'disabled');
 
 					// we know that the first message sent from a user their name
-					if (myName === false) {
-						myName = msg;
+					if (that.myName === false) {
+						that.myName = msg;
 					}
 				}
 			});
