@@ -131,16 +131,6 @@ class DilemmaController {
 		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
-
-		// Create "Timer" div
-		displayObj.append("<div id='turnTimer'></div>");
-		
-		// Append timer
-		this.timerController = new TimerController(dilemmaUI, this);
-		var timerView = new TimerView(dilemmaUI);
-		this.timerController.setView(timerView);
-		timerView.setController(this.timerController);
-		this.timerController.createDisplay("turnTimer");
 		
 		// Start "Your Move Panel" div
 		displayObj.append("<div id='yourMovePanel'>");
@@ -154,6 +144,16 @@ class DilemmaController {
 		
 		// End the "Your Move Panel" div
 		displayObj.append("</div>");
+
+		// Create "Timer" div
+		displayObj.append("<div id='turnTimer'></div>");
+		
+		// Append timer
+		this.timerController = new TimerController(dilemmaUI, this);
+		var timerView = new TimerView(dilemmaUI);
+		this.timerController.setView(timerView);
+		timerView.setController(this.timerController);
+		this.timerController.createDisplay("turnTimer");
 		
 		// Create "Chat" div
 		displayObj.append("<div id='chatWrapper'></div>");
