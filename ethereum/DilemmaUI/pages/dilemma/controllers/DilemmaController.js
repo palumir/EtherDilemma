@@ -28,7 +28,7 @@
 
 				
 					// First one is selected by default
-					if(y == 0) currentDiv.classList.add("selected");
+					if(y == this.selectedDiv) currentDiv.classList.add("selected");
 					
 					// Add clickable class 
 					currentDiv.classList.add("clickable");
@@ -146,7 +146,7 @@ class DilemmaController {
 		displayObj.append("</div>");
 
 		// Create "Timer" div
-		displayObj.append("<div class='col-sm-6' id='turnTimer'></div>");
+		displayObj.append("<div class='col-sm-12' id='turnTimer'></div>");
 		
 		// Append timer
 		this.timerController = new TimerController(dilemmaUI, this);

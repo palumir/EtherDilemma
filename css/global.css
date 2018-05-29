@@ -34,10 +34,42 @@ body div {
 	cursor: pointer;
 }
 
-#currentBlock, #nextTurnBlock {
-	float: left;
+#currentBlock {
+	margin-left: 10%;
 }
 
+#nextTurnBlock {
+	margin-right: 10%;
+}
+
+#currentBlock, #nextTurnBlock {
+	float: left;
+	background-color: white;
+	border: 1px solid black;
+	width: 40%;
+	color: black;
+	margin-bottom: 15px;
+}
+
+#lockInChoice {
+	margin-bottom: 15px;
+	font-size: 15pt;
+	height: 30px;
+    margin-top: 76px;
+}
+
+#explanation {
+	margin-bottom: 10px;
+	font-size: 14pt;
+}
+
+#yourMovePanel {
+	height: 200px;
+}
+
+#yourMovePanel .betray, #yourMovePanel .cooperate {
+	text-transform: uppercase;
+}
 
 .betray img, .cooperate img {
 	width:20px;
@@ -57,6 +89,7 @@ body div {
 
 #turnTimer {
 	text-align: center;
+	width: 100%;
 }
 
 .selectable {
@@ -70,16 +103,27 @@ body div {
 	width: 45%;
     display: block;
     float: left;
+	height: 100%;
+	padding-top: 73px;
+	color: black;
 }
 
-.selectable.selected {
-	background-color: #d9f442;
+.selectable.selected.betray, .selectable.selected.cooperate {
+	border: 3px dotted #d9f442;
+	padding-top: 71px;
 }
 
+.selectable.betray {
+	background-color: red;
+}
+
+.selectable.cooperate {
+	background-color: green;
+}
 
 .selectable.betray img, .selectable.cooperate img {
-	width:41px;
-	height:41px;
+	width:55px;
+	height:55px;
 	margin-right: 6px;
 }
 
@@ -106,9 +150,10 @@ body h3 {
 }
 
 #centerOr {
-	margin-top: 10px;
+	margin-top: 90px;
 	float: left;
     width: 10%;
+	text-transform: uppercase;
     text-align: center;
 	font-size: 19pt;
 }
@@ -133,7 +178,7 @@ p {
 	border: 1px solid #ccc;
 	margin-top: 10px; 
 	padding: 5px; 
-	width: 500px;
+	width: 600px;
 	float: right;
 }
 

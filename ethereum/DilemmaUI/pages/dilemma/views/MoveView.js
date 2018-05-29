@@ -21,6 +21,6 @@ class MoveView {
 	createInterface(display) {
 			
 			// Only create it if it doesn't exist yet
-			$("#" + display).append("<div id='moveSelector' class='full-width' ><h3> Think fast! Will you... </h3><div class='selectable cooperate one-half-width' value=0><img src='/images/cooperate.png'>Cooperate</div><div id='centerOr'>or</div><div class='selectable betray one-half-width' value=1><img src='/images/betray.png'>Betray</div></div>");
+			$("#" + display).append("<div id='moveSelector' class='full-width' ><h3> Solve the dilemma... </h3><div class='selectable cooperate one-half-width' value=0><img src='/images/cooperate.png'>Ally</div><div id='centerOr'>or</div><div class='selectable betray one-half-width' value=1><img src='/images/betray.png'>Betray</div></div>");
 	}
 }

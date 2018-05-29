@@ -20,7 +20,7 @@ class TimerView {
 		var that = this;
 		
 		// Add the Javascript timer, counting down every one second
-		that.timer = setInterval(function() {
+		that.timer = setTimeout(function() {
 			
 			// Get the current block number from Etherscan
 			$.get(ETHERSCAN_BASE_URL + "/api?module=proxy&action=eth_blockNumber&apikey=" + ETHERSCAN_API_KEY, function(data, status) {
@@ -45,18 +45,21 @@ class TimerView {
 									that.controller.sendTurnData();
 									
 								}
+								
+								// Lock in
+								that.controller.displayDiv[0].innerHTML = "<div class='col-sm-12' id='lockInChoice'>- Lock in your choice before the Decision Block is reached -</div>";
 										
 								// Show the blocks
-								that.controller.displayDiv[0].innerHTML = "<div class='col-sm-6' id='currentBlock'>Current block:<br> " + currentBlockNumber + "</div><br>";
+								that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='currentBlock'>Current Block:<br> " + currentBlockNumber + "</div>";
 								
 								// If the turn is happening at the moment
-								if(turnTime <= currentBlockNumber) that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Once this block is reached, MetaMask will pop up:<br> NOW!</div><br>";
+								if(turnTime <= currentBlockNumber) that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:<br> NOW!</div>";
 								
 								// Otherwise, show the block
-								else that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Once this block is reached, MetaMask will pop up</b>:<br> " + turnTime + "</div><br>";
+								else that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:</b>:<br> " + turnTime + "</div><br>";
 								
+								that.controller.displayDiv[0].innerHTML += "<div class='col-sm-12' id='explanation'><i>*MetaMask will popup automatically. Press Submit quickly or risk forfeiting the dilemma.</i></div>";
 								// Explanation div
-								that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='explanation'><i>Press \"Submit\" quickly when MetaMask pops up, or you may miss your turn.</i></div><br>";
 
 							}
 							else console.log(error);
