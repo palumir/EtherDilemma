@@ -20,7 +20,7 @@ class TimerView {
 		var that = this;
 		
 		// Add the Javascript timer, counting down every one second
-		that.timer = setTimeout(function() {
+		that.timer = setInterval(function() {
 			
 			// Get the current block number from Etherscan
 			$.get(ETHERSCAN_BASE_URL + "/api?module=proxy&action=eth_blockNumber&apikey=" + ETHERSCAN_API_KEY, function(data, status) {

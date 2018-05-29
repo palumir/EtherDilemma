@@ -13,7 +13,7 @@ body div {
 }
 
 #dilemmaWrapper {
-	padding-top: 8%;
+	padding-top: 7%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -44,34 +44,39 @@ body div {
 
 #currentBlock, #nextTurnBlock {
 	float: left;
-	background-color: white;
-	border: 1px solid black;
-	width: 40%;
-	color: black;
-	margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid black;
+    width: 40%;
+    color: black;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+	font-size: 14pt;
 }
 
 #lockInChoice {
 	margin-bottom: 15px;
 	font-size: 15pt;
 	height: 30px;
-    margin-top: 76px;
+    margin-top: 85px;
 }
 
 #explanation {
 	margin-bottom: 10px;
 	font-size: 14pt;
+	height: 70px;
+    margin-top: 105px;
 }
 
 #yourMovePanel {
 	height: 200px;
 }
 
-#yourMovePanel .betray, #yourMovePanel .cooperate {
+#yourMovePanel .betray, #yourMovePanel .ally {
 	text-transform: uppercase;
 }
 
-.betray img, .cooperate img {
+.betray img, .ally img {
 	width:20px;
 	height:20px;
 	margin-right: 3px;
@@ -82,7 +87,7 @@ body div {
 	display: inline;
 }
 
-.cooperate {
+.ally {
 	color: green;
 	display: inline;
 }
@@ -108,7 +113,7 @@ body div {
 	color: black;
 }
 
-.selectable.selected.betray, .selectable.selected.cooperate {
+.selectable.selected.betray, .selectable.selected.ally {
 	border: 3px dotted #d9f442;
 	padding-top: 29px;
 }
@@ -117,11 +122,11 @@ body div {
 	background-color: red;
 }
 
-.selectable.cooperate {
+.selectable.ally {
 	background-color: green;
 }
 
-.selectable.betray img, .selectable.cooperate img {
+.selectable.betray img, .selectable.ally img {
 	width: 65px;
     height: 65px;
     margin-left: auto;
@@ -173,6 +178,7 @@ p {
 	border: 1px solid #CCC; 
 	margin-top:10px; 
 	height: 160px; 
+	color: black;
 }
 		   
 #input { 

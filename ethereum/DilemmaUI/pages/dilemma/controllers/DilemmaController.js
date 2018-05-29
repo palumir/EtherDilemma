@@ -214,10 +214,23 @@ class DilemmaController {
 			
 			// Current user or their partner
 			if(web3.eth.accounts[0] == result.args["_who"]) {
+				
+				// Get partner address first
+				that.dilemmaUI.codeContract.getPartnerAddress.call(
+				function (error, result){
+					if(!error){
+						that.partnerAddress = result;
+						
+						// Recreate display
+						$("#" + display).empty();
+						that.createDilemmaDisplay(display);
+					} 
+					else {
+						console.log(error);
+					}
+				});
 
-				// Recreate display
-				$("#" + display).empty();
-				that.createDilemmaDisplay(display);
+
 				
 			}
 		},
