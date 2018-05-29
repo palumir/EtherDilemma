@@ -149,10 +149,11 @@ class ChatController {
 				console.log("You: " + web3.eth.accounts[0]);
 				
 				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
-					content.prepend('<p><span style="color:' + color + '">' + author + '</span> @ ' +
+					content.append('<p><span style="color:' + color + '">' + author + '</span> @ ' +
 						 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 						 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 						 + ': ' + message + '</p>');
+					content[0].scrollTop = content[0].scrollHeight;
 				}
 			}
 		});
