@@ -13,7 +13,7 @@ body div {
 }
 
 #dilemmaWrapper {
-	padding-top: 10%;
+	padding-top: 8%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -96,7 +96,7 @@ body div {
 	margin-top: 10px;
 	margin-bottom: 25px;
 	text-align: center;
-	font-size: 20pt;
+	font-size: 40pt;
 	border: 1px solid black;
 	cursor: pointer;
 	background-color: white;
@@ -104,7 +104,7 @@ body div {
     display: block;
     float: left;
 	height: 100%;
-	padding-top: 73px;
+	padding-top: 33px;
 	color: black;
 }
 
@@ -122,9 +122,11 @@ body div {
 }
 
 .selectable.betray img, .selectable.cooperate img {
-	width:55px;
-	height:55px;
-	margin-right: 6px;
+	width: 65px;
+    height: 65px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 body h3 {
