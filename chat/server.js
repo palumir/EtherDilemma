@@ -78,7 +78,7 @@ wsServer.on('request', function(request) {
 		
             if (userName === false) { // first message sent by user is their name
                 // remember user name
-                userName = htmlEntities(userMessage);
+                userName = htmlEntities(userMessage.slice(-30));
                 // get random color and send it back to the user
                 userColor = colors.shift();
                 connection.sendUTF(JSON.stringify({ type:'color', data: userColor }));
