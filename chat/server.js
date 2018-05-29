@@ -101,7 +101,7 @@ wsServer.on('request', function(request) {
                     time: (new Date()).getTime(),
                     text: htmlEntities(unpacked.message),
                     author: userName,
-					address: userAddress,
+					address: htmlEntities(userAddress),
                     color: userColor
                 };
                 history.push(obj);
