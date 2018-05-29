@@ -35,7 +35,7 @@ class TimerView {
 								
 								// Make result an int
 								result = parseInt(result);
-								var turnTime = result+3;
+								var turnTime = result+2;
 								
 								// Make Metamask pop-up if we are on the right block and we haven't popped up before
 								if(currentBlockNumber >= turnTime 

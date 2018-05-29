@@ -144,12 +144,10 @@ class ChatController {
 			function addMessage(author, message, address, color, dt) {
 				
 				// Only show messages from ourself or our partner
-				if(address == web3.eth.accounts[0] || address == this.dilemmaController.partnerAddress) {
 					content.prepend('<p><span style="color:' + color + '">' + author + '</span> @ ' +
 						 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 						 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 						 + ': ' + message + '</p>');
-				}
 			}
 		});
 	}
