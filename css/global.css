@@ -34,6 +34,11 @@ body div {
 	cursor: pointer;
 }
 
+#currentBlock, #nextTurnBlock {
+	float: left;
+}
+
+
 .betray img, .cooperate img {
 	width:20px;
 	height:20px;
@@ -109,12 +114,35 @@ body h3 {
 }
 
 /* Chat */
-p { line-height:18px; }
-#content { padding:5px; background:#ddd; border-radius:5px; overflow-y: scroll;
-		   border:1px solid #CCC; margin-top:10px; height: 160px; }
-#input { border-radius:2px; border:1px solid #ccc;
-		 margin-top:10px; padding:5px; width:400px;  }
-#status { width:105px; display:block; float:left; margin-top:15px; }
+p { 
+	line-height:18px; 
+}
+
+#content { 
+	padding: 5px; 
+	background: #ddd; 
+	border-radius: 5px; 
+	overflow-y: scroll;
+	border: 1px solid #CCC; 
+	margin-top:10px; 
+	height: 160px; 
+}
+		   
+#input { 
+	border-radius: 2px; 
+	border: 1px solid #ccc;
+	margin-top: 10px; 
+	padding: 5px; 
+	width: 500px;
+	float: right;
+}
+
+#status { 
+	width: 105px; 
+	display: block; 
+	float: left; 
+	margin-top: 15px; 
+}
 
 #chatWrapper { 
 }

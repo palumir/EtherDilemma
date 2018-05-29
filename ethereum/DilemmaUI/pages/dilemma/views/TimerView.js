@@ -47,16 +47,16 @@ class TimerView {
 								}
 										
 								// Show the blocks
-								that.controller.displayDiv[0].innerHTML = "<div id='currentBlock'>Current block:<br> " + currentBlockNumber + "</div><br>";
+								that.controller.displayDiv[0].innerHTML = "<div class='col-sm-6' id='currentBlock'>Current block:<br> " + currentBlockNumber + "</div><br>";
 								
 								// If the turn is happening at the moment
-								if(turnTime <= currentBlockNumber) that.controller.displayDiv[0].innerHTML += "<div id='nextTurnBlock'>Once this block is reached, MetaMask will pop up:<br> NOW!</div><br>";
+								if(turnTime <= currentBlockNumber) that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Once this block is reached, MetaMask will pop up:<br> NOW!</div><br>";
 								
 								// Otherwise, show the block
-								else that.controller.displayDiv[0].innerHTML += "<div id='nextTurnBlock'>Once this block is reached, MetaMask will pop up</b>:<br> " + turnTime + "</div><br>";
+								else that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Once this block is reached, MetaMask will pop up</b>:<br> " + turnTime + "</div><br>";
 								
 								// Explanation div
-								that.controller.displayDiv[0].innerHTML += "<div id='explanation'><i>Press \"Submit\" quickly when MetaMask pops up, or you may miss your turn.</i></div><br>";
+								that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='explanation'><i>Press \"Submit\" quickly when MetaMask pops up, or you may miss your turn.</i></div><br>";
 
 							}
 							else console.log(error);

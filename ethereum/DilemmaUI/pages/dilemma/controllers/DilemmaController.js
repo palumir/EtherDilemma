@@ -146,7 +146,7 @@ class DilemmaController {
 		displayObj.append("</div>");
 
 		// Create "Timer" div
-		displayObj.append("<div id='turnTimer'></div>");
+		displayObj.append("<div class='col-sm-6' id='turnTimer'></div>");
 		
 		// Append timer
 		this.timerController = new TimerController(dilemmaUI, this);
