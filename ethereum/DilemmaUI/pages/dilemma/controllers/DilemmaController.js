@@ -131,15 +131,6 @@ class DilemmaController {
 		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
-		
-		// Create "Chat" div
-		displayObj.append("<div id='chatWrapper'></div>");
-		
-		var chatView = new ChatView(dilemmaUI);
-		var chatController = new ChatController(dilemmaUI, this);
-		chatView.setController(chatController);
-		chatController.setView(chatView);
-		chatController.createDisplay('chatWrapper');
 
 		// Create "Timer" div
 		displayObj.append("<div id='turnTimer'></div>");
@@ -163,6 +154,15 @@ class DilemmaController {
 		
 		// End the "Your Move Panel" div
 		displayObj.append("</div>");
+		
+		// Create "Chat" div
+		displayObj.append("<div id='chatWrapper'></div>");
+		
+		var chatView = new ChatView(dilemmaUI);
+		var chatController = new ChatController(dilemmaUI, this);
+		chatView.setController(chatController);
+		chatController.setView(chatView);
+		chatController.createDisplay('chatWrapper');
 		
 	}
 	
