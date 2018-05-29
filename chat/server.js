@@ -73,7 +73,7 @@ wsServer.on('request', function(request) {
 			
 			// Unpack message
 			var unpacked = JSON.parse(message.utf8Data);
-			var userMessage = unpacked.message;
+			var userMessage = unpacked.message.slice(-280);
 			var userAddress = unpacked.address;
 		
             if (userName === false) { // first message sent by user is their name
