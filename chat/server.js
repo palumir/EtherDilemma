@@ -14,8 +14,6 @@ var http = require('http');
 /**
  * Global variables
  */
-// latest 100 messages, by address
-var history = [ ][ ];
 // list of currently connected clients (users)
 var clients = [ ];
 
