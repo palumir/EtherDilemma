@@ -110,7 +110,7 @@ body div {
 
 .selectable.selected.betray, .selectable.selected.cooperate {
 	border: 3px dotted #d9f442;
-	padding-top: 30px;
+	padding-top: 29px;
 }
 
 .selectable.betray {
