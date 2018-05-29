@@ -73,12 +73,12 @@ wsServer.on('request', function(request) {
 			
 			// Unpack message
 			var unpacked = JSON.parse(message.utf8Data);
-			var userMessage = unpacked.message.slice(-280);
+			var userMessage = unpacked.message.slice(0,280);
 			var userAddress = unpacked.address;
 		
             if (userName === false) { // first message sent by user is their name
                 // remember user name
-                userName = htmlEntities(userMessage.slice(-30));
+                userName = htmlEntities(userMessage.slice(0,30));
                 // get random color and send it back to the user
                 userColor = colors.shift();
                 connection.sendUTF(JSON.stringify({ type:'color', data: userColor }));
