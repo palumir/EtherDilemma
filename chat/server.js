@@ -14,8 +14,8 @@ var http = require('http');
 /**
  * Global variables
  */
-// latest 100 messages
-var history = [ ];
+// latest 100 messages, by address
+var history = [ ][ ];
 // list of currently connected clients (users)
 var clients = [ ];
 
@@ -67,11 +67,6 @@ wsServer.on('request', function(request) {
 
     console.log((new Date()) + ' Connection accepted.');
 
-    // send back chat history
-    if (history.length > 0) {
-        connection.sendUTF(JSON.stringify( { type: 'history', data: history} ));
-    }
-
     // user sent some message
     connection.on('message', function(message) {
         if (message.type === 'utf8') { // accept only text
@@ -104,8 +99,6 @@ wsServer.on('request', function(request) {
 					address: htmlEntities(userAddress),
                     color: userColor
                 };
-                history.push(obj);
-                history = history.slice(-100);
 
                 // broadcast message to all connected clients
                 var json = JSON.stringify({ type:'message', data: obj });
@@ -121,10 +114,12 @@ wsServer.on('request', function(request) {
         if (userName !== false && userColor !== false) {
             console.log((new Date()) + " Peer "
                 + connection.remoteAddress + " disconnected.");
+			
             // remove user from the list of connected clients
             clients.splice(index, 1);
             // push back user's color to be reused by another user
             colors.push(userColor);
+			
         }
     });
 
