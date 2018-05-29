@@ -56,6 +56,7 @@ body div {
 
 .selectable {
 	margin-top: 10px;
+	margin-bottom: 20px;
 	text-align: center;
 	font-size: 20pt;
 	border: 1px solid black;
@@ -116,5 +117,4 @@ p { line-height:18px; }
 #status { width:105px; display:block; float:left; margin-top:15px; }
 
 #chatWrapper { 
-	margin-top: 15px;
 }
