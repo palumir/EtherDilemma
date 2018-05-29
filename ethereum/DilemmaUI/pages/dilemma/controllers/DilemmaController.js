@@ -131,6 +131,13 @@ class DilemmaController {
 		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
+		
+		// Create add chat
+		var chatView = new ChatView(dilemmaUI);
+		var chatController = new ChatController(dilemmaUI, this);
+		chatView.setController(chatController);
+		chatController.setView(chatView);
+		chatController.createDisplay('dilemmaWrapper');
 
 		// Create "Timer" div
 		displayObj.append("<div id='turnTimer'></div>");
@@ -162,13 +169,6 @@ class DilemmaController {
 		
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
-		
-		// Create chat stuff, FOR TESTING
-		var chatView = new ChatView(dilemmaUI);
-		var chatController = new ChatController(dilemmaUI, this);
-		chatView.setController(chatController);
-		chatController.setView(chatView);
-		chatController.createDisplay('dilemmaWrapper');
 		
 		// Create challenge stuff
 		var challengeView = new ChallengeView(dilemmaUI);
