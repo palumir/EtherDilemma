@@ -132,12 +132,14 @@ class DilemmaController {
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
 		
-		// Create add chat
+		// Create "Chat" div
+		displayObj.append("<div id='chatWrapper'></div>");
+		
 		var chatView = new ChatView(dilemmaUI);
 		var chatController = new ChatController(dilemmaUI, this);
 		chatView.setController(chatController);
 		chatController.setView(chatView);
-		chatController.createDisplay('dilemmaWrapper');
+		chatController.createDisplay('chatWrapper');
 
 		// Create "Timer" div
 		displayObj.append("<div id='turnTimer'></div>");
