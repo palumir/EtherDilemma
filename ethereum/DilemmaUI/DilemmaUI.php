@@ -28,7 +28,7 @@ class DilemmaUI {
 		} 
 		else {
 			// MetaMask not installed in Browser
-			console.log("Please install MetaMask to use CryptoDilemma.");
+			console.log("Please install MetaMask to use EtherDilemma.");
 		}
 		
 		</script>';

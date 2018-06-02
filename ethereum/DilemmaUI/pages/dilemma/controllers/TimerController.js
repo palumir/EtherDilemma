@@ -50,6 +50,12 @@ class TimerController {
 				{from:web3.eth.accounts[0], gas: 250000},
 				function (error, result){
 					if(!error) {
+						
+						// Add a loading image (DOES NOT WORK, TODO)
+						var loader = $('#loader')[0];
+						
+						if(loader == undefined) $("#dilemmaWrapper").append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Move submitted. Waiting for response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'></div>");
+						else loader.innerHTML = "<img width='30px' height='30px' src='images/loading.gif'> Move submitted. Waiting for response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'>";
 					}
 					else {
 						console.log(error);
@@ -83,6 +89,10 @@ class TimerController {
 				// Reset that the current turn data was not sent
 				if(result.args["_who"] == web3.eth.accounts[0]) {
 					setCookie("turnDataSent","false");
+					
+					// Set that a turn was missed
+					var loader = $("#loader")[0];
+					if(loader != undefined) loader.innerHTML = "The turn was missed because either you or your opponent did not press Submit on MetaMask quick enough. Please try again.";
 				}
 			},
 		

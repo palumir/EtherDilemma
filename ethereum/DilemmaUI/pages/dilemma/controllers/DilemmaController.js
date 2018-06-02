@@ -186,6 +186,12 @@ class DilemmaController {
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
 		
+		// Set background
+		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) $('#particles-js').addClass("betrayBetray");
+		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("allyAlly");
+		else if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("betrayer");
+		else $('#particles-js').addClass("betrayed");
+		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
 		
@@ -251,7 +257,7 @@ class DilemmaController {
 			if(web3.eth.accounts[0] == result.args["_who"]) {
 
 				// Clear timer
-				clearInterval(that.timerController.timer);
+				clearInterval(that.timerController.view.timer);
 				
 				// Recreate display
 				$("#" + display).empty();

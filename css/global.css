@@ -6,14 +6,141 @@
     height: 100%;
     z-index: -1;
 	background-color: #1B2631;
+	transition: background 1.0s;
 }
 
-body div {
+#particles-js.allyAlly canvas {
+	background: #00add7;
+	transition: background 1.0s;
+}
+
+#particles-js.betrayed canvas {
+	background: #600000;
+	transition: background 1.0s;
+}
+
+#particles-js.betrayer canvas {
+	background: #009926;
+	transition: background 1.0s;
+}
+
+#particles-js.betrayBetray canvas {
+	background: #600000;
+	transition: background 1.0s;
+}
+
+body .container-full {
 	color: white;
 }
 
+/* Frontpage */
+
+img.etherDilemma {
+	max-width: 100%;
+}
+
+#trusted {
+	text-align: center;
+	font-size: 19pt;
+	margin-top: 35px;
+}
+
+body h4 {
+	font-size:20pt;
+}
+
+#theGame h4 {
+	text-align: center;
+	border-bottom: 1px white dotted;
+}
+
+div#theGame div {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+#theGame {
+	margin-top: 55px;
+	border: 1px white dotted;
+	padding-bottom: 8px;
+}
+
+#theStakes {
+	margin-top: 55px;
+	text-align: center;
+}
+
+#thePayout h4 {
+	text-align: center;
+}
+
+#thePayout {
+	margin-top: 55px;
+	border: 1px white dotted;
+	padding: 15px;
+	padding-top: 5px;
+	min-height: 150px;
+	padding-left: 0px;
+    padding-right: 0px;
+}
+
+#thePayout h4 {
+	margin-bottom: 0px;
+	padding-bottom: 8px;
+	border-bottom: 1px white dotted;
+}
+
+#thePayout .col-sm-4 {
+	float: left;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#thePayout .col-sm-4 div {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+#thePayout .aboveText {
+	text-align: center;
+	font-size: 16pt;
+	font-weight: bold;
+	border-bottom: 1px white dotted;
+}
+
+#allyAlly, #betrayAlly, #betrayBetray {
+	min-height: 104px;
+}
+
+#betrayAlly .aboveText {
+	background: #009926;
+}
+
+#allyAlly .aboveText {
+    background: #00add7;
+}
+
+#betrayAlly {
+	border-left: 1px white dotted;
+	border-right: 1px white dotted;
+}
+
+#betrayBetray .aboveText {
+	background: #f40000;
+}
+
+#thePayout .col-sm-4 div.finney {
+	padding: 0;
+}
+
+.finney {
+	display: inline;
+	color: 	#FFDF00;
+	padding: 0;
+}
+
 #dilemmaWrapper {
-	padding-top: 7%;
+	padding-top: 4%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -23,13 +150,14 @@ body div {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+	color: white;
     display: Block;
     width: 200px;
     height: 90px;
     font-size: 40pt;
     margin-top: 50px;
     border-radius: 10px;
-    background: linear-gradient(to top, #599958 44%, #4da84b 47%);
+    background: linear-gradient(to top, #00661a 44%, #009926 47%);
     border: 1px black solid;
 	cursor: pointer;
 }
@@ -44,7 +172,7 @@ body div {
 
 #currentBlock, #nextTurnBlock {
 	float: left;
-    background-color: white;
+    background-color: #f5f5f5;
     border: 1px solid black;
     width: 40%;
     color: black;
@@ -82,14 +210,22 @@ body div {
 	margin-right: 3px;
 }
 
-.betray {
-	color: red;
+.play {
+	color: #009926;
 	display: inline;
+	font-weight: bold;
+}
+
+.betray {
+	color: #f40000;
+	display: inline;
+	font-weight: bold;
 }
 
 .ally {
-	color: green;
+	color: #00add7;
 	display: inline;
+	font-weight: bold;
 }
 
 #turnTimer {
@@ -104,7 +240,7 @@ body div {
 	font-size: 40pt;
 	border: 1px solid black;
 	cursor: pointer;
-	background-color: white;
+	background-color: #f5f5f5;
 	width: 45%;
     display: block;
     float: left;
@@ -119,11 +255,13 @@ body div {
 }
 
 .selectable.betray {
-	background-color: red;
+	background: #f40000;
+	color: black;
 }
 
 .selectable.ally {
-	background-color: green;
+	background: #00add7;
+	color: black;
 }
 
 .selectable.betray img, .selectable.ally img {
@@ -144,7 +282,7 @@ body h3 {
 }
 
 #loader {
-	margin-top: 15px;
+	margin-top: 75px;
 	text-align: center;
 }
 
@@ -170,7 +308,7 @@ p {
 	line-height:18px; 
 }
 
-#content { 
+#chatWrapper #content { 
 	padding: 5px; 
 	background: #ddd; 
 	border-radius: 5px; 
@@ -181,21 +319,20 @@ p {
 	color: black;
 }
 		   
-#input { 
+#chatWrapper #input { 
 	border-radius: 2px; 
 	border: 1px solid #ccc;
 	margin-top: 10px; 
 	padding: 5px; 
 	width: 600px;
 	float: right;
+	color: black;
 }
 
-#status { 
+#chatWrapper #status { 
 	width: 105px; 
 	display: block; 
 	float: left; 
 	margin-top: 15px; 
-}
-
-#chatWrapper { 
+	color: white;
 }

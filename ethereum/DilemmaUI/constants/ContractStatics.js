@@ -1,5 +1,5 @@
-const STORAGE_CONTRACT_ADDRESS = "0x28f80150149d398a059cf773cd92e9f424b6b4ca";
-const CODE_CONTRACT_ADDRESS = "0x46fe8ab029104e70322a473572e5f839ca0b26b0";
+const STORAGE_CONTRACT_ADDRESS = "0x796a1308ab1b56932ff7b53cf49feed23f039002";
+const CODE_CONTRACT_ADDRESS = "0x9dc0d2600d67fff984fd87d5ad7579f761c762cd";
 
 const CODE_CONTRACT_ABI = [
 	{
@@ -22,6 +22,15 @@ const CODE_CONTRACT_ABI = [
 	},
 	{
 		"constant": false,
+		"inputs": [],
+		"name": "init",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
 				"name": "_betray",
@@ -33,33 +42,6 @@ const CODE_CONTRACT_ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_payout",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_whoBetray",
-				"type": "bool"
-			},
-			{
-				"indexed": false,
-				"name": "_partnerBetray",
-				"type": "bool"
-			}
-		],
-		"name": "dilemmaFinished",
-		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -107,6 +89,33 @@ const CODE_CONTRACT_ABI = [
 			}
 		],
 		"name": "challengeHosted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_payout",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_whoBetray",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"name": "_partnerBetray",
+				"type": "bool"
+			}
+		],
+		"name": "dilemmaFinished",
 		"type": "event"
 	},
 	{
@@ -241,6 +250,20 @@ const CODE_CONTRACT_ABI = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "getPartnerLastTurnBlock",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "isChallengeActive",
 		"outputs": [
 			{
@@ -350,6 +373,20 @@ const STORAGE_CONTRACT_ABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "_expectedValue",
+				"type": "int256"
+			}
+		],
+		"name": "setExpectedValue",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_fieldNumber",
 				"type": "uint256"
 			},
@@ -390,6 +427,20 @@ const STORAGE_CONTRACT_ABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "_stopLoss",
+				"type": "uint256"
+			}
+		],
+		"name": "setStopLoss",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_address",
 				"type": "address"
 			}
@@ -399,6 +450,11 @@ const STORAGE_CONTRACT_ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
 	},
 	{
 		"inputs": [],
@@ -447,6 +503,34 @@ const STORAGE_CONTRACT_ABI = [
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAdminAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getExpectedValue",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int256"
 			}
 		],
 		"payable": false,

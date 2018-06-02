@@ -1,5 +1,3 @@
-
-
 // GeodeUI class to provide an interface between Geode Contracts on Ethereum Network and local Javascript
 // Requires web3 to function.
 // Requires ContractStatics.js to function
@@ -56,42 +54,11 @@ class DilemmaUI {
 			  console.log('This is an unknown/unsupported network.')
 		  }
 		});
-		
-		// Yeah probably shouldn't do this but MetaMask gives me no options
-		this.hijackLog();
 	}
 	
 	// Push a function and its args to the reject callback list, for when a user rejects on MetaMask
 	pushRejectCallback(functionAndArgs) {
 		this.rejectCallbacks.push(functionAndArgs);
-	}
-	
-	// Hijack the console log function so we can handle MetaMask rejects
-	hijackLog() {
-	
-		// For callbacks
-		var myself = this;
-		
-		(function(){
-			var oldLog = console.log;
-			console.log = function (message) {
-				
-				// Check if user rejected in MetaMask
-				if(arguments[0].message != undefined && 
-				(arguments[0].message.includes("Error: MetaMask Tx Signature: User denied transaction signature.") // Chrome
-				|| arguments[0].message.includes("background.js:1:37411"))) { // Firefox
-					
-					// Call the most recent callback with it's args and pop it from the array
-					if(myself.rejectCallbacks.length > 0) {
-						var callBack = myself.rejectCallbacks.pop();
-						callBack[0](callBack[1]);
-					}
-				}
-				
-				// Just apply the log
-				oldLog.apply(console, arguments);
-			};
-		})();
 	}
 	
 	// Check for duplicate blockchain $(event). Must use this for watching every event.
