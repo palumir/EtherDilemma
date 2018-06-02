@@ -52,6 +52,7 @@ body h4 {
 #theGame h4 {
 	text-align: center;
 	border-bottom: 1px white dotted;
+	padding-bottom: 5px;
 }
 
 div#theGame div {
