@@ -282,7 +282,7 @@ body h3 {
 	margin-right: 5px;
 }
 
-#loader {
+#loader, #loaderAFK {
 	margin-top: 75px;
 	text-align: center;
 }

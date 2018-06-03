@@ -5,15 +5,7 @@
 	// Convert a button to a blockchainButton
     $.fn.blockChainButtonChallenge = function(contractFunction) {
         this.click(function() {
-			
-			// Add our callback and arguments to the array so if the transaction is rejected, our geode cracking GIF resets
-			dilemmaUI.pushRejectCallback([function(args) {
-				$('#loader').remove();
-				$('#dilemmaWrapper').append("<button id='challengeButton'>Play</button>");
-				$('#challengeButton').blockChainButtonChallenge(dilemmaUI.codeContract.hostChallenge);
-			},
-			[]]);
-			
+
 			// First estimate gas
 			contractFunction.estimateGas({from:web3.eth.accounts[0], value: 20000000000000000},
 			
@@ -96,6 +88,32 @@
 		// Otherwise, it's an init call
 		return droppableMethods.init.apply(this, [args, gas, blockChainArgs]);
     };
+	
+	// Convert link to anti AFK link
+	$.fn.blockChainButtonAFK = function(contractFunction) {
+        this.click(function() {
+						
+						// Then call the function
+						contractFunction.sendTransaction(
+						{from:web3.eth.accounts[0], gas: 250000},
+						
+						// Callback
+						function (error, result){
+							if(!error){
+								
+								// Remove play button
+								$("#loaderAFK").html("<div id='afkReported'><img width='30px' height='30px' src='images/loading.gif'> Your opponent has been reported for being AFK. Waiting on response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'></div>");
+							} 
+							else {
+															
+								console.log(error);
+							}
+						});
+			});
+		
+        return this;
+    };
+	
 
 }(jQuery));
 

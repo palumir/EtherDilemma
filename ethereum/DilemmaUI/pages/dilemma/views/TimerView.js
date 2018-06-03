@@ -69,10 +69,21 @@ class TimerView {
 											// Explanation div
 											
 											// If we go over 10 blocks, display to report the enemy for AFK
-											if(currentBlockNumber > partnerLastTurnBlock + 10) {  // Todo: Pull the AFK block count from Blockchain
-												var loader = $('#loader')[0];
-												if(loader == undefined) $("#dilemmaWrapper").append("<div id='loader'>It looks like your opponent has gone AFK. Click here to report them and win the dilemma.</div>");
-												else loader.innerHTML = "It looks like your opponent has gone AFK. Click here to report them and win the dilemma.";
+											if(currentBlockNumber > partnerLastTurnBlock + 10 && result > partnerLastTurnBlock) {  // Todo: Pull the AFK block count from Blockchain
+												var loader = $('#loader');
+												var loaderAFK = $('#loaderAFK');
+												var endScreen = $('#endScreen');
+												var afkHTML = "<div id='loaderAFK'>It looks like your opponent has gone AFK. <a href=\"#\" id=\"afkReport\">Click here</a> to report them and win the dilemma.</div>";
+												if(loaderAFK[0] == undefined && endScreen[0] == undefined) {
+													if(loader[0] == undefined) {
+														$("#dilemmaWrapper").append(afkHTML);
+														$('#afkReport').blockChainButtonAFK(that.controller.dilemmaUI.codeContract.reportPartnerAFK);
+													}
+													else { 
+														loader.html(afkHTML);
+														$('#afkReport').blockChainButtonAFK(that.controller.dilemmaUI.codeContract.reportPartnerAFK);
+													}
+												}
 											}
 
 										}
