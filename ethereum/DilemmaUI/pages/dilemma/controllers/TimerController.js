@@ -45,6 +45,12 @@ class TimerController {
 			if(move == "1") move = true;
 			else move = false;
 			
+			// Lock the selectors
+			var selectors = $(".selectable");
+			for(var i = 0; i < selectors.length; i++) {
+				selectors[i].classList.add("locked");
+			}
+			
 			// Make move
 			this.dilemmaUI.codeContract.makeMove.sendTransaction(move, 
 				{from:web3.eth.accounts[0], gas: 250000},
@@ -93,6 +99,12 @@ class TimerController {
 					// Set that a turn was missed
 					var loader = $("#loader")[0];
 					if(loader != undefined) loader.innerHTML = "The turn was missed because either you or your opponent did not press Submit on MetaMask quick enough. Please try again.";
+					
+					// Unlock the selectors
+					var selectors = $(".selectable");
+					for(var i = 0; i < selectors.length; i++) {
+						selectors[i].classList.remove("locked");
+					}
 				}
 			},
 		

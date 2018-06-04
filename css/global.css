@@ -37,6 +37,10 @@ body .container-full {
 
 img.etherDilemma {
 	max-width: 100%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 #trusted {
@@ -141,7 +145,7 @@ div#theGame div {
 }
 
 #dilemmaWrapper {
-	padding-top: 4%;
+	padding-top: 3%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -251,8 +255,8 @@ div#theGame div {
 }
 
 .selectable.selected.betray, .selectable.selected.ally {
-	border: 3px dotted #d9f442;
-	padding-top: 29px;
+	border: 7px dashed #62f442;
+	padding-top: 25px;
 }
 
 .selectable.betray {

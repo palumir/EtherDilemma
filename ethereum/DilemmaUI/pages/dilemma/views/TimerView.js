@@ -42,7 +42,7 @@ class TimerView {
 											
 											// Make result an int
 											result = parseInt(result);
-											var turnTime = result+3; // Todo: Pull the turn block count from Blockchain
+											var turnTime = result+5; // Todo: Pull the turn block count from Blockchain
 											
 											// Make Metamask pop-up if we are on the right block and we haven't popped up before
 											if(currentBlockNumber >= turnTime 

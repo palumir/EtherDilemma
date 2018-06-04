@@ -25,7 +25,6 @@
 				var currentDiv = this.childNodes[i];
 				
 				if(currentDiv.classList.contains("selectable")) {
-
 				
 					// First one is selected by default
 					if(y == this.selectedDiv) currentDiv.classList.add("selected");
@@ -39,17 +38,19 @@
 					// Add click listener
 					$(currentDiv).click(function() {
 						
-						// Set our selected div to be the slot that was clicked
-						that.selectedDiv = this.slot;
-						
-						// Remove selected CSS from other divs
-						for(var x = 0; x < that.childNodes.length; x++) {
-							that.childNodes[x].classList.remove("selected");
-						}
-						
-						// Set new selected CSS
-						for(x = 0; x < that.childNodes.length; x++) {
-							if(that.childNodes[x].slot == that.selectedDiv) that.childNodes[x].classList.add("selected");
+						if(!this.classList.contains("locked")) {
+							// Set our selected div to be the slot that was clicked
+							that.selectedDiv = this.slot;
+							
+							// Remove selected CSS from other divs
+							for(var x = 0; x < that.childNodes.length; x++) {
+								that.childNodes[x].classList.remove("selected");
+							}
+							
+							// Set new selected CSS
+							for(x = 0; x < that.childNodes.length; x++) {
+								if(that.childNodes[x].slot == that.selectedDiv) that.childNodes[x].classList.add("selected");
+							}
 						}
 						
 					});
@@ -197,7 +198,7 @@ class DilemmaController {
 		
 		// Create HTML
 		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You both betrayed!</h3>You received the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div></div>");
-		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You both cooperated!</h3>You received the reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
+		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You both allied!</h3>You received the reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
 		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You successfully betrayed!</h3>You received the temptation payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
 		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You got betrayed!</h3>You received the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
 		displayObj.append("<br><div id='homepageReturn'><a href='/'>Click here to return to the homepage.</a></div>");
