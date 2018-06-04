@@ -18,7 +18,7 @@ class Dilemma {
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/views/ChatView.js'></script>";
 		
 		// HTML
-		echo   '<div id="dilemmaWrapper" class="col-sm-5">';
+		echo   '<div id="dilemmaWrapper" class="col-sm-6">';
 		
 		// Fill up the HTML with JS
 		echo   "<script>
