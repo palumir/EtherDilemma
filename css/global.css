@@ -46,17 +46,29 @@ img.etherDilemma {
 #trusted {
 	text-align: center;
 	font-size: 19pt;
-	margin-top: 35px;
 }
 
 body h4 {
 	font-size:20pt;
 }
 
+#theGame h4 img, #theStakes h4 img, #thePayout h4 img {
+	transform: scale(0.7, 0.7);
+	-ms-transform: scale(0.7, 0.7);
+	-webkit-transform: scale(0.7, 0.7);
+}
+
 #theGame h4 {
+	margin-bottom: 10px;
+}
+
+#theGame {
+	padding: 15px;
+	padding-top: 5px;
+	padding-left: 0px;
+    padding-right: 0px;
 	text-align: center;
-	border-bottom: 1px white dotted;
-	padding-bottom: 5px;
+	border: 1px dotted white;
 }
 
 div#theGame div {
@@ -65,34 +77,60 @@ div#theGame div {
 }
 
 #theGame {
-	margin-top: 55px;
-	border: 1px white dotted;
+	margin-top: 40px;
 	padding-bottom: 8px;
 }
 
 #theStakes {
-	margin-top: 55px;
+	margin-top: 40px;
 	text-align: center;
 }
 
 #thePayout h4 {
 	text-align: center;
+}
+
+#thePayout table img {
+	max-width: 60px;
+}
+
+#thePayout table td { 
+	padding: 2px;
+}
+
+#thePayout table td.first {
+	border-right: 1px solid white;
+}
+
+#payoutSection {
+	display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
+	margin-bottom: 15px;
+}
+
+#thePayout table {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	color: 	#FFDF00;
+	font-weight: bold;
 }
 
 #thePayout {
-	margin-top: 55px;
-	border: 1px white dotted;
+	margin-bottom: 30px;
 	padding: 15px;
 	padding-top: 5px;
-	min-height: 150px;
+	margin-top: 40px;
+	padding-bottom: 0px;
 	padding-left: 0px;
     padding-right: 0px;
+	border: 1px dotted white;
 }
 
-#thePayout h4 {
+#thePayout h4, #theStakes h4, #theGame h4 {
 	margin-bottom: 0px;
 	padding-bottom: 8px;
-	border-bottom: 1px white dotted;
 }
 
 #thePayout .col-sm-4 {
@@ -106,46 +144,38 @@ div#theGame div {
 	padding-right: 8px;
 }
 
-#thePayout .aboveText {
-	text-align: center;
-	font-size: 16pt;
-	font-weight: bold;
-	border-bottom: 1px white dotted;
+#thePayout table td {
+	padding: 5px;
 }
 
-#allyAlly, #betrayAlly, #betrayBetray {
-	min-height: 104px;
+#allyAlly table {
+	background: rgba(0, 173, 215, 0.8);
+	border: 1px white solid;
 }
 
-#betrayAlly .aboveText {
-	background: #009926;
+#betrayAlly table {
+	background: rgba(0, 153, 38, 0.8);
+	border: 1px white solid;
 }
 
-#allyAlly .aboveText {
-    background: #00add7;
-}
-
-#betrayAlly {
-	border-left: 1px white dotted;
-	border-right: 1px white dotted;
-}
-
-#betrayBetray .aboveText {
-	background: #f40000;
+#betrayBetray table {
+	background: rgba(244, 0, 0, 0.8);
+	border: 1px white solid;
 }
 
 #thePayout .col-sm-4 div.finney {
 	padding: 0;
+	font-weight: bold;
 }
 
 .finney {
 	display: inline;
 	color: 	#FFDF00;
 	padding: 0;
+	font-weight: bold;
 }
 
 #dilemmaWrapper {
-	padding-top: 3%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
@@ -160,9 +190,9 @@ div#theGame div {
     width: 200px;
     height: 90px;
     font-size: 40pt;
-    margin-top: 50px;
+    margin-top: 40px;
     border-radius: 10px;
-    background: linear-gradient(to top, #00661a 44%, #009926 47%);
+    background: linear-gradient(to top, rgb(0, 102, 0) 43%, rgb(0, 153, 38) 56%);
     border: 1px black solid;
 	cursor: pointer;
 }
