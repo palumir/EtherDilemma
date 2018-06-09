@@ -53,9 +53,17 @@ body h4 {
 }
 
 #theGame h4 img, #theStakes h4 img, #thePayout h4 img {
-	transform: scale(0.7, 0.7);
-	-ms-transform: scale(0.7, 0.7);
-	-webkit-transform: scale(0.7, 0.7);
+	transform: scale(0.8, 0.8);
+	-ms-transform: scale(0.8, 0.8);
+	-webkit-transform: scale(0.8, 0.8);
+}
+
+#gameStuff {
+	border: 1px dotted white;
+	margin-top: 50px;
+	padding-top: 5px;
+	padding-bottom: 12px;
+	background: rgba(0,0,0,0.2);
 }
 
 #theGame h4 {
@@ -63,26 +71,12 @@ body h4 {
 }
 
 #theGame {
-	padding: 15px;
-	padding-top: 5px;
-	padding-left: 0px;
-    padding-right: 0px;
+	padding-bottom: 15px;
 	text-align: center;
-	border: 1px dotted white;
-}
-
-div#theGame div {
-	padding-left: 8px;
-	padding-right: 8px;
-}
-
-#theGame {
-	margin-top: 40px;
-	padding-bottom: 8px;
 }
 
 #theStakes {
-	margin-top: 40px;
+	margin-top: 30px;
 	text-align: center;
 }
 
@@ -91,7 +85,7 @@ div#theGame div {
 }
 
 #thePayout table img {
-	max-width: 60px;
+	max-width: 50px;
 }
 
 #thePayout table td { 
@@ -106,7 +100,6 @@ div#theGame div {
 	display: inline-block;
     padding-left: 0;
     padding-right: 0;
-	margin-bottom: 15px;
 }
 
 #thePayout table {
@@ -118,14 +111,12 @@ div#theGame div {
 }
 
 #thePayout {
-	margin-bottom: 30px;
 	padding: 15px;
 	padding-top: 5px;
-	margin-top: 40px;
+	margin-top: 30px;
 	padding-bottom: 0px;
 	padding-left: 0px;
     padding-right: 0px;
-	border: 1px dotted white;
 }
 
 #thePayout h4, #theStakes h4, #theGame h4 {
@@ -240,7 +231,7 @@ div#theGame div {
 }
 
 .betray img, .ally img {
-	width:20px;
+	width:30px;
 	height:20px;
 	margin-right: 3px;
 }
