@@ -14,7 +14,7 @@
 		<?php 
 			$dilemmaUI = new DilemmaUI();
 		?>
-		<main role="main" class="container-full">
+		<main id="main" role="main" class="container-full">
 		
 			<?php 	
 				$dilemma = new Dilemma();	

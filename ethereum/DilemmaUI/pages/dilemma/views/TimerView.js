@@ -55,19 +55,25 @@ class TimerView {
 											
 											// Lock in
 											that.controller.displayDiv[0].innerHTML = "<div class='col-sm-12' id='lockInChoice'>- Lock in your choice before the Decision Block is reached -</div>";
+											
+											// View to show the current block and decision block
+											var blockView = "";
 													
 											// Show the blocks
-											that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='currentBlock'>Current Block:<br> " + currentBlockNumber + "</div>";
+											blockView += "<div id='blockHolder' class='col-sm-12'><div class='col-sm-6' id='currentBlock'>Current Block:<br> " + currentBlockNumber + "</div>";
 											
 											// If the turn is happening at the moment
-											if(turnTime <= currentBlockNumber || result != partnerLastTurnBlock) that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:<br> NOW!</div>";
+											if(turnTime <= currentBlockNumber || result != partnerLastTurnBlock) blockView += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:<br> NOW!</div></div>";
 											
 											// Otherwise, show the block
-											else that.controller.displayDiv[0].innerHTML += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:</b><br> " + turnTime + "</div>";
+											else blockView += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:</b><br> " + turnTime + "</div></div>";
 											
-											that.controller.displayDiv[0].innerHTML += "<div class='col-sm-12' id='explanation'><i>*MetaMask will popup automatically. Press Submit quickly or risk forfeiting the dilemma.</i></div>";
+											// Add blockView to the HTML
+											that.controller.displayDiv[0].innerHTML += blockView;
+											
 											// Explanation div
-											
+											that.controller.displayDiv[0].innerHTML += "<div class='col-sm-12' id='explanation'><i>*MetaMask will popup automatically. Press Submit quickly or risk forfeiting the dilemma.</i></div>";
+
 											// If we go over 10 blocks, display to report the enemy for AFK
 											if(currentBlockNumber > partnerLastTurnBlock + 10 && result > partnerLastTurnBlock) {  // Todo: Pull the AFK block count from Blockchain
 												var loader = $('#loader');

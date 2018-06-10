@@ -62,6 +62,7 @@
 	}
 }(jQuery));
 
+
 // Dilemma Controller subclass of dilemmaUI.js
 // Requires dilemmaUI.js to function
 class DilemmaController {
