@@ -158,7 +158,7 @@ class DilemmaController {
 		this.timerController.createDisplay("turnTimer");
 		
 		// Create "Chat" div
-		displayObj.append("<div id='chatWrapper'></div>");
+		displayObj.append("<div class='col-sm-12' id='chatWrapper'></div>");
 		
 		var chatView = new ChatView(dilemmaUI);
 		var chatController = new ChatController(dilemmaUI, this);
