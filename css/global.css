@@ -20,7 +20,6 @@
 
 #dilemmaWrapper {
 	z-index: 100;
-	padding-bottom: 20px;
 }
 
 #particles-js.allyAlly canvas {
@@ -355,6 +354,18 @@ body h3 {
 /* End screen */
 #endScreen {
 	padding-top: 100px;
+}
+
+#endScreen h3 {
+	font-size: 40pt;
+}
+
+#endScreen {
+	font-size: 19pt;
+}
+
+#homepageReturn a {
+	font-size: 19pt;
 }
 
 /* Chat */
