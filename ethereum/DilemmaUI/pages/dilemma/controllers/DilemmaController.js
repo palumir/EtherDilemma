@@ -276,6 +276,9 @@ class DilemmaController {
 	createDisplay(display, watching = false) {
 		
 		var that = this;
+				
+		// Create challenge button, but without having MetaMask loaded
+		that.createChallengeDisplay(display);
 		
 		this.waitDilemma(function() {
 			

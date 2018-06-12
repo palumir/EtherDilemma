@@ -28,6 +28,9 @@ class ChallengeController {
 	createDisplay(display) {
 		var that = this;
 		
+		// Create challenge button, but without having MetaMask loaded
+		that.view.createChallengeButton(that.DILEMMA_WRAPPER, true);
+		
 		// The actual function we want to run
 		var fillDisplayFunction = function(display, myself) {
 			
