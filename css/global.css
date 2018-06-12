@@ -3,10 +3,11 @@
 .particles-js-canvas-el {
 	width: 100%;
 	height: 100%;
-	z-index: -1;
+	z-index: -2;
 }
 
 #particles-js {
+	z-index: -1;
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -398,4 +399,65 @@ body h3 {
 	float: left; 
 	margin-top: 15px; 
 	color: white;
+}
+
+/* FAQ */
+.FAQ {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.FAQ h1 {
+	text-align: center;
+	padding-top: 15px;
+	text-transform: uppercase;
+}
+
+.FAQ h2 {
+	text-align: center;
+	margin-top: 15px;
+}
+
+#general h3.ui-accordion-header {
+	background: #00add7;
+	transition: background 1.0s;
+}
+
+#cryptocurrency h3.ui-accordion-header {
+	background: #f40000;
+	transition: background 1.0s;
+}
+
+#gameplay h3.ui-accordion-header {
+	background: #009926;
+	transition: background 1.0s;
+}
+
+h3.ui-state-focus {
+	border: none;
+	outline: none;
+}
+
+h3.ui-accordion-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+p.ui-accordion-content {
+    border: 1px dotted white;
+	color: white;
+	background: rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+    padding: 15px;
+	font-size: 14pt;
+}
+
+#toggle {
+    background: #000;
+    color: #fff;
+}
+
+.accordion-body p {
+    font-size: 18px;
 }
