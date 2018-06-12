@@ -1,0 +1,1 @@
+<div class="col-sm-5" id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tou.php"> Terms of Use </a> | <a href="/contact.php"> Contact </a></div>

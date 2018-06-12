@@ -12,6 +12,7 @@
 		<?php include('ethereum/DilemmaUI/pages/dilemma/Dilemma.php') ?>
 		
 		<main id="main" role="main" class="FAQ container-full col-sm-10">
+		<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>
 		<h1>Frequently Asked Questions</h1>
 		<h2>General</h2>
 <div id="general">

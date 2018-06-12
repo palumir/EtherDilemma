@@ -461,3 +461,26 @@ p.ui-accordion-content {
 .accordion-body p {
     font-size: 18px;
 }
+
+/* Footer */
+#footerContent a {
+	font-weight: bold;
+	color: white;
+}
+
+#footerContent {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color: white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-top: 30px;
+	border-top: 1px dotted white;
+}
+
+/* Contact page */
+#contact {
+	margin-left: auto;
+	margin-right: auto;
+}
