@@ -169,7 +169,7 @@ class DilemmaController {
 	}
 	
 	// Create challenge view
-	createChallengeDisplay(display) {
+	createChallengeDisplay(display, metamaskReq) {
 		
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
@@ -179,7 +179,7 @@ class DilemmaController {
 		var challengeController = new ChallengeController(dilemmaUI);
 		challengeView.setController(challengeController);
 		challengeController.setView(challengeView);
-		challengeController.createDisplay('dilemmaWrapper');
+		challengeController.createDisplay('dilemmaWrapper', metamaskReq);
 	}
 	
 	// Create end view
@@ -278,7 +278,12 @@ class DilemmaController {
 		var that = this;
 				
 		// Create challenge button, but without having MetaMask loaded
-		that.createChallengeDisplay(display);
+		setTimeout(function() { 
+			if(that.partnerAddress == undefined && that.dilemmaActive == undefined && that.contractLocked == undefined && that.challengeActive == undefined) {
+				that.createChallengeDisplay(display, true); 
+				console.log("FART");
+			}
+		}, 250);
 		
 		this.waitDilemma(function() {
 			
