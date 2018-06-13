@@ -29,21 +29,6 @@ class ChallengeController {
 		var that = this;
 
 		// Create challenge button, but without having MetaMask loaded
-		if(metamaskReq) that.view.createChallengeButton(that.DILEMMA_WRAPPER, true);
-		
-		// The actual function we want to run
-		else { 
-			var fillDisplayFunction = function(display, myself) {
-				
-				// Create challenge button
-				that.view.createChallengeButton(that.DILEMMA_WRAPPER);
-			}
-			
-			// Wait Metamask account injection before running the function
-			this.dilemmaUI.waitMetaMask(
-				fillDisplayFunction,
-				display,
-				this);
-		}
+		that.view.createChallengeButton(that.DILEMMA_WRAPPER, true);
 	}
 }

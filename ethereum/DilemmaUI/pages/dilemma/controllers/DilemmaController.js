@@ -272,29 +272,41 @@ class DilemmaController {
 		"dilemma");
 	}
 	
+	// Change bottom text to play button
+	changeToPlayButton(display) {
+		
+			// Remove the text
+			$("#bottomText").remove();
+			
+			var displayObj = $("#" + display);
+		
+			// Prepend HTML
+			if(this.contractLocked) displayObj.append("<div id='bottomText'>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.</div>");
+			else if(this.challengeActive) displayObj.append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
+			else displayObj.append("<button id='challengeButton'>PLAY</button>");
+			
+			// Make it a block chain button
+			$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
+	}
+	
 	// Create display
 	createDisplay(display, watching = false) {
 		
 		var that = this;
 				
 		// Create challenge button, but without having MetaMask loaded
-		setTimeout(function() { 
-			if(that.partnerAddress == undefined && that.dilemmaActive == undefined && that.contractLocked == undefined && that.challengeActive == undefined) {
-				that.createChallengeDisplay(display, true); 
-				console.log("FART");
-			}
-		}, 250);
+		that.createChallengeDisplay(display); 
 		
 		this.waitDilemma(function() {
 			
-			// Clear the display at first
-			$("#" + display).empty();
-			
 			// Show matchmaker (challenge display)
-			if(!that.dilemmaActive) that.createChallengeDisplay(display);
+			if(!that.dilemmaActive) that.changeToPlayButton(display);
 			
 			// Otherwise we are in a dilemma
-			else that.createDilemmaDisplay(display);
+			else { 
+				$("#" + display).empty();
+				that.createDilemmaDisplay(display);
+			}
 			
 			// Watch for events
 			if(!watching) {
