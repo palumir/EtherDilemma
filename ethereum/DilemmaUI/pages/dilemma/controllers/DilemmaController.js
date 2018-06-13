@@ -80,8 +80,11 @@ class DilemmaController {
 		// Set web3 so we may use it in methods
 		this.dilemmaUI = dilemmaUI;
 		
-		// Get the partner address
-		this.dilemmaUI.waitMetaMask(function() {
+		// Create dilemma UI even if MetaMask is not installed
+		if(dilemmaUI == false) that.createChallengeDisplay('dilemmaWrapper'); 
+		
+		// If it's installed create the correct UI but only after MetaMask
+		else dilemmaUI.waitMetaMask(function() {
 
 			that.dilemmaUI.codeContract.getPartnerAddress.call(
 			function (error, result){

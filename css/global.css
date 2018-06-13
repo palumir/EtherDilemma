@@ -19,6 +19,10 @@
 	transition: background 1.0s;
 }
 
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
 .ui-tooltip, .arrow:after {
     background: #1B2631;
     border: 2px solid white;

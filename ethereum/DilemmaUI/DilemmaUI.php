@@ -27,8 +27,9 @@ class DilemmaUI {
 			
 		} 
 		else {
-			// MetaMask not installed in Browser
-			console.log("Please install MetaMask to use EtherDilemma.");
+			
+			// Create dilemmaUI global
+			var dilemmaUI = false;
 		}
 		
 		</script>';
