@@ -154,7 +154,7 @@ img.etherDilemma {
     margin-top: 50px;
     padding-top: 10px;
     padding-bottom: 25px;
-    background: rgba(0,0,0,0.3);
+    background: #121a21;
 }
 
 #theGame h4 {
@@ -285,6 +285,7 @@ img.etherDilemma {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
+	margin-bottom: 90px;
 }
 
 #endScreen #challengeButton {
@@ -583,14 +584,18 @@ p.ui-accordion-content {
 }
 
 #footerContent {
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: -15px;
+	margin-right: 0;
+	width: 100%;
 	text-align: center;
 	color: white;
 	padding-top: 8px;
 	padding-bottom: 8px;
 	margin-top: 30px;
 	border-top: 1px dotted white;
+	position: fixed;
+	bottom: 0px;
+	background: #121a21;
 }
 
 /* Contact page */

@@ -1,1 +1,4 @@
-<div class="col-sm-5" id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tou.php"> Terms of Use </a> | <a href="/contact.php"> Contact </a></div>
+<div id="footerPre"></div>
+<script>
+createFooter("footerPre"); // Defined in header, so it can be used or not used on any page -- a bit of a work-around, sorry boys!
+</script>

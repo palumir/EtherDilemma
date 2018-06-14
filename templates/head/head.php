@@ -18,4 +18,10 @@
 
 	  gtag('config', 'UA-41429372-6');
 	</script>
+	<script>
+	function createFooter(display) {
+		var displayObj = $("#" + display);
+		displayObj.append('<div id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tou.php"> Terms of Use </a> | <a href="/contact.php"> Contact </a></div>');
+	}
+	</script>
 </head>
