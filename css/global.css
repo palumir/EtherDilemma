@@ -145,10 +145,6 @@ img.etherDilemma {
 	max-width: 100%;
 }
 
-#theStakes h4 img, #thePayout h4 img {
-	padding-top: 30px;
-}
-
 #theGame, #theStakes, #thePayout {
 	font-size: 18pt;
 }
@@ -162,12 +158,21 @@ img.etherDilemma {
 }
 
 #theGame h4 {
-	margin-bottom: 10px;
+	text-align: center;
 }
 
-#theGame {
-	padding-bottom: 15px;
+#theGame .left {
+	float: left;
 	text-align: center;
+	font-weight: bold;
+	width: 30%;
+}
+
+#theGame .arrows {
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	width: 5%;
 }
 
 #theStakes {
@@ -208,15 +213,30 @@ img.etherDilemma {
 #thePayout {
 	padding: 15px;
 	padding-top: 5px;
-	margin-top: 30px;
 	padding-bottom: 0px;
 	padding-left: 0px;
     padding-right: 0px;
 }
 
+#thePayout .col-sm-4 {
+	text-align: center;
+}
+
+#thePayout img {
+	max-width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
 #thePayout h4, #theStakes h4, #theGame h4 {
 	margin-bottom: 0px;
-	padding-bottom: 8px;
+	padding-bottom: 30px;
+	padding-top: 40px;
+}
+
+#theGame h4 {
+	padding-top: 10px;
 }
 
 #thePayout .col-sm-4 {
