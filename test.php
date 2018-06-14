@@ -35,7 +35,7 @@ for($i = 0; $i < $numberOfDilemmas; $i++) {
 }
 
 // Output some numbers
-echo "After " . $numberOfDilemmas . " iterations, there is " . $contractFinney . " left in the contract.";
+echo "After " . $numberOfDilemmas . " iterations, there is " . $contractFinney . " finney left in the contract.";
 
 
 ?>
