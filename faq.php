@@ -144,9 +144,13 @@ If a player misses 10 consecutive blocks without submitted their turn, their opp
 <script>
 function makeAccordion(selector) {
 	var general = $(selector);
-	general.accordion();
-	general.accordion( "option", "collapsible", true );
-	general.accordion("option","active",false);
+	general.accordion({
+			autoHeight: false,
+			collapsible: true,
+			navigation: true,
+			heightStyle: "content"
+        });
+	
 }
 
 makeAccordion("#general" );

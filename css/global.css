@@ -1,4 +1,8 @@
-	
+/* Global */
+* {
+	font-family: 'Lato', sans-serif;
+}
+
 /* Particles styling */
 .particles-js-canvas-el {
 	width: 100%;
@@ -119,24 +123,34 @@ body h4 {
 }
 
 img.etherDilemma {
-	max-width: 1000px;
-	width: 100%;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
+	max-width: 800px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 #trusted {
-	text-align: center;
-	font-size: 19pt;
+    text-align: center;
+    font-size: 19pt;
+    font-weight: bold;
+    letter-spacing: 3px;
 }
 
 #theGame h4 img, #theStakes h4 img, #thePayout h4 img {
-	transform: scale(0.8, 0.8);
-	-ms-transform: scale(0.8, 0.8);
-	-webkit-transform: scale(0.8, 0.8);
+	padding-top: 8px;
+	transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
 	max-width: 100%;
+}
+
+#theStakes h4 img, #thePayout h4 img {
+	padding-top: 30px;
+}
+
+#theGame, #theStakes, #thePayout {
+	font-size: 18pt;
 }
 
 #gameStuff {
@@ -466,6 +480,8 @@ body h3 {
 	display: block; 
 	float: left;  
 	color: white;
+	padding-left: 0px;
+	padding-top: 13px;
 }
 
 /* FAQ */
@@ -488,16 +504,22 @@ body h3 {
 #general h3.ui-accordion-header {
 	background: #00add7;
 	transition: background 1.0s;
+	padding-left: 109px;
+	text-align: left;
 }
 
 #cryptocurrency h3.ui-accordion-header {
 	background: #f40000;
 	transition: background 1.0s;
+	padding-left: 109px;
+	text-align: left;
 }
 
 #gameplay h3.ui-accordion-header {
 	background: #009926;
 	transition: background 1.0s;
+	padding-left: 109px;
+	text-align: left;
 }
 
 h3.ui-state-focus {

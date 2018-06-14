@@ -277,16 +277,13 @@ class DilemmaController {
 	
 	// Change bottom text to play button
 	changeToPlayButton(display) {
-		
-			// Remove the text
-			$("#bottomText").remove();
 			
-			var displayObj = $("#" + display);
+			var displayObj = $("#bottomText");
 		
 			// Prepend HTML
-			if(this.contractLocked) displayObj.append("<div id='bottomText'>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.</div>");
-			else if(this.challengeActive) displayObj.append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
-			else displayObj.append("<button id='challengeButton'>PLAY</button>");
+			if(this.contractLocked) displayObj[0].outerHTML = "<div id='bottomText'>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.</div>";
+			else if(this.challengeActive) displayObj[0].outerHTML =  "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>";
+			else displayObj[0].outerHTML = "<button id='challengeButton'>PLAY</button>";
 			
 			// Make it a block chain button
 			$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);

@@ -9,4 +9,13 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Ether Dilemma</title>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-41429372-6"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-41429372-6');
+	</script>
 </head>

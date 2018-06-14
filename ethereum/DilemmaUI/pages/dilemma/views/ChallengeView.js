@@ -25,9 +25,13 @@ class ChallengeView {
 		var displayObj = $("#" + display);
 		displayObj.empty();;
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		displayObj.append("<div id='trusted'>The blockchain can be trusted, but can you?</div>");
+		displayObj.append("<div id='trusted'>The blockchain can be trusted... can you?</div>");
 		displayObj.append("<div id='gameStuff' class='col-sm-6'><div id='theGame'><h4><img src='images/theGame.png'></h4><div>1. Hit <div class='play'>PLAY</div> to be matched with a random stranger</div><div>2. Negotiate with your opponent</div><div>3. Choose <div class='ally'><img src='images/ally.png' title='" + allyText + "' >ALLY</div> or <div class='betray'><img src='images/betray.png' title='" + betrayText + "'>BETRAY</div></div></div><div id='theStakes'><h4><img src='images/theStakes.png'></h4><div>Each player must wager <div class='finney' title='" + finneyText + "'>20 finney</div> to start the dilemma</div></div><div id='thePayout' class='col-sm-12'><h4><img src='images/thePayout.png'></h4><div id='payoutSection' class='col-sm-12'><div id='allyAlly' class='col-sm-4'><table class='col-sm-11'><tr><td class='first'><img src='images/ally.png' title='" + allyText + "'></td><td><img src='images/ally.png' title='" + allyText + "'></td></tr><tr><td class='first' title='" + finneyText + "'>+24 finney</td><td title='" + finneyText + "'>+24 finney</td></tr></table></div><div id='betrayAlly' class='col-sm-4'><table class='col-sm-11'><tr><td class='first'><img src='images/betray.png' title='" + betrayText + "'></td><td><img src='images/ally.png' title='Ally'></td></tr><tr><td class='first' title='" + finneyText + "'>+36 finney</td><td title='" + finneyText + "'>+0 finney</td></tr></table></div><div id='betrayBetray' class='col-sm-4'><table class='col-sm-11'><tr><td class='first'><img src='images/betray.png' title='" + betrayText + "'></td><td><img src='images/betrayLeft.png' title='" + betrayText + "'></td></tr><tr><td class='first' title='" + finneyText + "'>+6 finney</td><td title='" + finneyText + "'>+6 finney</td></tr></table></div></div></div>");
 		
+		displayObj.append("<div class='col-sm-7' id='bottomText'><button id='challengeButton' title='Please install and login to MetaMask to play Ether Dilemma'>PLAY</button><br>Please download <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. See the <a href='/faq.php'>FAQ</a> for more information on installing MetaMask.</div>");
+		
+		displayObj.append('<div class="col-sm-5" id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tou.php"> Terms of Use </a> | <a href="/contact.php"> Contact </a></div>');
+				
 		// Add tooltip javascript
 		$( document ).tooltip({
 		  position: {
@@ -44,6 +48,5 @@ class ChallengeView {
 		  }
 		});
 	
-		displayObj.append("<div class='col-sm-7' id='bottomText'><button id='challengeButton' disabled>PLAY</button><br>Please download <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. See the <a href='/faq.php'>FAQ</a> for more information on installing MetaMask.</div>");
 	}
 }
