@@ -98,7 +98,7 @@ class TimerController {
 					
 					// Set that a turn was missed
 					var loader = $("#loader")[0];
-					if(loader != undefined) loader.innerHTML = "The turn was missed because either you or your opponent did not press Submit on MetaMask quick enough. Please try again.";
+					if(loader != undefined) loader.innerHTML = "The turn was missed because either you or your opponent did not press Submit on MetaMask quickly enough. Please try again.";
 					
 					// Unlock the selectors
 					var selectors = $(".selectable");

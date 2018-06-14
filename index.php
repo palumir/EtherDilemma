@@ -21,8 +21,6 @@
 			?>
 
 		</main>
-		
-		<?php include('templates/footer/footer.php'); ?>
 
 	</div>
 

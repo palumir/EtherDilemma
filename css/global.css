@@ -150,11 +150,11 @@ img.etherDilemma {
 }
 
 #gameStuff {
-	border: 1px dotted white;
-	margin-top: 50px;
-	padding-top: 5px;
-	padding-bottom: 12px;
-	background: rgba(0,0,0,0.3);
+    border: 1px dotted white;
+    margin-top: 50px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    background: rgba(0,0,0,0.3);
 }
 
 #theGame h4 {
@@ -223,7 +223,7 @@ img.etherDilemma {
 }
 
 #thePayout img {
-	max-width: 70%;
+	max-width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -309,8 +309,11 @@ img.etherDilemma {
 }
 
 /* In the dilemma */
+#content p {
+	margin-bottom: 5px;
+}
 #moveSelector {
-	padding-top: 50px;
+	padding-top: 30px;
 }
 
 #currentBlock {
@@ -330,7 +333,7 @@ img.etherDilemma {
     margin-bottom: 15px;
     padding-bottom: 15px;
     padding-top: 10px;
-	font-size: 14pt;
+	font-size: 19pt;
 }
 
 #yourMovePanel .betray, #yourMovePanel .ally {
@@ -396,8 +399,8 @@ img.etherDilemma {
 }
 
 .selectable.betray img, .selectable.ally img {
-	width: 85px;
-    height: 65px;
+	width: 108px;
+    height: 70px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -413,7 +416,7 @@ body h3 {
 }
 
 #loader, #loaderAFK {
-	margin-top: 75px;
+	margin-top: 25px;
 	text-align: center;
 }
 
@@ -431,7 +434,7 @@ body h3 {
 	float: left;
 	text-transform: uppercase;
     text-align: center;
-	font-size: 19pt;
+	font-size: 20pt;
 }
 
 #blockHolder {
@@ -441,13 +444,13 @@ body h3 {
 #lockInChoice {
 	display: inline-block;
 	margin-bottom: 15px;
-	font-size: 15pt;
+	font-size: 20pt;
 }
 
 #explanation {
 	margin-bottom: 20px;
 	display: inline-block;
-	font-size: 14pt;
+	font-size: 19pt;
 }
 
 #moveSelector {

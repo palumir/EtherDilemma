@@ -22,8 +22,7 @@
 							if(!error){
 								
 								// Remove play button
-								$("#challengeButton").remove();
-								$("#dilemmaWrapper").append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>");
+								$("#challengeButton")[0].outerHTML = "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>";
 							} 
 							else {
 								console.log(error);
