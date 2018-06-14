@@ -44,6 +44,6 @@ class ChallengeView {
 		  }
 		});
 	
-		displayObj.append("<div id='bottomText'><br>Please download and log-in to <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. Please read the <a href='/faq.php'>frequently asked questions</a> for more information.</div>");
+		displayObj.append("<div class='col-sm-7' id='bottomText'><button id='challengeButton' disabled>PLAY</button><br>Please download <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. See the <a href='/faq.php'>FAQ</a> for more information on installing MetaMask.</div>");
 	}
 }

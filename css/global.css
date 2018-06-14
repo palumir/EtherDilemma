@@ -28,7 +28,7 @@
     border: 2px solid white;
 	z-index: 150;
 	position: absolute;
-  }
+ }
   
 .ui-tooltip {
 	padding: 10px 20px;
@@ -113,6 +113,9 @@ body h4 {
 
 #bottomText {
 	text-align:center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
 }
 
 img.etherDilemma {
@@ -264,6 +267,11 @@ img.etherDilemma {
     background: linear-gradient(to top, rgb(0, 102, 0) 43%, rgb(0, 153, 38) 56%);
     border: 1px black solid;
 	cursor: pointer;
+}
+
+#bottomText #challengeButton {
+    background: linear-gradient(to top, #747475 43%, #c4c4c4 56%);
+	cursor: auto;
 }
 
 /* In the dilemma */
@@ -456,8 +464,7 @@ body h3 {
 
 #chatWrapper #status { 
 	display: block; 
-	float: left; 
-	margin-top: 15px; 
+	float: left;  
 	color: white;
 }
 
