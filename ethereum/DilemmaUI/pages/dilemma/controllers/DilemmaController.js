@@ -201,11 +201,15 @@ class DilemmaController {
 		var displayObj = $("#" + display);
 		
 		// Create HTML
-		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You both betrayed!</h3>You received the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div></div>");
-		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You both allied!</h3>You received the reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
-		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You successfully betrayed!</h3>You received the temptation payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
-		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>You got betrayed!</h3>You received the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div></div>");
-		displayObj.append("<br><div id='homepageReturn'><a href='/'>Click here to return to the homepage.</a></div>");
+		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
+		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You and your opponent have both betrayed one and other. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
+		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You and your opponent have formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		displayObj.append("<br><button id='challengeButton'>PLAY AGAIN</button>");
+		
+		// Make it a block chain button
+		$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
 		
 	}
 	

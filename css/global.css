@@ -287,6 +287,10 @@ img.etherDilemma {
 	display: block;
 }
 
+#endScreen #challengeButton {
+	font-size: 21pt;
+}
+
 #challengeButton {
     margin-left: auto;
     margin-right: auto;
@@ -458,16 +462,14 @@ body h3 {
 }
 
 /* End screen */
-#endScreen {
-	padding-top: 100px;
-}
 
 #endScreen h3 {
 	font-size: 40pt;
+	padding-top: 40px;
 }
 
 #endScreen {
-	font-size: 19pt;
+	font-size: 32pt;
 }
 
 #homepageReturn a {
