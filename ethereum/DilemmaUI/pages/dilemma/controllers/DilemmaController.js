@@ -202,8 +202,8 @@ class DilemmaController {
 		
 		// Create HTML
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You and your opponent have both betrayed one and other. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
-		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You and your opponent have formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You have both betrayed. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
+		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You have successfully formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		displayObj.append("<br><button id='challengeButton'>PLAY AGAIN</button>");
