@@ -154,7 +154,7 @@ img.etherDilemma {
     margin-top: 50px;
     padding-top: 10px;
     padding-bottom: 25px;
-    background: #121a21;
+    background: rgba(0,0,0,0.3);
 }
 
 #theGame h4 {
