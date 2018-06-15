@@ -39,7 +39,7 @@ class ChallengeView {
 		displayObj.append(middleSection);
 		displayObj.append("<div class='col-sm-7' id='bottomText'><button id='challengeButton' title='Please install and login to MetaMask to play Ether Dilemma'>PLAY</button><br>Please download <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. See the <a href='/faq.php'>FAQ</a> for more information on installing MetaMask.</div>");
 		createFooter(display);*/
-		displayObj.append("Hello friends, the Beta will be live on Friday, June 15th, 2018. Thank you for your interest.");
+		displayObj.append("<div class='center'>Hello friends, the Beta will be live on Friday, June 15th, 2018. Thank you for your interest.</div>");
 				
 		// Add tooltip javascript
 		$( document ).tooltip({
