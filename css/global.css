@@ -134,6 +134,10 @@ img.etherDilemma {
     display: block;
 }
 
+.center {
+	text-align: center;
+}
+
 #trusted {
     text-align: center;
     font-size: 19pt;
