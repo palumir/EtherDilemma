@@ -181,7 +181,8 @@ img.etherDilemma {
 }
 
 #theStakes .stakesText {
-	padding-top: 70px;
+	padding-top: 75px;
+	padding-bottom: 75px;
 	font-size: 19pt;
 }
 
@@ -220,7 +221,7 @@ img.etherDilemma {
 }
 
 #thePayout .payouts img, #theGame .gameStuff img {
-	max-width: 100%;
+	width: 100%;
 }
 
 #thePayout h4, #theStakes h4, #theGame h4 {
