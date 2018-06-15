@@ -206,10 +206,10 @@ class DilemmaController {
 		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You have successfully formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
-		displayObj.append("<br><button id='challengeButton'>PLAY AGAIN</button>");
+		displayObj.append("<br><button id='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
-		$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
+		$('#challengeButtonEnd').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
 		
 	}
 	

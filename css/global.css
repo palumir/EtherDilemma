@@ -10,6 +10,10 @@
 	z-index: -2;
 }
 
+.left {
+	float: left;
+}
+
 #particles-js {
 	z-index: -1;
 	position: fixed;
@@ -139,14 +143,18 @@ img.etherDilemma {
 
 #theGame h4 img, #theStakes h4 img, #thePayout h4 img {
 	padding-top: 8px;
-	transform: scale(1, 1);
-	-ms-transform: scale(1, 1);
-	-webkit-transform: scale(1, 1);
 	max-width: 100%;
 }
 
 #theGame, #theStakes, #thePayout {
-	font-size: 18pt;
+	font-size: 17pt;
+	display: inline-block;
+	min-height: 240px;
+	text-align: center;
+}
+
+#thePayout {
+	min-height: 180px;
 }
 
 #gameStuff {
@@ -161,13 +169,6 @@ img.etherDilemma {
 	text-align: center;
 }
 
-#theGame .left {
-	float: left;
-	text-align: center;
-	font-weight: bold;
-	width: 30%;
-}
-
 #theGame .arrows {
 	float: left;
 	text-align: center;
@@ -176,8 +177,12 @@ img.etherDilemma {
 }
 
 #theStakes {
-	margin-top: 30px;
 	text-align: center;
+}
+
+#theStakes .stakesText {
+	padding-top: 70px;
+	font-size: 19pt;
 }
 
 #thePayout h4 {
@@ -210,39 +215,20 @@ img.etherDilemma {
 	font-weight: bold;
 }
 
-#thePayout {
-	padding: 15px;
-	padding-top: 5px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-    padding-right: 0px;
-}
-
 #thePayout .col-sm-4 {
 	text-align: center;
 }
 
-#thePayout img {
-	max-width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+#thePayout .payouts img, #theGame .gameStuff img {
+	max-width: 100%;
 }
 
 #thePayout h4, #theStakes h4, #theGame h4 {
 	margin-bottom: 0px;
-	padding-bottom: 30px;
-	padding-top: 40px;
 }
 
 #theGame h4 {
 	padding-top: 10px;
-}
-
-#thePayout .col-sm-4 {
-	float: left;
-	padding-left: 0px;
-	padding-right: 0px;
 }
 
 #thePayout .col-sm-4 div {
@@ -285,11 +271,6 @@ img.etherDilemma {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-	margin-bottom: 90px;
-}
-
-#endScreen #challengeButton {
-	font-size: 21pt;
 }
 
 #challengeButton {
@@ -307,6 +288,11 @@ img.etherDilemma {
     border: 1px black solid;
 	cursor: pointer;
 }
+
+#challengeButtonEnd {
+	font-size: 21pt;
+}
+
 
 #bottomText #challengeButton {
     background: linear-gradient(to top, #747475 43%, #c4c4c4 56%);
@@ -434,8 +420,8 @@ body h3 {
 }
 
 #centerOr {
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-top: 110px;
+	margin-bottom: 110px;
 	float: left;
 	text-transform: uppercase;
     text-align: center;
@@ -465,7 +451,7 @@ body h3 {
 /* End screen */
 
 #endScreen h3 {
-	font-size: 40pt;
+	font-size: 75pt;
 	padding-top: 40px;
 }
 
@@ -584,7 +570,7 @@ p.ui-accordion-content {
 }
 
 #footerContent {
-	margin-left: -15px;
+	margin-top: 100px;
 	margin-right: 0;
 	width: 100%;
 	text-align: center;
@@ -593,9 +579,6 @@ p.ui-accordion-content {
 	padding-bottom: 8px;
 	margin-top: 30px;
 	border-top: 1px dotted white;
-	position: fixed;
-	bottom: 0px;
-	background: #121a21;
 }
 
 /* Contact page */
