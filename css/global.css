@@ -228,6 +228,11 @@ img.etherDilemma {
 	width: 100%;
 }
 
+#thePayout .payouts img {
+	max-height: 160px;
+}
+	
+
 #thePayout h4, #theStakes h4, #theGame h4 {
 	margin-bottom: 0px;
 }
