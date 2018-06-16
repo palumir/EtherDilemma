@@ -191,6 +191,13 @@ class DilemmaController {
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
 		
+		// Remove all backgrounds
+		var particles-js = $('#particles-js');
+		particles-js.removeClass("betrayBetray");
+		particles-js.removeClass("allyAlly");
+		particles-js.removeClass("betrayer");
+		particles-js.removeClass("betrayed");
+		
 		// Set background
 		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) $('#particles-js').addClass("betrayBetray");
 		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("allyAlly");

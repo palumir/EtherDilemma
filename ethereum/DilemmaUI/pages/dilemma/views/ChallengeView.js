@@ -22,8 +22,6 @@ class ChallengeView {
 		var allyText = 'Ally';
 		var betrayText = 'Betray';
 		
-		
-		
 		var displayObj = $("#" + display);
 		displayObj.empty();
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
