@@ -301,6 +301,19 @@ img.etherDilemma {
 
 #challengeButtonEnd {
 	font-size: 21pt;
+	margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+	color: white;
+    display: Block;
+    width: 200px;
+    height: 90px;
+    font-size: 40pt;
+    margin-top: 40px;
+    border-radius: 10px;
+    background: linear-gradient(to top, rgb(0, 102, 0) 43%, rgb(0, 153, 38) 56%);
+    border: 1px black solid;
+	cursor: pointer;
 }
 
 
