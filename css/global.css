@@ -299,7 +299,7 @@ img.etherDilemma {
 	cursor: pointer;
 }
 
-.challengeButtonEnd {
+#challengeButton.challengeButtonEnd {
 	font-size: 21pt;
 	margin-left: auto;
     margin-right: auto;
