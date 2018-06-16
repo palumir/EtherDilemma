@@ -75,7 +75,7 @@ class TimerView {
 											that.controller.displayDiv[0].innerHTML += "<div class='col-sm-12' id='explanation'><i>*MetaMask will popup automatically. Press Submit quickly or risk forfeiting the dilemma.</i></div>";
 
 											// If we go over 10 blocks, display to report the enemy for AFK
-											if(currentBlockNumber > partnerLastTurnBlock + 10 && result > partnerLastTurnBlock) {  // Todo: Pull the AFK block count from Blockchain
+											if(currentBlockNumber > partnerLastTurnBlock + 15 && result > partnerLastTurnBlock) { 
 												var loader = $('#loader');
 												var loaderAFK = $('#loaderAFK');
 												var endScreen = $('#endScreen');
