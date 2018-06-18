@@ -21,9 +21,6 @@ contract PrisonersDilemmaStorage {
     // - Contract will be patched and unlocked to prevent future loss otherwise
     uint stopLoss = 0;
     
-    // Expected value for this contract to be left with after every turn, used to calculate stopLoss
-    int expectedValue = 0;
-    
     // Mapping of players and everything associated with them
     mapping(address => bool[]) public playerHistory; // history for each player
     mapping(address => bool) public banned; // stores banned addresses (for cheaters, bots, etc)
@@ -79,16 +76,9 @@ contract PrisonersDilemmaStorage {
         stopLoss = _stopLoss;
     }
     
-    // Set expected value
-    function setExpectedValue(int _expectedValue) external onlyCode() {
-        
-        // Set expected value
-        expectedValue = _expectedValue;
-    }
-    
-    // Get expected value
-    function getExpectedValue() public view returns (int) {
-        return expectedValue;
+    // Get stopLoss
+    function getStopLoss() public view returns (uint) {
+        return stopLoss;
     }
     
     // Setter for admin address
@@ -153,20 +143,30 @@ contract PrisonersDilemmaStorage {
     
     // Hold Ether, from code contract (or possibly some sort of donations, so this is left public)
     function receiveEther() contractUnlocked() public payable {
+    }
+    
+    // Fallback function
+    function () public payable {
         
-        // stopLoss is 50%, for now
-        stopLoss = stopLoss + msg.value/2;
     }
     
     // Payout Ether -- only code contract can ever make this call
-    function payoutEther(uint _amount, address _toWho) onlyCodeOrAdmin() contractUnlocked() external {
+    function payoutEther(uint _amount, address _toWho) onlyCodeOrAdmin() external {
         
-        // Send the ether (but only to an unbanned player)
-        if(_amount > 0 && banned[_toWho] == false) _toWho.transfer(_amount);
-                
-        // If we go below stopLoss, lock contract
-        if(address(this).balance < stopLoss) { 
-            lock();
+        // Can be ran if contract is locked, but won't do anything
+        if(!contractLocked) {
+            
+            // Send the ether (but only to an unbanned player)
+            if(_amount > 0 && banned[_toWho] == false) _toWho.transfer(_amount);
+            
+            // Add to stopLoss depending on the scenario
+            if(_amount == 36 finney) stopLoss += 2 finney; // Half of profit
+            if(_amount == 6 finney) stopLoss += 7 finney; // Also half of profit (will be added twice -- once per person)
+                    
+            // If we go below stopLoss, lock contract
+            if(address(this).balance < stopLoss) { 
+                lock();
+            }
         }
     }
     
@@ -223,16 +223,6 @@ contract PrisonersDilemmaCode {
         storageContract = PrisonersDilemmaStorage(_storageAddress);
     }
     
-    // Must be run after code address has been set
-    function init() public {
-        
-        // Only admin can call this
-        require(msg.sender == storageContract.getAdminAddress());
-                
-        // Set expected value
-        storageContract.setExpectedValue(((40 -2*int(COOPERATE_PAYOUT)) + (40 - int(TEMPTATION_PAYOUT))*2 + (40 - int(PUNISHMENT_PAYOUT)*2))/4);
-    }
-    
     ///////////////
     // MODIFIERS //
     ///////////////
@@ -250,15 +240,15 @@ contract PrisonersDilemmaCode {
     ///////////////
     
     // Block wait time constants
-    uint constant BLOCKS_TO_DECIDE = 2; // How long do we give people to decide?
-    uint constant BLOCKS_UNTIL_AFK = 1; // How long until we decide somebody's AFK
-    uint constant MISSED_TURNS_UNTIL_CHEATING = 1; // How many turns can somebody miss before they just lose?
+    uint constant BLOCKS_TO_DECIDE = 6; // How long do we give people to decide?
+    uint constant BLOCKS_UNTIL_AFK = 15; // How long until we decide somebody's AFK
+    uint constant MISSED_TURNS_UNTIL_CHEATING = 4; // How many turns can somebody miss before they just lose?
     
     // Cost and payouts
     uint constant COST_IN_GAS = 20 finney; // Cost to play
     uint constant TEMPTATION_PAYOUT = 36 finney; // How much does a betraying user get if they win?
-    uint constant COOPERATE_PAYOUT = 24 finney; // How much do they both get if they cooperate
-    uint constant PUNISHMENT_PAYOUT = 6 finney; // How much do both users get if they both betray
+    uint constant COOPERATE_PAYOUT = 26 finney; // How much do they both get if they cooperate
+    uint constant PUNISHMENT_PAYOUT = 4 finney; // How much do both users get if they both betray
     uint constant SUCKERS_PAYOUT = 0; // How much does a cooperating user get if they lose?
     
     // Anti cheating
@@ -344,9 +334,14 @@ contract PrisonersDilemmaCode {
     // Getters //
     /////////////
     
-    // Get dilemma partner's address
+    // Get our last turn block
     function getLastTurnBlock() public view returns(uint) {
         return dilemmas[msg.sender].lastTurnBlock;
+    }
+    
+    // Get partner last turn block
+    function getPartnerLastTurnBlock() public view returns(uint) {
+        return dilemmas[dilemmas[msg.sender].partner].lastTurnBlock;
     }
     
     // Get dilemma partner's address
@@ -521,7 +516,7 @@ contract PrisonersDilemmaCode {
 	    dilemma storage partnerDilemma = dilemmas[_partner];
         
         // Send payouts
-    	storageContract.payoutEther(_whoPayout, _who);
+        storageContract.payoutEther(_whoPayout, _who);
     	storageContract.payoutEther(_partnerPayout, _partner);
     	
     	// End the dilemmas

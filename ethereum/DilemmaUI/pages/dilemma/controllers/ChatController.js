@@ -35,9 +35,7 @@ class ChatController {
 			var content = $('#content');
 			var input = $('#input');
 			var status = $('#status');
-
-			// my color assigned by the server
-			var myColor = false;
+			
 			// my name sent to the server
 			var myName = false;
 
@@ -82,21 +80,13 @@ class ChatController {
 
 				// NOTE: if you're not sure about the JSON structure
 				// check the server source code above
-				if (json.type === 'color') { // first response from the server with user's color
-					myColor = json.data;
-					status.text(myName + ': ').css('color', myColor);
+				if (json.type === 'ack') { // first response from the server with user's color
 					input.removeAttr('disabled').focus();
+					status.text(myName + ': ');
 					// from now user can start sending messages
-				} else if (json.type === 'history') { // entire message history
-					// insert every single message to the chat window
-					for (var i=0; i < json.data.length; i++) {
-						addMessage(json.data[i].author, json.data[i].text, json.data[i].address,
-								   json.data[i].color, new Date(json.data[i].time));
-					}
 				} else if (json.type === 'message') { // it's a single message
 					input.removeAttr('disabled'); // let the user write another message
-					addMessage(json.data.author, json.data.text, json.data.address,
-							   json.data.color, new Date(json.data.time));
+					addMessage(json.data.author, json.data.text, json.data.address, new Date(json.data.time));
 				} else {
 					console.log('Hmm..., I\'ve never seen JSON like this: ', json);
 				}
@@ -140,7 +130,7 @@ class ChatController {
 			/**
 			 * Add message to the chat window
 			 */
-			function addMessage(author, message, address, color, dt) {
+			function addMessage(author, message, address, dt) {
 				
 				// Only show messages from ourself or our partner
 				console.log("MSG address: " + address);
@@ -148,6 +138,8 @@ class ChatController {
 				console.log("You: " + web3.eth.accounts[0]);
 				
 				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
+					var color = "#f40000";
+					if(address == web3.eth.accounts[0]) color = "#00add7";
 					content.append('<p><span style="color:' + color + '">' + author + '</span> @ ' +
 						 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 						 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
