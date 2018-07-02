@@ -117,6 +117,12 @@ body h4 {
 #gameStuff {
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+
+#gameStuff .col-sm-12 {
+	margin-top: 15px;
 }
 
 #bottomText {
@@ -167,6 +173,7 @@ img.etherDilemma {
     padding-top: 10px;
     padding-bottom: 25px;
     background: rgba(0,0,0,0.3);
+	margin-bottom: 30px;
 }
 
 #theGame h4 {
@@ -185,8 +192,8 @@ img.etherDilemma {
 }
 
 #theStakes .stakesText {
-	padding-top: 75px;
-	padding-bottom: 75px;
+	padding-top: 70px;
+	padding-bottom: 70px;
 	font-size: 19pt;
 }
 
@@ -322,31 +329,18 @@ img.etherDilemma {
 }
 
 /* In the dilemma */
+#main {
+	max-width: 1903px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #content p {
 	margin-bottom: 5px;
 }
-#moveSelector {
-	padding-top: 30px;
-}
 
-#currentBlock {
-	margin-left: 10%;
-}
-
-#nextTurnBlock {
-	margin-right: 10%;
-}
-
-#currentBlock, #nextTurnBlock {
-	float: left;
-    border: 1px dotted white;
-	color: white;
-	background: rgba(0,0,0,0.3);
-    width: 40%;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    padding-top: 10px;
-	font-size: 19pt;
+#yourMovePanel {
+	margin-top: -16px;
 }
 
 #yourMovePanel .betray, #yourMovePanel .ally {
@@ -377,47 +371,99 @@ img.etherDilemma {
 	font-weight: bold;
 }
 
+#emptySpace {
+	height: 10px;
+}
+
 #turnTimer {
-	margin-top: 30px;
 	text-align: center;
 	width: 100%;
-	margin-bottom: 30px;
 }
 
 .selectable {
-	margin-top: 15px;
-	margin-bottom: 25px;
-	text-align: center;
-	font-size: 40pt;
-	border: 1px solid black;
+	margin-top: 17px;
+	margin-bottom: 20px;
+	height: 400px;
 	cursor: pointer;
-	background-color: #f5f5f5;
     display: block;
     float: left;
 	color: white;
-	padding: 40px;
 }
 
-.selectable.selected.betray, .selectable.selected.ally {
-	border: 7px dashed #62f442;
-	padding: 34px;
+#updateBlock .title {
+	font-size: 17pt;
 }
 
-.selectable.betray {
-	background: #f40000;
+#updateBlock img {
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
-.selectable.ally {
-	background: #00add7;
+#updateBlock {
+	text-align: center;
 }
 
-.selectable.betray img, .selectable.ally img {
-	width: 108px;
-    height: 70px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+/* preload these images */
+body:after{
+ display:none; 
+ content: url(../images/betrayUnselected.png) url(../images/betrayHover.png) url(../images/betraySelected.png) url(../images/allyUnselected.png) url(../images/allyHover.png) url(../images/allySelected.png);
 }
+
+.selectable.betray, .selectable.betray.locked:hover {
+	background-image:    url(../images/betrayUnselected.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center left;              /* optional, center the image */
+}
+
+.selectable.betray:hover {
+	background-image:    url(../images/betrayHover.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center left;              /* optional, center the image */
+}
+
+.selectable.betray.selected, .selectable.betray.locked.selected:hover {
+	background-image:    url(../images/betraySelected.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center left;              /* optional, center the image */
+}
+
+.selectable.ally, .selectable.ally.locked:hover {
+	background-image:    url(../images/allyUnselected.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center right;              /* optional, center the image */
+}
+
+.selectable.ally:hover {
+	background-image:    url(../images/allyHover.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center right;              /* optional, center the image */
+}
+
+
+.selectable.ally.selected, .selectable.ally.locked.selected:hover {
+	background-image:    url(../images/allySelected.png);
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center right;              /* optional, center the image */
+}
+
+.betrayUnderline {
+	text-decoration: underline;
+    text-decoration-color: #f40000;
+	display: inline;
+}
+
+.allyUnderline {
+	text-decoration: underline;
+    text-decoration-color: #00add7;
+	display: inline;
+}
+
 
 body h3 {
 	text-align: center;
@@ -429,7 +475,7 @@ body h3 {
 }
 
 #loader, #loaderAFK {
-	margin-top: 25px;
+	margin-top: 15px;
 	text-align: center;
 }
 
@@ -452,6 +498,30 @@ body h3 {
 
 #blockHolder {
 	display: inline-block;
+	background: url("../images/cube.png") no-repeat right top;
+	width: 150px;
+	height: 155px;
+	padding-top: 15px;
+	padding-left: 20px;
+}
+
+#blockHolder .cubeText {
+	font-size: 16pt;
+	margin: 0px;
+	padding: 0px;
+}
+
+.countdown {
+	font-size: 62pt;
+    margin: 0px;
+    padding: 0px;
+    line-height: 78px;
+	color: white;
+	text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 #lockInChoice {
@@ -468,6 +538,28 @@ body h3 {
 
 #moveSelector {
 	display: inline-block;
+}
+
+/* Warning */
+@media screen and (min-width: 992px) {
+	#metaMaskWarning {
+		position: fixed;
+		top: 0;
+		right: 0;
+	}
+}
+
+#metaMaskWarning {
+	border: 1px dotted white;
+    margin: 20px;
+	padding: 20px;
+    background: rgba(0,0,0,0.3);
+	text-align: center;
+}
+
+#metaMaskWarning .line1 {
+	border-bottom: 1px solid white;
+	margin-top: 10px;
 }
 
 /* End screen */
@@ -488,6 +580,12 @@ body h3 {
 /* Chat */
 #chatWrapper {
 	display: inline-block;
+}
+
+#chatHolder {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 25px;
 }
 
 #chatWrapper #content { 
@@ -589,6 +687,8 @@ p.ui-accordion-content {
 #footerContent a {
 	font-weight: bold;
 	color: white;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 #footerContent {

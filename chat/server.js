@@ -72,7 +72,7 @@ wsServer.on('request', function(request) {
 		
             if (userName === false) { // first message sent by user is their name
                 // remember user name
-                userName = htmlEntities(userMessage.slice(0,30));
+                userName = htmlEntities(userMessage.slice(0,50));
                 connection.sendUTF(JSON.stringify({ type:'ack', data: "" }));
 
             } else { // log and broadcast the message

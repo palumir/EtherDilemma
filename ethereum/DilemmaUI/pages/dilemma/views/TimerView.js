@@ -42,7 +42,7 @@ class TimerView {
 											
 											// Make result an int
 											result = parseInt(result);
-											var turnTime = result+6; 
+											var turnTime = result+8; 
 											
 											// Make Metamask pop-up if we are on the right block and we haven't popped up before
 											if(currentBlockNumber >= turnTime 
@@ -54,41 +54,35 @@ class TimerView {
 											}
 											
 											// Lock in
-											that.controller.displayDiv[0].innerHTML = "<div class='col-sm-12' id='lockInChoice'>- Lock in your choice before the Decision Block is reached -</div>";
+											that.controller.displayDiv[0].innerHTML = "";
 											
 											// View to show the current block and decision block
 											var blockView = "";
+											
+											// Countdown value
+											var countdown = turnTime - currentBlockNumber;
+											if(countdown < 0 || partnerLastTurnBlock != result) countdown = 0; // Bottom out @ 0
 													
 											// Show the blocks
-											blockView += "<div id='blockHolder' class='col-sm-12'><div class='col-sm-6' id='currentBlock'>Current Block:<br> " + currentBlockNumber + "</div>";
-											
-											// If the turn is happening at the moment
-											if(turnTime <= currentBlockNumber || result != partnerLastTurnBlock) blockView += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:<br> NOW!</div></div>";
-											
-											// Otherwise, show the block
-											else blockView += "<div class='col-sm-6' id='nextTurnBlock'>Decision Block:</b><br> " + turnTime + "</div></div>";
-											
+											blockView += "<div id='blockHolder' class='col-sm-12'><div class='cubeText blocks'>BLOCKS</div><div class='countdown'>" + countdown + "</a></div><div class='cubeText remaining'>REMAINING</div></div>";
+												
 											// Add blockView to the HTML
 											that.controller.displayDiv[0].innerHTML += blockView;
-											
-											// Explanation div
-											that.controller.displayDiv[0].innerHTML += "<div class='col-sm-12' id='explanation'><i>*MetaMask will popup automatically. Press Submit quickly or risk forfeiting the dilemma.</i></div>";
 
-											// If we go over 10 blocks, display to report the enemy for AFK
-											if(currentBlockNumber > partnerLastTurnBlock + 15 && result > partnerLastTurnBlock) { 
-												var loader = $('#loader');
-												var loaderAFK = $('#loaderAFK');
+											// If we go over 10 blocks, display to report the enemy for AFK, but only once (do not keep resetting this)
+											if(currentBlockNumber > partnerLastTurnBlock + 15 && result > partnerLastTurnBlock && partnerLastTurnBlock != that.partnerLastTurnBlock) { 
+											
+												// Set timestamp
+												that.partnerLastTurnBlock = partnerLastTurnBlock;
+												
+												// Change the update block
+												var updateBlock = $('#updateBlock');
+												var afkText = $('#afkText');
 												var endScreen = $('#endScreen');
-												var afkHTML = "<div id='loaderAFK'>It looks like your opponent has gone AFK. <a href=\"#\" id=\"afkReport\">Click here</a> to report them and win the dilemma.</div>";
-												if(loaderAFK[0] == undefined && endScreen[0] == undefined) {
-													if(loader[0] == undefined) {
-														$("#dilemmaWrapper").append(afkHTML);
-														$('#afkReport').blockChainButtonAFK(that.controller.dilemmaUI.codeContract.reportPartnerAFK);
-													}
-													else { 
-														loader.html(afkHTML);
-														$('#afkReport').blockChainButtonAFK(that.controller.dilemmaUI.codeContract.reportPartnerAFK);
-													}
+												var afkHTML = "<div id='afkText'>It looks like your opponent has gone AFK. <a href=\"#\" id=\"afkReport\">Click here</a> to report them and win the dilemma.</div>";
+												if(afkText[0] == undefined && endScreen[0] == undefined) {
+													updateBlock.html("<div id='updateBlock' class='col-sm-12' ><div class='title'>AFK!</div>" + afkHTML + "</div>");
+													$('#afkReport').blockChainButtonAFK(that.controller.dilemmaUI.codeContract.reportPartnerAFK);
 												}
 											}
 

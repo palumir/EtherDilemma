@@ -22,7 +22,7 @@
 							if(!error){
 								
 								// Remove play button
-								$("#challengeButton")[0].outerHTML = "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>";
+								$("#challengeButton")[0].outerHTML = "<div id='loader'><img width='20px' height='20px' src='images/loading.gif'> Searching for partner <img width='20px' height='20px' src='images/loading.gif'></div>";
 							} 
 							else {
 								console.log(error);
@@ -101,7 +101,32 @@
 							if(!error){
 								
 								// Remove play button
-								$("#loaderAFK").html("<div id='afkReported'><img width='30px' height='30px' src='images/loading.gif'> Your opponent has been reported for being AFK. Waiting on response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'></div>");
+								$("#updateBlock").html("<div id='updateBlock'><div class='title'>Report Submitted</div><div class='text'><img width='20px' height='20px' src='images/loading.gif'> Waiting for Blockchain <img width='20px' height='20px' src='images/loading.gif'></div></div>");
+							} 
+							else {
+															
+								console.log(error);
+							}
+						});
+			});
+		
+        return this;
+    };
+	
+	// Convert link cancel link
+	$.fn.blockChainButtonCancel = function(contractFunction) {
+        this.click(function() {
+						
+						// Then call the function
+						contractFunction.sendTransaction(
+						{from:web3.eth.accounts[0], gas: 150000},
+						
+						// Callback
+						function (error, result){
+							if(!error){
+								
+								// Remove play button
+								$("#loader").html("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Cancelling search, please wait <img width='30px' height='30px' src='images/loading.gif'></div>");
 							} 
 							else {
 															

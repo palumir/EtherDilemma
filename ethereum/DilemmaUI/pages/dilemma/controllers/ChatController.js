@@ -14,7 +14,6 @@ class ChatController {
 		
 		// Set dilemmaController
 		this.dilemmaController = dilemmaController;
-		
 	}
 
 	
@@ -36,32 +35,20 @@ class ChatController {
 			var input = $('#input');
 			var status = $('#status');
 			
-			// my name sent to the server
+			// name
 			var myName = false;
-
-			// if user is running mozilla then use it's built-in WebSocket
+			
 			window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-			// if browser doesn't support WebSocket, just show some notification and exit
-			if (!window.WebSocket) {
-				content.html($('<p>', { text: 'Sorry, but your browser doesn\'t '
-											+ 'support WebSockets.'} ));
-				input.hide();
-				$('span').hide();
-				return;
-			}
 
 			// open connection
 			var connection = new WebSocket('ws://209.97.130.97:1337');
 
 			connection.onopen = function () {
-				// first we want users to enter their names
 				input.removeAttr('disabled');
 				status.text('Choose name:');
 			};
 
 			connection.onerror = function (error) {
-				// just in there were some problems with conenction...
 				content.html($('<p>', { text: 'Sorry, but there\'s some problem with your '
 											+ 'connection or the server is down.' } ));
 			};

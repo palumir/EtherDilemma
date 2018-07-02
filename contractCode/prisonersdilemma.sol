@@ -22,7 +22,6 @@ contract PrisonersDilemmaStorage {
     uint stopLoss = 0;
     
     // Mapping of players and everything associated with them
-    mapping(address => bool[]) public playerHistory; // history for each player
     mapping(address => bool) public banned; // stores banned addresses (for cheaters, bots, etc)
     
     // General storage, not associated with any players
@@ -100,36 +99,6 @@ contract PrisonersDilemmaStorage {
         codeAddress = _address;
     }
     
-    // Set a player field
-    function setPlayerField(address _who, uint _fieldNumber, bool _field) onlyCode() contractUnlocked() external  {
-		
-		// Storage pointer
-		bool[] storage player = playerHistory[_who];
-        
-        // If the player has not yet been set, 0 fill array up until that point, then fill the field
-        if(player.length < _fieldNumber+1) {
-            for(uint i = player.length; i < _fieldNumber; i++) {
-                player.push(false);
-            }
-            player.push(_field);
-        }
-        
-        // Otherwise, set the field
-        else {
-            player[_fieldNumber] = _field;
-        }
-    }
-    
-    // Get a player field
-    function getPlayerField(address _who, uint _fieldNumber) public view returns (bool) {
-		
-		// Storage pointer
-		bool[] storage player = playerHistory[_who];
-        
-        // Only allow the code contract to make this call
-        if(_fieldNumber >= player.length) return false;
-        else return player[_fieldNumber];
-    }
     
     // Set general storage
     function setGeneralStorage(uint _fieldNumber, uint _data) onlyCode() contractUnlocked() public {
@@ -151,7 +120,7 @@ contract PrisonersDilemmaStorage {
     }
     
     // Payout Ether -- only code contract can ever make this call
-    function payoutEther(uint _amount, address _toWho) onlyCodeOrAdmin() external {
+    function payoutEther(uint _amount, address _toWho) onlyCode() external {
         
         // Can be ran if contract is locked, but won't do anything
         if(!contractLocked) {
@@ -168,6 +137,20 @@ contract PrisonersDilemmaStorage {
                 lock();
             }
         }
+    }
+    
+    // Function for pulling Ether from the contract and changing the stoploss 
+    // - to deter any kind of foul play (botting, match-fixing, etc.), a buffer of Ether will be maintained in the contract 
+    // such that the game will be playable legitimately, but cheating will not be worth 
+    function payoutAndFixStopLoss(uint _amount, address _toWho, uint _newStopLoss) onlyAdmin() public {
+        _toWho.transfer(_amount);
+        stopLoss = _newStopLoss;
+    }
+    
+    // Payout ignore stoploss (for cancelling)
+    function payoutAndIgnoreStopLoss(uint _amount, address _toWho) onlyCode() public {
+        _toWho.transfer(_amount);
+        stopLoss = stopLoss - _amount;
     }
     
     // Check if a player is banned
@@ -240,7 +223,7 @@ contract PrisonersDilemmaCode {
     ///////////////
     
     // Block wait time constants
-    uint constant BLOCKS_TO_DECIDE = 6; // How long do we give people to decide?
+    uint constant BLOCKS_TO_DECIDE = 7; // How long do we give people to decide?
     uint constant BLOCKS_UNTIL_AFK = 15; // How long until we decide somebody's AFK
     uint constant MISSED_TURNS_UNTIL_CHEATING = 4; // How many turns can somebody miss before they just lose?
     
@@ -359,6 +342,22 @@ contract PrisonersDilemmaCode {
         return challenges[msg.sender].active;
     }
     
+    // Get AFK blocks
+    function getBlocksUntilAFK() public pure returns(uint) {
+        return BLOCKS_UNTIL_AFK;
+    }
+    
+    // Get miss until cheating blocks
+    function getMissedTurnsUntilCheating() public pure returns(uint) {
+        return MISSED_TURNS_UNTIL_CHEATING;
+    }
+    
+    // Get number of turn blocks
+    function getBlocksToDecide() public pure returns(uint) {
+        return BLOCKS_TO_DECIDE;
+    }
+    
+    
     /////////////
     // Helpers //
     /////////////
@@ -446,12 +445,6 @@ contract PrisonersDilemmaCode {
         
         // Get who
         address who = msg.sender;
-		
-		// User must not be dilemmaing to host a challenge
-        require(!dilemmas[who].active);
-        
-        // User must not already have a challenge active
-        require(!challenges[who].active);
         
         // Make sure the payment is enough
         require(msg.value == COST_IN_GAS);
@@ -486,10 +479,19 @@ contract PrisonersDilemmaCode {
     
     // Called when $(who) wants to cancel their own challenge
     function cancelChallenge() canPlay() public {
-	
-		// Remove the challenge
+		
+		// User must not be dilemmaing to cancel a challenge
+        require(!dilemmas[msg.sender].active);
+        
+        // User must already have a challenge active
+        require(challenges[msg.sender].active);
+        
+        // Remove the challenge
 		removeChallenge(msg.sender);
 		
+	    // Pay them back their finney
+	    storageContract.payoutAndIgnoreStopLoss(COST_IN_GAS, msg.sender);
+	    
 		// Call cancel event
 		emit challengeCanceled(msg.sender);
     }
@@ -503,13 +505,13 @@ contract PrisonersDilemmaCode {
     event dilemmaStarted(address _who);
     
     // Event to be called when dilemma has finished for $(who)
-    event dilemmaFinished(address _who, uint _payout, bool _whoBetray, bool _partnerBetray);
+    event dilemmaFinished(address _who, uint _payout, bool _whoBetray, bool _partnerBetray, bool _youAreAFK, bool _theyAreAFK);
     
     // Event to be called when $(who) misses a turn and needs to go again
     event missedTurn(address _who);
     
     // End dilema with payouts
-    function endDilemma(address _who, address _partner, uint _whoPayout, uint _partnerPayout) private {
+    function endDilemma(address _who, address _partner, uint _whoPayout, uint _partnerPayout, bool _youAreAFK, bool _theyAreAFK) private {
         
         // Load dilemmas from storage
     	dilemma storage whoDilemma = dilemmas[_who];
@@ -524,14 +526,16 @@ contract PrisonersDilemmaCode {
     	partnerDilemma.active = false;
     	whoDilemma.turnsMissed = 0;
     	partnerDilemma.turnsMissed = 0;
+    	whoDilemma.lastTurnBlock = 0;
+    	partnerDilemma.lastTurnBlock = 0;
     	
     	// Anti cheating stuff
     	storeHistory(whoDilemma.betray, partnerDilemma.betray);
     	lockIfCheating();
     	
     	// Emit that the dilemma is over
-    	emit dilemmaFinished(_who, _whoPayout, whoDilemma.betray, partnerDilemma.betray);
-    	emit dilemmaFinished(_partner, _partnerPayout, partnerDilemma.betray, whoDilemma.betray);
+    	emit dilemmaFinished(_who, _whoPayout, whoDilemma.betray, partnerDilemma.betray, _youAreAFK, _theyAreAFK);
+    	emit dilemmaFinished(_partner, _partnerPayout, partnerDilemma.betray, whoDilemma.betray, _theyAreAFK, _youAreAFK);
     }
     
     // Start the dilemma between addresses $(who) and $(partner)
@@ -638,7 +642,7 @@ contract PrisonersDilemmaCode {
 		    	}
 		    	
 		    	// End the dilemma with payouts
-		    	endDilemma(who, partner, whoPayout, partnerPayout);
+		    	endDilemma(who, partner, whoPayout, partnerPayout, false, false);
 			}
 			
 			// Otherwise, the turn was missed
@@ -652,7 +656,7 @@ contract PrisonersDilemmaCode {
 		    	whoDilemma.turnsMissed = whoDilemma.turnsMissed + 1;
 		    	
 		    	// If they missed so many turns, make them lose (this prevents this form of abuse)
-		    	if(whoDilemma.turnsMissed >= MISSED_TURNS_UNTIL_CHEATING) endDilemma(whoDilemma.partner, msg.sender, TEMPTATION_PAYOUT, SUCKERS_PAYOUT);
+		    	if(whoDilemma.turnsMissed >= MISSED_TURNS_UNTIL_CHEATING) endDilemma(whoDilemma.partner, msg.sender, TEMPTATION_PAYOUT, SUCKERS_PAYOUT, true, false);
 						    	
 		    	// Let them both know the turn was missed and to go again.
 		    	emit missedTurn(partnerDilemma.partner);
@@ -679,7 +683,7 @@ contract PrisonersDilemmaCode {
 		require(block.number - partnerDilemma.lastTurnBlock >= BLOCKS_UNTIL_AFK);
 		
 		// All is good, give this user their reward
-		endDilemma(msg.sender, whoDilemma.partner, TEMPTATION_PAYOUT, SUCKERS_PAYOUT);
+		endDilemma(msg.sender, whoDilemma.partner, TEMPTATION_PAYOUT, SUCKERS_PAYOUT, false, true);
     }
     
     

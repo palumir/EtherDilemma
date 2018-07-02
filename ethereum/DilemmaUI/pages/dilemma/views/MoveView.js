@@ -21,6 +21,9 @@ class MoveView {
 	createInterface(display) {
 			
 			// Only create it if it doesn't exist yet
-			$("#" + display).append("<div id='moveSelector' class='col-sm-12' ><h3> CHOOSE WISELY... </h3><div class='selectable ally col-sm-5' value=0><img src='/images/ally.png'>Ally</div><div class='col-sm-2' id='centerOr'>or</div><div class='selectable betray col-sm-5' value=1><img src='/images/betray.png'>Betray</div></div>");
+			if($('#moveSelector')[0]==undefined) {
+				$("#" + display).append("<div id='moveSelector' class='col-sm-12' ><div class='selectable ally col-sm-6' value=0></div><div class='selectable betray col-sm-6' value=1></div></div>");
+				$("#" + display).append("<div id='updateBlock' class='col-sm-12' ><div class='title'>Choose Wisely</div><div class='text'><div class='allyUnderline'>ALLY</div> or <div class='betrayUnderline'>BETRAY</div></div></div>");
+			}
 	}
 }

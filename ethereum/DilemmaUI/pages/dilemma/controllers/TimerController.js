@@ -29,21 +29,21 @@ class TimerController {
 	// Send the turn data to blockchain
 	sendTurnData() {
 		
-		// Turn data has been sent
-		setCookie("turnDataSent", "true");
-		
-		// If the user rejects, pop up MetaMask again
-		this.dilemmaUI.pushRejectCallback([function(args) {
-			setCookie("turnDataSent","false");
-		},
-		[this]]);
-		
-		// Get move controller input
-		var move = $("#moveSelector .selected")[0];
-		if(move != undefined) {
-			move = move.slot;
-			if(move == "1") move = true;
-			else move = false;
+		// Only send if it has not been sent before
+		if(getCookie("turnDataSent") != "true") {
+			
+			// Turn data has been sent
+			setCookie("turnDataSent", "true");
+			
+			// Get move controller input
+			var move = $("#moveSelector .selected")[0];
+			
+			if(move == undefined) move = true;
+			else {
+				move = move.slot;
+				if(move == "1") move = true;
+				else move = false;
+			}
 			
 			// Lock the selectors
 			var selectors = $(".selectable");
@@ -57,11 +57,9 @@ class TimerController {
 				function (error, result){
 					if(!error) {
 						
-						// Add a loading image (DOES NOT WORK, TODO)
-						var loader = $('#loader')[0];
-						
-						if(loader == undefined) $("#dilemmaWrapper").append("<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Move submitted. Waiting for response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'></div>");
-						else loader.innerHTML = "<img width='30px' height='30px' src='images/loading.gif'> Move submitted. Waiting for response from Blockchain. <img width='30px' height='30px' src='images/loading.gif'>";
+						// Add a loading image
+						var updateBlock = $('#updateBlock')[0];
+						updateBlock.innerHTML = "<div class='title'>Decision Submitted</div><div class='text'><img width='20px' height='20px' src='images/loading.gif'> Waiting for Blockchain <img width='20px' height='20px' src='images/loading.gif'></div>";
 					}
 					else {
 						console.log(error);
@@ -97,8 +95,9 @@ class TimerController {
 					setCookie("turnDataSent","false");
 					
 					// Set that a turn was missed
-					var loader = $("#loader")[0];
-					if(loader != undefined) loader.innerHTML = "The turn was missed because either you or your opponent did not press Submit on MetaMask quickly enough. Please try again.";
+					var updateBlock = $("#updateBlock")[0];
+					
+					updateBlock.innerHTML = "<div class='title'>Miss!</div><div class='text'>The round has been reset because somebody did not hit Submit quick enough. Many missed turns may result in forfeit.</div>";
 					
 					// Unlock the selectors
 					var selectors = $(".selectable");

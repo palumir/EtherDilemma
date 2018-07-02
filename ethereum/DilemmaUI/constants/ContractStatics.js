@@ -1,48 +1,7 @@
-const STORAGE_CONTRACT_ADDRESS = "0x8ee9724839fdfb770d0491fe99c414fcd166ef27";
-const CODE_CONTRACT_ADDRESS = "0xe5559612eeb9fc8eb8dc4954927fea4a571c4c4d";
+const STORAGE_CONTRACT_ADDRESS = "0x80a64a376b3f73df7669893a96e252dd103b93f7";
+const CODE_CONTRACT_ADDRESS = "0x55edeb086759767e367706d919a4239f84e1ee6c";
 
 const CODE_CONTRACT_ABI = [
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "cancelChallenge",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "hostChallenge",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "init",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_betray",
-				"type": "bool"
-			}
-		],
-		"name": "makeMove",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
 	{
 		"anonymous": false,
 		"inputs": [
@@ -53,42 +12,6 @@ const CODE_CONTRACT_ABI = [
 			}
 		],
 		"name": "missedTurn",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "dilemmaStarted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "challengeCanceled",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "challengeHosted",
 		"type": "event"
 	},
 	{
@@ -113,10 +36,88 @@ const CODE_CONTRACT_ABI = [
 				"indexed": false,
 				"name": "_partnerBetray",
 				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"name": "_youAreAFK",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"name": "_theyAreAFK",
+				"type": "bool"
 			}
 		],
 		"name": "dilemmaFinished",
 		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "dilemmaStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "challengeHosted",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "cancelChallenge",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "challengeCanceled",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "hostChallenge",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_betray",
+				"type": "bool"
+			}
+		],
+		"name": "makeMove",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -222,6 +223,34 @@ const CODE_CONTRACT_ABI = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "getBlocksToDecide",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBlocksUntilAFK",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "getLastTurnBlock",
 		"outputs": [
 			{
@@ -231,6 +260,20 @@ const CODE_CONTRACT_ABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMissedTurnsUntilCheating",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -324,6 +367,46 @@ const STORAGE_CONTRACT_ABI = [
 			{
 				"name": "_toWho",
 				"type": "address"
+			},
+			{
+				"name": "_newStopLoss",
+				"type": "uint256"
+			}
+		],
+		"name": "payoutAndFixStopLoss",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"name": "_toWho",
+				"type": "address"
+			}
+		],
+		"name": "payoutAndIgnoreStopLoss",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"name": "_toWho",
+				"type": "address"
 			}
 		],
 		"name": "payoutEther",
@@ -373,20 +456,6 @@ const STORAGE_CONTRACT_ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_expectedValue",
-				"type": "int256"
-			}
-		],
-		"name": "setExpectedValue",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "_fieldNumber",
 				"type": "uint256"
 			},
@@ -396,28 +465,6 @@ const STORAGE_CONTRACT_ABI = [
 			}
 		],
 		"name": "setGeneralStorage",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_who",
-				"type": "address"
-			},
-			{
-				"name": "_fieldNumber",
-				"type": "uint256"
-			},
-			{
-				"name": "_field",
-				"type": "bool"
-			}
-		],
-		"name": "setPlayerField",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -525,20 +572,6 @@ const STORAGE_CONTRACT_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getExpectedValue",
-		"outputs": [
-			{
-				"name": "",
-				"type": "int256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
 				"name": "_fieldNumber",
@@ -558,21 +591,12 @@ const STORAGE_CONTRACT_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "_who",
-				"type": "address"
-			},
-			{
-				"name": "_fieldNumber",
-				"type": "uint256"
-			}
-		],
-		"name": "getPlayerField",
+		"inputs": [],
+		"name": "getStopLoss",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -602,29 +626,6 @@ const STORAGE_CONTRACT_ABI = [
 		"constant": true,
 		"inputs": [],
 		"name": "isLocked",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "playerHistory",
 		"outputs": [
 			{
 				"name": "",

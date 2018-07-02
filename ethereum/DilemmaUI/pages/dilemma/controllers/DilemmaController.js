@@ -27,7 +27,7 @@
 				if(currentDiv.classList.contains("selectable")) {
 				
 					// First one is selected by default
-					if(y == this.selectedDiv) currentDiv.classList.add("selected");
+					//if(y == this.selectedDiv) currentDiv.classList.add("selected");
 					
 					// Add clickable class 
 					currentDiv.classList.add("clickable");
@@ -39,8 +39,13 @@
 					$(currentDiv).click(function() {
 						
 						if(!this.classList.contains("locked")) {
+							
 							// Set our selected div to be the slot that was clicked
 							that.selectedDiv = this.slot;
+							
+							// Change the update user block to reflect our choice
+							if(that.selectedDiv == 0) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='allyUnderline'>ALLY</div></div></div>");
+							else $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='betrayUnderline'>BETRAY</div></div></div>");
 							
 							// Remove selected CSS from other divs
 							for(var x = 0; x < that.childNodes.length; x++) {
@@ -49,7 +54,9 @@
 							
 							// Set new selected CSS
 							for(x = 0; x < that.childNodes.length; x++) {
-								if(that.childNodes[x].slot == that.selectedDiv) that.childNodes[x].classList.add("selected");
+								if(that.childNodes[x].slot == that.selectedDiv)  {
+									that.childNodes[x].classList.add("selected");
+								}
 							}
 						}
 						
@@ -134,8 +141,28 @@ class DilemmaController {
 	// Create Dilemma view
 	createDilemmaDisplay(display) {
 		
+		// Reset some cookie stuff
+		setCookie("turnDataSent", "false");
+		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
+		
+		// Because particles.js screws up margins, sorry.
+		displayObj.append("<div class='col-sm-12' id='emptySpace'></div>");
+				
+		// Warning (click MetaMask etc)
+		var warningView = new WarningView(dilemmaUI);
+		warningView.createDisplay(display);
+		
+		// Create "Timer" div
+		displayObj.append("<div class='col-sm-12' id='turnTimer'></div>");
+		
+		// Append timer
+		this.timerController = new TimerController(dilemmaUI, this);
+		var timerView = new TimerView(dilemmaUI);
+		this.timerController.setView(timerView);
+		timerView.setController(this.timerController);
+		this.timerController.createDisplay("turnTimer");
 		
 		// Start "Your Move Panel" div
 		displayObj.append("<div id='yourMovePanel'>");
@@ -149,16 +176,6 @@ class DilemmaController {
 		
 		// End the "Your Move Panel" div
 		displayObj.append("</div>");
-
-		// Create "Timer" div
-		displayObj.append("<div class='col-sm-12' id='turnTimer'></div>");
-		
-		// Append timer
-		this.timerController = new TimerController(dilemmaUI, this);
-		var timerView = new TimerView(dilemmaUI);
-		this.timerController.setView(timerView);
-		timerView.setController(this.timerController);
-		this.timerController.createDisplay("turnTimer");
 		
 		// Create "Chat" div
 		displayObj.append("<div class='col-sm-12' id='chatWrapper'></div>");
@@ -188,9 +205,6 @@ class DilemmaController {
 	// Create end view
 	createEndDisplay(display, result) {
 		
-		// Reset some cookie stuff
-		setCookie("turnDataSent", "false");
-		
 		// Remove all backgrounds
 		var particlesjs = $('#particles-js');
 		particlesjs.removeClass("betrayBetray");
@@ -199,7 +213,9 @@ class DilemmaController {
 		particlesjs.removeClass("betrayed");
 		
 		// Set background
-		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) $('#particles-js').addClass("betrayBetray");
+		if(result.args['_youAreAFK']) $('#particles-js').addClass("betrayBetray");
+		else if(result.args['_theyAreAFK']) $('#particles-js').addClass("betrayer");
+		else if(result.args["_whoBetray"] && result.args["_partnerBetray"]) $('#particles-js').addClass("betrayBetray");
 		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("allyAlly");
 		else if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("betrayer");
 		else $('#particles-js').addClass("betrayed");
@@ -209,10 +225,12 @@ class DilemmaController {
 		
 		// Create HTML
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You have both betrayed. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
-		if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You have successfully formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
-		if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
-		if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		if(result.args['_youAreAFK']) displayObj.append("<div id='endScreen'><h3>AFK!</h3>You went AFK and lost by default. You receive the payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
+		else if(result.args['_theyAreAFK']) displayObj.append("<div id='endScreen'><h3>AFK!</h3>Your partner went AFK and you won by default. You receive the payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
+		else if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You have both betrayed. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
+		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You have successfully formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		else if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		else if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
@@ -284,6 +302,47 @@ class DilemmaController {
 	
 		// Module
 		"dilemma");
+		
+		// Watch for challenge hosted
+		watchForEvent(
+		
+		// Dilemma started event
+		that.dilemmaUI.codeContract.challengeHosted(),
+		
+		// Function
+		function(result) {
+			
+			// Current user
+			if(web3.eth.accounts[0] == result.args["_who"]) {
+				
+				that.challengeActive = true;
+				that.changeToPlayButton(display);
+			}
+		},
+	
+		// Module
+		"dilemma");
+		
+		// Watch for challenge cancelled
+		watchForEvent(
+		
+		// Dilemma started event
+		that.dilemmaUI.codeContract.challengeCanceled(),
+		
+		// Function
+		function(result) {
+			
+			// Current user
+			if(web3.eth.accounts[0] == result.args["_who"]) {
+				
+				that.challengeActive = false;
+				that.changeToPlayButton(display);
+			}
+		},
+	
+		// Module
+		"dilemma");
+
 	}
 	
 	// Change bottom text to play button
@@ -293,8 +352,15 @@ class DilemmaController {
 		
 			// Prepend HTML
 			if(this.contractLocked) displayObj[0].outerHTML = "<div id='bottomText'>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.</div>";
-			else if(this.challengeActive) displayObj[0].outerHTML =  "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching For Partner <img width='30px' height='30px' src='images/loading.gif'></div>";
-			else displayObj[0].outerHTML = "<button id='challengeButton'>PLAY</button>";
+			else if(this.challengeActive) { 
+				if(displayObj[0] == undefined) displayObj = $("#loader");
+				displayObj[0].outerHTML =  "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching for partner. <a href='' onclick='return false;' id='cancelSearch'>Click here</a> to cancel. <img width='30px' height='30px' src='images/loading.gif'></div>";
+				$('#cancelSearch').blockChainButtonCancel(this.dilemmaUI.codeContract.cancelChallenge);
+			}
+			else { 
+				if(displayObj[0] == undefined) displayObj = $("#loader");
+				displayObj[0].outerHTML = "<button id='challengeButton'>PLAY</button>";
+			}
 			
 			// Make it a block chain button
 			$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
