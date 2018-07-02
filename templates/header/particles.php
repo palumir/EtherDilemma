@@ -1,7 +1,7 @@
 <div id="particles-js">
 </div>
 <script>
-particlesJS("particles-js", {
+/*particlesJS("particles-js", {
   "particles": {
     "number": {
       "value": 15,
@@ -110,5 +110,5 @@ particlesJS("particles-js", {
     }
   },
   "retina_detect": false
-});
+});*/
 </script>
