@@ -580,6 +580,7 @@ body h3 {
 /* Chat */
 #chatWrapper {
 	display: inline-block;
+	margin-bottom: 15px;
 }
 
 #chatHolder {
