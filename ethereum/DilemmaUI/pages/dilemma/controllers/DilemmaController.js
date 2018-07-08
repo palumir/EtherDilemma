@@ -45,7 +45,8 @@
 							
 							// Change the update user block to reflect our choice
 							if(that.selectedDiv == 0) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='allyUnderline'>ALLY</div></div></div>");
-							else $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='betrayUnderline'>BETRAY</div></div></div>");
+							else if(that.selectedDiv == 1) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='betrayUnderline'>BETRAY</div></div></div>");
+							else $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='callUnderline'>CALL</div></div></div>");
 							
 							// Remove selected CSS from other divs
 							for(var x = 0; x < that.childNodes.length; x++) {
@@ -189,7 +190,7 @@ class DilemmaController {
 	}
 	
 	// Create challenge view
-	createChallengeDisplay(display, metamaskReq) {
+	createChallengeDisplay(display, disabled = false) {
 		
 		// Reset some cookie stuff
 		setCookie("turnDataSent", "false");
@@ -199,38 +200,98 @@ class DilemmaController {
 		var challengeController = new ChallengeController(dilemmaUI);
 		challengeView.setController(challengeController);
 		challengeController.setView(challengeView);
-		challengeController.createDisplay('dilemmaWrapper', metamaskReq);
+		challengeController.createDisplay('dilemmaWrapper', disabled);
 	}
 	
 	// Create end view
 	createEndDisplay(display, result) {
 		
+		// Calculate the payout from the result
+		var payout = result.args["_payout"]/1000000000000000;
+		var title = "";
+		var endMessage = "";
+		
 		// Remove all backgrounds
-		var particlesjs = $('#particles-js');
+		/*var particlesjs = $('#particles-js');
 		particlesjs.removeClass("betrayBetray");
 		particlesjs.removeClass("allyAlly");
 		particlesjs.removeClass("betrayer");
-		particlesjs.removeClass("betrayed");
-		
-		// Set background
-		if(result.args['_youAreAFK']) $('#particles-js').addClass("betrayBetray");
-		else if(result.args['_theyAreAFK']) $('#particles-js').addClass("betrayer");
-		else if(result.args["_whoBetray"] && result.args["_partnerBetray"]) $('#particles-js').addClass("betrayBetray");
-		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("allyAlly");
-		else if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) $('#particles-js').addClass("betrayer");
-		else $('#particles-js').addClass("betrayed");
+		particlesjs.removeClass("betrayed");*/
 		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
 		
 		// Create HTML
+		
+		// You went AFK
+		if(result.args['_youAreAFK']) { 
+			title = "AFK";
+			endMessage = "You went AFK and lost by default!";
+		}
+		
+		// They went AFK
+		else if(result.args['_theyAreAFK']) { 
+			title = "AFK";
+			endMessage = "Your partner went AFK and you won by default!";
+		}
+		
+		// Double Betray
+		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 1) { 
+			title = "Duplicity";
+			endMessage = "You and your opponent have both betrayed!";
+		}
+		
+		// Double Ally
+		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 0) { 
+			title = "Alliance";
+			endMessage = "You have successfully allied your opponent!";
+		}
+		
+		// Double Call
+		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 2) { 
+			title = "Standoff";
+			endMessage = "You and your opponent have both called!";
+		}
+		
+		// You Betray them, they Ally
+		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 0) { 
+			title = "Betrayal";
+			endMessage = "You have successfully betrayed your opponent!";
+		}
+		
+		// You Ally them, they Betray
+		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 1) {
+			title = "Betrayal";
+			endMessage = "You have been betrayed by your opponent!"; 
+		}
+		
+		// You Call them, they Betray
+		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 1) {
+			title = "Revelation";
+			endMessage = "You have exposed your opponent!"; 
+		}
+		
+		// You Call them, they Ally
+		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 0) {
+			title = "Mistrust";
+			endMessage = "You have incorrectly predicted your opponent's betrayal!"; 
+		}
+		
+		// You Ally them, they Call
+		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 2) {
+			title = "Mistrust";
+			endMessage = "Your opponent has  incorrectly predicted your betrayal!"; 
+		}
+		
+		// You Betray them, they Call
+		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 2) {
+			title = "Revelation";
+			endMessage = "You have been exposed by your opponent!"; 
+		}
+		
+		// Edit the display
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		if(result.args['_youAreAFK']) displayObj.append("<div id='endScreen'><h3>AFK!</h3>You went AFK and lost by default. You receive the payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
-		else if(result.args['_theyAreAFK']) displayObj.append("<div id='endScreen'><h3>AFK!</h3>Your partner went AFK and you won by default. You receive the payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
-		else if(result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Duplicity!</h3>You have both betrayed. You receive the punishment payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + "  finney</div>.</div>");
-		else if(!result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Alliance!</h3>You have successfully formed an alliance. Your reward is: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
-		else if(result.args["_whoBetray"] && !result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have successfully betrayed your opponent for a reward of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
-		else if(!result.args["_whoBetray"] && result.args["_partnerBetray"]) displayObj.append("<div id='endScreen'><h3>Betrayal!</h3>You have been betrayed by your opponent. You receive the sucker's payout of: <div class='finney'>" + result.args["_payout"]/1000000000000000 + " finney</div>.</div>");
+		displayObj.append("<div id='endScreen'><h3>" + title + "</h3>" + endMessage + " You have been awarded <div class='finney'>" + payout + " finney</div>.</div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
@@ -367,12 +428,12 @@ class DilemmaController {
 	}
 	
 	// Create display
-	createDisplay(display, watching = false) {
+	createDisplay(display, disabled = false) {
 		
 		var that = this;
 				
 		// Create challenge button, but without having MetaMask loaded
-		that.createChallengeDisplay(display); 
+		that.createChallengeDisplay(display, disabled); 
 		
 		this.waitDilemma(function() {
 			
@@ -386,9 +447,7 @@ class DilemmaController {
 			}
 			
 			// Watch for events
-			if(!watching) {
-				that.watchForEvents(display);
-			}
+			that.watchForEvents(display);
 		},
 		display);
 	}

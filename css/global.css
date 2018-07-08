@@ -452,6 +452,12 @@ body:after{
     background-position: center right;              /* optional, center the image */
 }
 
+.callUnderline {
+	text-decoration: underline;
+    text-decoration-color: green;
+	display: inline;
+}
+
 .betrayUnderline {
 	text-decoration: underline;
     text-decoration-color: #f40000;

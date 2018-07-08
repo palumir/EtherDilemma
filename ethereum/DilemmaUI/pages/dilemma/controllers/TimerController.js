@@ -38,11 +38,9 @@ class TimerController {
 			// Get move controller input
 			var move = $("#moveSelector .selected")[0];
 			
-			if(move == undefined) move = true;
+			if(move == undefined) move = 1; // Defaults to betray
 			else {
-				move = move.slot;
-				if(move == "1") move = true;
-				else move = false;
+				move = parseInt(move.slot);
 			}
 			
 			// Lock the selectors

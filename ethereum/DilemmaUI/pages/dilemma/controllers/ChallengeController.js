@@ -25,10 +25,11 @@ class ChallengeController {
 	}
 	
 	// Create the actual display with id $(display)
-	createDisplay(display, metamaskReq = false) {
+	createDisplay(display, disabledScreen = false) {
 		var that = this;
 
 		// Create challenge button, but without having MetaMask loaded
-		that.view.createChallengeButton(that.DILEMMA_WRAPPER, true);
+		if(!disabledScreen) that.view.createChallengeButton(that.DILEMMA_WRAPPER);
+		else that.view.createDisabledScreen(that.DILEMMA_WRAPPER)
 	}
 }

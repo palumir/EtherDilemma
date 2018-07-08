@@ -1,6 +1,6 @@
-const STORAGE_CONTRACT_ADDRESS = "0x02c831298b0c8a702af9913732fffb6fe8f15ccd";
+const STORAGE_CONTRACT_ADDRESS = "0x92768a06878e4482cb4c1d6f681b5f92867fe88b";
 /* 0x80a64a376b3f73df7669893a96e252dd103b93f7 */
-const CODE_CONTRACT_ADDRESS = "0x1bc878dd1f28274ea358ad055b9dbf90a0b3a79a";
+const CODE_CONTRACT_ADDRESS = "0xac55a51ea7010edc1d90a485bff7c9ea3c3ce41a";
 /* 0x55edeb086759767e367706d919a4239f84e1ee6c */
 
 const CODE_CONTRACT_ABI = [
@@ -14,6 +14,27 @@ const CODE_CONTRACT_ABI = [
 			}
 		],
 		"name": "missedTurn",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "cancelChallenge",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "challengeHosted",
 		"type": "event"
 	},
 	{
@@ -31,13 +52,13 @@ const CODE_CONTRACT_ABI = [
 			},
 			{
 				"indexed": false,
-				"name": "_whoBetray",
-				"type": "bool"
+				"name": "_whoMove",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "_partnerBetray",
-				"type": "bool"
+				"name": "_partnerMove",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -74,29 +95,8 @@ const CODE_CONTRACT_ABI = [
 				"type": "address"
 			}
 		],
-		"name": "challengeHosted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
 		"name": "challengeCanceled",
 		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "cancelChallenge",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"constant": false,
@@ -111,8 +111,8 @@ const CODE_CONTRACT_ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_betray",
-				"type": "bool"
+				"name": "_move",
+				"type": "uint256"
 			}
 		],
 		"name": "makeMove",
@@ -197,11 +197,34 @@ const CODE_CONTRACT_ABI = [
 				"type": "uint256"
 			},
 			{
-				"name": "betray",
-				"type": "bool"
+				"name": "move",
+				"type": "uint256"
 			},
 			{
 				"name": "turnsMissed",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "yourMove",
+				"type": "uint256"
+			},
+			{
+				"name": "theirMove",
+				"type": "uint256"
+			}
+		],
+		"name": "GET_PAYOUT",
+		"outputs": [
+			{
+				"name": "",
 				"type": "uint256"
 			}
 		],

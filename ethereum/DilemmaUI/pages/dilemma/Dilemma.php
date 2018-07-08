@@ -25,7 +25,7 @@ class Dilemma {
 		echo   "<script>
 				// Load global dilemma blockchain stuff
 				var dilemmaController = new DilemmaController(dilemmaUI);
-				dilemmaController.createDisplay('dilemmaWrapper');
+				dilemmaController.createDisplay('dilemmaWrapper', true); // Disabled, for now
 				</script>";
 
 		
