@@ -82,23 +82,23 @@
 	z-index: 100;
 }
 
-#particles-js.allyAlly canvas {
-	background: #005266;
+#particles-js.blue {
+	background-color: #005266;
 	transition: background 1.0s;
 }
 
-#particles-js.betrayed canvas {
-	background: #600000;
+#particles-js.red {
+	background-color: #600000;
 	transition: background 1.0s;
 }
 
-#particles-js.betrayer canvas {
-	background: #009926;
+#particles-js.green {
+	background-color: #009933;
 	transition: background 1.0s;
 }
 
-#particles-js.betrayBetray canvas {
-	background: #600000;
+#particles-js.yellow {
+	background-color: #cccc00;
 	transition: background 1.0s;
 }
 

@@ -218,75 +218,88 @@ class DilemmaController {
 		particlesjs.removeClass("betrayer");
 		particlesjs.removeClass("betrayed");*/
 		
+		// Change the background color
+		var background = $('#particles-js');
+		background.removeClass();
+		
 		// Acquire display JQuery object
 		var displayObj = $("#" + display);
-		
-		// Create HTML
 		
 		// You went AFK
 		if(result.args['_youAreAFK']) { 
 			title = "AFK";
 			endMessage = "You went AFK and lost by default!";
+			background.addClass("red");
 		}
 		
 		// They went AFK
 		else if(result.args['_theyAreAFK']) { 
 			title = "AFK";
 			endMessage = "Your partner went AFK and you won by default!";
+			background.addClass("green");
 		}
 		
 		// Double Betray
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 1) { 
 			title = "Duplicity";
 			endMessage = "You and your opponent have both betrayed!";
+			background.addClass("red");
 		}
 		
 		// Double Ally
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 0) { 
 			title = "Alliance";
 			endMessage = "You have successfully allied your opponent!";
+			background.addClass("blue");
 		}
 		
 		// Double Call
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 2) { 
 			title = "Standoff";
 			endMessage = "You and your opponent have both called!";
+			background.addClass("yellow");
 		}
 		
 		// You Betray them, they Ally
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 0) { 
 			title = "Betrayal";
 			endMessage = "You have successfully betrayed your opponent!";
+			background.addClass("green");
 		}
 		
 		// You Ally them, they Betray
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 1) {
 			title = "Betrayal";
 			endMessage = "You have been betrayed by your opponent!"; 
+			background.addClass("red");
 		}
 		
 		// You Call them, they Betray
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 1) {
 			title = "Revelation";
 			endMessage = "You have exposed your opponent!"; 
+			background.addClass("green");
 		}
 		
 		// You Call them, they Ally
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 0) {
 			title = "Mistrust";
 			endMessage = "You have incorrectly predicted your opponent's betrayal!"; 
+			background.addClass("red");
 		}
 		
 		// You Ally them, they Call
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 2) {
 			title = "Mistrust";
-			endMessage = "Your opponent has  incorrectly predicted your betrayal!"; 
+			endMessage = "Your opponent has incorrectly predicted your betrayal!"; 
+			background.addClass("yellow");
 		}
 		
 		// You Betray them, they Call
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 2) {
 			title = "Revelation";
 			endMessage = "You have been exposed by your opponent!"; 
+			background.addClass("red");
 		}
 		
 		// Edit the display
