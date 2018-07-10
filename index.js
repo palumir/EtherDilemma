@@ -12,7 +12,7 @@ io.on('connection', function(socket){
 	var address;
 	var partner;
 	
-	socket.on('chat message', function(msg, address){
+	socket.on('chat message', function(address, msg){
 		
 		// Emit to partner
 		io.emit('chat message', address, msg);
