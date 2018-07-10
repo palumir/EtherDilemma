@@ -595,6 +595,11 @@ body h3 {
 	margin-top: 25px;
 }
 
+#sendMessage {
+	margin-top: 10px;
+    padding: 3px;
+}
+
 #chatWrapper #messages { 
 	padding: 5px; 
 	background: #ddd; 

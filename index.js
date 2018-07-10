@@ -9,13 +9,10 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	
-	var address;
-	var partner;
-	
 	socket.on('chat message', function(address, name, msg){
 		
 		// Emit to partner
-		io.emit('chat message', address, name, msg);
+		io.emit('chat message', address.replace(/<(?:.|\n)*?>/gm, ''), name.replace(/<(?:.|\n)*?>/gm, ''), msg.replace(/<(?:.|\n)*?>/gm, ''));
 	});
 	
 	

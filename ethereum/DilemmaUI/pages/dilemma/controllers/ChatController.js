@@ -39,9 +39,14 @@ class ChatController {
 			// What happens when we submit the chat form
 			$('form').submit(function() {
 				
+				if($('#m').val()=="") return false;
+				
 				// Set name
 				if(!nameSet) {
-					name = $('#m').val();
+					console.log("farter");
+					var input = $('#m');
+					name = input.val();
+					$('#sendMessage')[0].innerHTML = "Send Message";
 					nameSet = true;
 				}
 				
@@ -56,9 +61,21 @@ class ChatController {
 			// What happens when we receive a chat message
 			socket.on('chat message', function(address, name, msg){
 				
+				if(msg=="") return; 
+				
 				// If it's a relevant address sending the message
 				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
-					$('#messages').append($('<li>').text(name + ": " +msg));
+					var content = $('#messages');
+					
+					// Get class depending on whose address
+					var classType = "betray";
+					if(address == web3.eth.accounts[0]) classType = "ally";
+					
+					// Append message
+					content.append($('<li>').html("<div class=" + classType + ">" + name + "</div>" + ": " + msg));
+					
+					// Make scrollbar go up
+					content[0].scrollTop = content[0].scrollHeight;
 				}
 			});
 			
@@ -171,7 +188,6 @@ class ChatController {
 						 + (dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours()) + ':'
 						 + (dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes())
 						 + ': ' + message + '</p>');
-					content[0].scrollTop = content[0].scrollHeight;
 				}
 			}
 		});*/
