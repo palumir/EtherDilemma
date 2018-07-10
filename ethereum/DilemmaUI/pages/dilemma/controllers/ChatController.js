@@ -25,20 +25,29 @@ class ChatController {
 	// Run JS for chat
 	runChat() {
 		
-		console.log("RUN CHAT");
-		
 		var that = this;
 		
 		  $(function () {
+			  
+			// Open socket
 			var socket = io.connect('http://etherdilemma.io:1337');
+			
+			// What happens when we submit the chat form
 			$('form').submit(function(){
-			  socket.emit('chat message', $('#m').val());
-			  $('#m').val('');
-			  return false;
+				  socket.emit('chat message', web3.eth.accounts[0], $('#m').val());
+				  $('#m').val('');
+				  return false;
 			});
-			socket.on('chat message', function(msg){
-			  $('#messages').append($('<li>').text(msg));
+			
+			// What happens when we receive a chat message
+			socket.on('chat message', function(address, msg){
+				
+				// If it's a relevant address sending the message
+				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
+					$('#messages').append($('<li>').text(msg));
+				}
 			});
+			
 		  });
 		
 		/*$(function () {
