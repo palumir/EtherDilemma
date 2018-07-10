@@ -30,7 +30,7 @@ class ChatController {
 		var that = this;
 		
 		  $(function () {
-			var socket = io();
+			var socket = io.connect('http://localhost:1337');
 			$('form').submit(function(){
 			  socket.emit('chat message', $('#m').val());
 			  $('#m').val('');
