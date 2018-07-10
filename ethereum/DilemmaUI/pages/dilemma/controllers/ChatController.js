@@ -30,15 +30,13 @@ class ChatController {
 		var that = this;
 		
 		  $(function () {
-			var socket = io();
+			var socket = io.connect('http://etherdilemma.io:1337');
 			$('form').submit(function(){
-			  console.log("Message sent:" + $('#m').val());
 			  socket.emit('chat message', $('#m').val());
 			  $('#m').val('');
 			  return false;
 			});
 			socket.on('chat message', function(msg){
-				console.log("Message received:" + msg);
 			  $('#messages').append($('<li>').text(msg));
 			});
 		  });
