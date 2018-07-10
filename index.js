@@ -11,13 +11,21 @@ io.on('connection', function(socket){
 	
 	socket.on('chat message', function(address, name, msg){
 		
+		// Strip HTML
+		address = address.replace(/<(?:.|\n)*?>/gm, '');
+		name = name.replace(/<(?:.|\n)*?>/gm, '');
+		msg = msg.replace(/<(?:.|\n)*?>/gm, '');
+		
+		// Log the message
+		console.log('Chat Message { from: ' + address + ', name: ' + name + ', msg: ' + msg + ' }');
+		
 		// Emit to partner
-		io.emit('chat message', address.replace(/<(?:.|\n)*?>/gm, ''), name.replace(/<(?:.|\n)*?>/gm, ''), msg.replace(/<(?:.|\n)*?>/gm, ''));
+		io.emit('chat message', address, name, msg);
 	});
 	
 	
 });
 
 http.listen(port, function(){
-	console.log('listening on *:' + port);
+	console.log('Listening on port: ' + port);
 });

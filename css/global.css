@@ -607,8 +607,12 @@ body h3 {
 	overflow-y: scroll;
 	border: 1px solid #CCC; 
 	margin-top:10px; 
-	height: 160px; 
+	height: 140px; 
 	color: black;
+}
+
+#chatWrapper form {
+	margin-bottom: 0px;
 }
 		   
 #chatWrapper #m { 
