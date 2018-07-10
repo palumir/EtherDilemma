@@ -29,7 +29,19 @@ class ChatController {
 		
 		var that = this;
 		
-		$(function () {
+		  $(function () {
+			var socket = io();
+			$('form').submit(function(){
+			  socket.emit('chat message', $('#m').val());
+			  $('#m').val('');
+			  return false;
+			});
+			socket.on('chat message', function(msg){
+			  $('#messages').append($('<li>').text(msg));
+			});
+		  });
+		
+		/*$(function () {
 			"use strict";
 
 			// for better performance - to avoid searching in DOM
@@ -88,9 +100,6 @@ class ChatController {
 				}
 			};
 
-			/**
-			 * Send mesage when user presses Enter key
-			 */
 			input.keydown(function(e) {
 				if (e.keyCode === 13) {
 					var msg = $(this).val();
@@ -114,11 +123,6 @@ class ChatController {
 				}
 			});
 
-			/**
-			 * This method is optional. If the server wasn't able to respond to the
-			 * in 3 seconds then show some error message to notify the user that
-			 * something is wrong.
-			 */
 			setInterval(function() {
 				if (connection.readyState !== 1) {
 					status.text('Error');
@@ -127,9 +131,6 @@ class ChatController {
 				}
 			}, 3000);
 
-			/**
-			 * Add message to the chat window
-			 */
 			function addMessage(author, message, address, dt) {
 				
 				// Only show messages from ourself or our partner
@@ -150,7 +151,7 @@ class ChatController {
 					content[0].scrollTop = content[0].scrollHeight;
 				}
 			}
-		});
+		});*/
 	}
 	
 	// Create the actual display with id $(display)

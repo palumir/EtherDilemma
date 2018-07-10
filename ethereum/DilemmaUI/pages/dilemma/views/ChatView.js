@@ -17,7 +17,7 @@ class ChatView {
 	// Append HTML to displayDiv
 	appendHTML() {
 		
-		this.controller.displayDiv.append('<div id="chatHolder" class="col-sm-6"><h3 class="col-sm-12"><img src="images/negotiation.png"></h3><div class="col-sm-12" id="content"></div><div><span class="col-sm-4" id="status">Connecting...</span><input class="col-sm-8" type="text" id="input" disabled="disabled" /></div></div>');
+		this.controller.displayDiv.append('<div id="chatHolder" class="col-sm-6"><h3 class="col-sm-12"><img src="images/negotiation.png"></h3><ul id="messages"></ul><form action=""><input id="m" autocomplete="off" /><button>Send</button></form></div>');
 	}
 	
 }
