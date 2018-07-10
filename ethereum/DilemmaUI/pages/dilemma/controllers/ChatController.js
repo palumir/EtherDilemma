@@ -32,23 +32,33 @@ class ChatController {
 			// Open socket
 			var socket = io.connect('http://etherdilemma.io:1337');
 			
+			// Name
+			var nameSet = false;
+			var name = "";
+			
 			// What happens when we submit the chat form
-			$('form').submit(function(){
-				  socket.emit('chat message', web3.eth.accounts[0], $('#m').val());
-				  $('#m').val('');
-				  return false;
+			$('form').submit(function() {
+				
+				// Set name
+				if(!nameSet) {
+					name = $('#m').val();
+					nameSet = true;
+				}
+				
+				// Otherwise, send message
+				else {
+					socket.emit('chat message', web3.eth.accounts[0], name, $('#m').val());
+				}
+			    $('#m').val('');
+			    return false;
 			});
 			
 			// What happens when we receive a chat message
-			socket.on('chat message', function(address, msg){
-				
-									console.log(address);
+			socket.on('chat message', function(address, name, msg){
 				
 				// If it's a relevant address sending the message
 				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
-					console.log(web3.eth.accounts[0]);
-					console.log(that.dilemmaController.partnerAddress);
-					$('#messages').append($('<li>').text(msg));
+					$('#messages').append($('<li>').text(name + ": " +msg));
 				}
 			});
 			

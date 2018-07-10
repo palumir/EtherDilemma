@@ -12,10 +12,10 @@ io.on('connection', function(socket){
 	var address;
 	var partner;
 	
-	socket.on('chat message', function(address, msg){
+	socket.on('chat message', function(address, name, msg){
 		
 		// Emit to partner
-		io.emit('chat message', address, msg);
+		io.emit('chat message', address, name, msg);
 	});
 	
 	
