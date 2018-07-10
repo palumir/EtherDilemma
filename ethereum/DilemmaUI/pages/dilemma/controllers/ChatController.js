@@ -32,7 +32,7 @@ class ChatController {
 		  $(function () {
 			var socket = io();
 			$('form').submit(function(){
-				console.log("Message sent:" + msg);
+			  console.log("Message sent:" + $('#m').val());
 			  socket.emit('chat message', $('#m').val());
 			  $('#m').val('');
 			  return false;
