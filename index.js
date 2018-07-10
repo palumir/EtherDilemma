@@ -13,6 +13,4 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(1337, function(){
-  console.log('listening on *:1337');
-});
+http.listen(8080, "127.0.0.1");
