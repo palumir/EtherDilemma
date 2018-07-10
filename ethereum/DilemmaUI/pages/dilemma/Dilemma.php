@@ -7,8 +7,7 @@ class Dilemma {
 	function __construct() {
 		
 		// Include the Javascript required
-		echo   "<script src='/socket.io/socket.io.js'></script>
-				<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/ChallengeController.js'></script>
+		echo   "<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/ChallengeController.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/views/ChallengeView.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/DilemmaController.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/TimerController.js'></script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 	<?php include('templates/head/head.php'); ?>
-
+	<script src='/socket.io/socket.io.js'></script>
 	<body>
 
 	<div class="container-full">
