@@ -44,6 +44,9 @@ class ChatController {
 				
 				// If it's a relevant address sending the message
 				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
+					console.log(address);
+					console.log(web3.eth.accounts[0]);
+					console.log(that.dilemmaController.partnerAddress);
 					$('#messages').append($('<li>').text(msg));
 				}
 			});
