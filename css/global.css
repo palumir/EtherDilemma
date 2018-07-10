@@ -595,7 +595,7 @@ body h3 {
 	margin-top: 25px;
 }
 
-#chatWrapper #content { 
+#chatWrapper #messages { 
 	padding: 5px; 
 	background: #ddd; 
 	border-radius: 5px; 
@@ -606,7 +606,7 @@ body h3 {
 	color: black;
 }
 		   
-#chatWrapper #input { 
+#chatWrapper #m { 
 	border-radius: 2px; 
 	border: 1px solid #ccc;
 	margin-top: 10px; 
