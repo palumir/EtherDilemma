@@ -7,7 +7,7 @@ class Dilemma {
 	function __construct() {
 		
 		// Include the Javascript required
-		echo   "<script src='http://localhost:1337/socket.io/socket.io.js'></script>
+		echo   "<script src='http://etherdilemma.io:1337/socket.io/socket.io.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/ChallengeController.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/views/ChallengeView.js'></script>
 				<script src='../../../ethereum/DilemmaUI/pages/dilemma/controllers/DilemmaController.js'></script>
