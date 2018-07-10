@@ -16,11 +16,11 @@ class ChallengeView {
 	
 	// Create disabled screen
 	createDisabledScreen(display) {
-			var displayObj = $("#" + display);
-			displayObj.empty();
-			displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-			displayObj.append("<div id='trusted'>The blockchain can be trusted... can you?</div>");
-			displayObj.append("<br><div class='center'>Thank you to everybody who played the beta!<br><br>We appreciate your interest and your time. <br><br>Please direct any inquiries to EtherDilemma@gmail.com or join us on Discord at <a href='https://discord.gg/sB8rVns'>https://discord.gg/sB8rVns</a></div>");
+		var displayObj = $("#" + display);
+		displayObj.empty();
+		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
+		displayObj.append("<div id='trusted'>The blockchain can be trusted... can you?</div>");
+		displayObj.append("<br><div class='center'>Thank you to everybody who played the beta!<br><br>We appreciate your interest and your time. <br><br>Please direct any inquiries to EtherDilemma@gmail.com or join us on Discord at <a href='https://discord.gg/sB8rVns'>https://discord.gg/sB8rVns</a></div>");
 	}
 	
 	// Create challenge button
