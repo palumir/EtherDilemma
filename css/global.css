@@ -450,11 +450,11 @@ img.etherDilemma {
 /* preload these images */
 body:after{
  display:none; 
- content: url(../images/3-buttons-no-click-no-icons) url(../images/3-button-ally-clicked-no-icon) url(../images/3-button-betray-clicked-no-icon) url(../images/3-button-call-clicked-no-icon);
+ content: url(../images/3-buttons-no-click-no-icons.png) url(../images/3-button-ally-clicked-no-icon.png) url(../images/3-button-betray-clicked-no-icon.png) url(../images/3-button-call-clicked-no-icon.png);
 }
 
 #moveSelector {
-    background-image: url(../images/3-buttons-no-click-no-icons);
+    background-image: url(../images/3-buttons-no-click-no-icons.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -467,15 +467,15 @@ body:after{
 }
 
 #moveSelector.allySelected {
-	background-image: url(../images/3-button-ally-clicked-no-icon);
+	background-image: url(../images/3-button-ally-clicked-no-icon.png);
 }
 
 #moveSelector.betraySelected {
-	background-image: url(../images/3-button-betray-clicked-no-icon);
+	background-image: url(../images/3-button-betray-clicked-no-icon.png);
 }
 
 #moveSelector.callSelected {
-	background-image: url(../images/3-button-call-clicked-no-icon);
+	background-image: url(../images/3-button-call-clicked-no-icon.png);
 }
 
 .callUnderline {
