@@ -448,7 +448,11 @@ img.etherDilemma {
 }
 
 #updateBlock .title {
-	font-size: 17pt;
+	font-size: 16pt;
+}
+
+#updateBlock .text {
+	font-size: 20pt;
 }
 
 #updateBlock img {
@@ -526,6 +530,19 @@ body h3 {
 
 #endScreen {
 	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#endScreen #endMessage {
+	font-size: 40pt;
+	margin-bottom: 10px;
+	border-top: 3px solid white;
+	padding-top: 25px;
+}
+
+#endScreen #awarded {
+	font-size: 32pt;
 }
 
 #homepageReturn {
@@ -608,6 +625,8 @@ body h3 {
 #endScreen h3 {
 	font-size: 75pt;
 	padding-top: 40px;
+	padding-bottom: 25px;
+	text-transform: uppercase;
 }
 
 #endScreen {
@@ -647,7 +666,7 @@ body h3 {
 	overflow-y: scroll;
 	border: 1px solid #CCC; 
 	margin-top:10px; 
-	height: 140px; 
+	height: 125px; 
 	color: black;
 }
 

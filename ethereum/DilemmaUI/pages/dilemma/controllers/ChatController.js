@@ -32,6 +32,9 @@ class ChatController {
 			// Open socket
 			var socket = io.connect('http://etherdilemma.io:1337');
 			
+			// Add the socket to the dilemma controller
+			that.dilemmaController.socket = socket;
+			
 			// Name
 			var nameSet = false;
 			var name = "";

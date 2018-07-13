@@ -88,6 +88,7 @@ class DilemmaController {
 	// $partnerAddress = partner address for the dilemma
 	// $dilemmaActive = whether or not the dilemma is actually active
 	// $storageLocked = whether the storage contract is locked. If locked, you cannot play.
+	// $socket = the socket that is used for chat
 	
 	// Constructor
 	constructor(dilemmaUI) {
@@ -215,6 +216,9 @@ class DilemmaController {
 	// Create end view
 	createEndDisplay(display, result) {
 		
+		// Disconnect the socket
+		if(this.socket != undefined) this.socket.disconnect();
+		
 		// Calculate the payout from the result
 		var payout = result.args["_payout"]/1000000000000000;
 		var title = "";
@@ -313,7 +317,7 @@ class DilemmaController {
 		
 		// Edit the display
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		displayObj.append("<div id='endScreen'><h3>" + title + "</h3>" + endMessage + " <br>You have been awarded <div class='finney'>" + payout + " finney</div>.</div>");
+		displayObj.append("<div id='endScreen' class='col-sm-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
