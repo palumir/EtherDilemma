@@ -301,7 +301,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 2) {
 			title = "Mistrust";
 			endMessage = "Your opponent has incorrectly predicted your betrayal!"; 
-			background.addClass("green");
+			background.addClass("blue");
 		}
 		
 		// You Betray them, they Call
@@ -313,7 +313,7 @@ class DilemmaController {
 		
 		// Edit the display
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		displayObj.append("<div id='endScreen'><h3>" + title + "</h3>" + endMessage + " You have been awarded <div class='finney'>" + payout + " finney</div>.</div>");
+		displayObj.append("<div id='endScreen'><h3>" + title + "</h3>" + endMessage + " <br>You have been awarded <div class='finney'>" + payout + " finney</div>.</div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
