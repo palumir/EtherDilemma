@@ -97,8 +97,8 @@
 	transition: background 1.0s;
 }
 
-#particles-js.yellow {
-	background-color: #cccc00;
+#particles-js.purple {
+	background-color: #9e00d2;
 	transition: background 1.0s;
 }
 
@@ -343,8 +343,52 @@ img.etherDilemma {
 	margin-top: -16px;
 }
 
-#yourMovePanel .betray, #yourMovePanel .ally {
-	text-transform: uppercase;
+#yourMovePanel .ally {
+	position: absolute;
+    height: 78px;
+    left: 25px;
+    top: 89px;
+	width: 150px;
+    background-image: url(../images/Ally-icon-plain.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#yourMovePanel .ally:hover {
+	background-image: url(../images/Ally-icon-hover.png);
+}
+
+#yourMovePanel .betray {
+    position: absolute;
+    height: 98px;
+    top: 70px;
+    right: 45px;
+	width: 150px;
+    background-image: url(../images/Betray-icon-plain.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#yourMovePanel .betray:hover {
+	background-image: url(../images/Betray-icon-hover.png);
+}
+
+#yourMovePanel .call {
+	position: absolute;
+    height: 77px;
+    bottom: 27px;
+    right: 167px;
+	width: 150px;
+    background-image: url(../images/Call-icon-plain.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#yourMovePanel .call:hover {
+	background-image: url(../images/Call-icon-hover.png);
 }
 
 .betray img, .ally img {
@@ -406,55 +450,37 @@ img.etherDilemma {
 /* preload these images */
 body:after{
  display:none; 
- content: url(../images/betrayUnselected.png) url(../images/betrayHover.png) url(../images/betraySelected.png) url(../images/allyUnselected.png) url(../images/allyHover.png) url(../images/allySelected.png);
+ content: url(../images/3-buttons-no-click-no-icons) url(../images/3-button-ally-clicked-no-icon) url(../images/3-button-betray-clicked-no-icon) url(../images/3-button-call-clicked-no-icon);
 }
 
-.selectable.betray, .selectable.betray.locked:hover {
-	background-image:    url(../images/betrayUnselected.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center left;              /* optional, center the image */
+#moveSelector {
+    background-image: url(../images/3-buttons-no-click-no-icons);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 462px;
+    height: 440px;
+    position: relative;
 }
 
-.selectable.betray:hover {
-	background-image:    url(../images/betrayHover.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center left;              /* optional, center the image */
+#moveSelector.allySelected {
+	background-image: url(../images/3-button-ally-clicked-no-icon);
 }
 
-.selectable.betray.selected, .selectable.betray.locked.selected:hover {
-	background-image:    url(../images/betraySelected.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center left;              /* optional, center the image */
+#moveSelector.betraySelected {
+	background-image: url(../images/3-button-betray-clicked-no-icon);
 }
 
-.selectable.ally, .selectable.ally.locked:hover {
-	background-image:    url(../images/allyUnselected.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center right;              /* optional, center the image */
-}
-
-.selectable.ally:hover {
-	background-image:    url(../images/allyHover.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center right;              /* optional, center the image */
-}
-
-
-.selectable.ally.selected, .selectable.ally.locked.selected:hover {
-	background-image:    url(../images/allySelected.png);
-    background-size:     contain;                      /* <------ */
-    background-repeat:   no-repeat;
-    background-position: center right;              /* optional, center the image */
+#moveSelector.callSelected {
+	background-image: url(../images/3-button-call-clicked-no-icon);
 }
 
 .callUnderline {
 	text-decoration: underline;
-    text-decoration-color: green;
+    text-decoration-color: #9e00d2;
 	display: inline;
 }
 
@@ -542,10 +568,6 @@ body h3 {
 	font-size: 19pt;
 }
 
-#moveSelector {
-	display: inline-block;
-}
-
 /* Warning */
 @media screen and (min-width: 992px) {
 	#metaMaskWarning {
@@ -596,14 +618,19 @@ body h3 {
 }
 
 #sendMessage {
-	margin-top: 10px;
-    padding: 3px;
+    margin-top: 10px;
+    padding: 5px;
+	border-radius: 5px;
+    color: white;
+	background: linear-gradient(to top, rgb(0, 102, 0) 43%, rgb(0, 153, 38) 56%);
+	border: 1px black solid;
+	cursor: pointer;
 }
 
 #chatWrapper #messages { 
 	padding: 5px; 
 	background: #ddd; 
-	border-radius: 5px; 
+	border-radius: 2px; 
 	overflow-y: scroll;
 	border: 1px solid #CCC; 
 	margin-top:10px; 

@@ -48,6 +48,15 @@
 							else if(that.selectedDiv == 1) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='betrayUnderline'>BETRAY</div></div></div>");
 							else $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='callUnderline'>CALL</div></div></div>");
 							
+							// Add class to the moveSelector
+							var moveSelector = $('#moveSelector');
+							moveSelector.removeClass('betraySelected');
+							moveSelector.removeClass('callSelected');
+							moveSelector.removeClass('allySelected');
+							if(that.selectedDiv == 0) moveSelector.addClass('allySelected');
+							if(that.selectedDiv == 1) moveSelector.addClass('betraySelected');
+							if(that.selectedDiv == 2) moveSelector.addClass('callSelected');
+							
 							// Remove selected CSS from other divs
 							for(var x = 0; x < that.childNodes.length; x++) {
 								that.childNodes[x].classList.remove("selected");
@@ -166,7 +175,7 @@ class DilemmaController {
 		this.timerController.createDisplay("turnTimer");
 		
 		// Start "Your Move Panel" div
-		displayObj.append("<div id='yourMovePanel'>");
+		displayObj.append("<div class='col-sm-12' id='yourMovePanel'>");
 		
 		// Display attack selector
 		var moveView = new MoveView(dilemmaUI, this);
@@ -257,7 +266,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 2) { 
 			title = "Standoff";
 			endMessage = "You and your opponent have both called!";
-			background.addClass("yellow");
+			background.addClass("red");
 		}
 		
 		// You Betray them, they Ally
@@ -278,7 +287,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 1) {
 			title = "Revelation";
 			endMessage = "You have exposed your opponent!"; 
-			background.addClass("green");
+			background.addClass("purple");
 		}
 		
 		// You Call them, they Ally
@@ -292,7 +301,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 2) {
 			title = "Mistrust";
 			endMessage = "Your opponent has incorrectly predicted your betrayal!"; 
-			background.addClass("yellow");
+			background.addClass("green");
 		}
 		
 		// You Betray them, they Call
