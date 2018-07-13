@@ -538,11 +538,14 @@ body h3 {
 	font-size: 40pt;
 	margin-bottom: 10px;
 	border-top: 3px solid white;
-	padding-top: 25px;
+	padding-top: 50px;
 }
 
 #endScreen #awarded {
 	font-size: 32pt;
+	margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid white;
 }
 
 #homepageReturn {
@@ -625,7 +628,7 @@ body h3 {
 #endScreen h3 {
 	font-size: 75pt;
 	padding-top: 40px;
-	padding-bottom: 25px;
+	padding-bottom: 50px;
 	text-transform: uppercase;
 }
 

@@ -317,7 +317,7 @@ class DilemmaController {
 		
 		// Edit the display
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		displayObj.append("<div id='endScreen' class='col-sm-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
+		displayObj.append("<div id='endScreen' class='col-sm-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded' class='col-sm-7'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
