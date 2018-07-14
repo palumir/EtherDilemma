@@ -88,7 +88,7 @@ class DilemmaController {
 	// $partnerAddress = partner address for the dilemma
 	// $dilemmaActive = whether or not the dilemma is actually active
 	// $storageLocked = whether the storage contract is locked. If locked, you cannot play.
-	// $socket = the socket that is used for chat
+	// $chatController = the chat controller
 	
 	// Constructor
 	constructor(dilemmaUI) {
@@ -164,6 +164,13 @@ class DilemmaController {
 		// Warning (click MetaMask etc)
 		var warningView = new WarningView(dilemmaUI);
 		warningView.createDisplay(display);
+		
+		// Display attack selector
+		var statsView = new StatsView(dilemmaUI, this);
+		var statsController = new StatsController(dilemmaUI, this);
+		statsView.setController(statsController);
+		statsController.setView(statsView);
+		statsController.createDisplay(display);
 		
 		// Create "Timer" div
 		displayObj.append("<div class='col-sm-12' id='turnTimer'></div>");

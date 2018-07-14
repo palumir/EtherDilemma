@@ -33,7 +33,7 @@ class ChatController {
 			var socket = io.connect('http://etherdilemma.io:1337');
 			
 			// Add the socket to the dilemma controller
-			that.dilemmaController.socket = socket;
+			that.dilemmaController.chatController = that;
 			
 			// Name
 			var nameSet = false;
@@ -42,43 +42,50 @@ class ChatController {
 			// What happens when we submit the chat form
 			$('form').submit(function() {
 				
-				if($('#m').val()=="") return false;
-				
-				// Set name
-				if(!nameSet) {
-					console.log("farter");
-					var input = $('#m');
-					name = input.val();
-					$('#sendMessage')[0].innerHTML = "Send Message";
-					nameSet = true;
+				// Don't show messages twice if the user keeps playing (only allow one chat controller to exist)
+				if(that == that.dilemmaController.chatController) {
+					
+					if($('#m').val()=="") return false;
+					
+					// Set name
+					if(!nameSet) {
+						console.log("farter");
+						var input = $('#m');
+						name = input.val();
+						$('#sendMessage')[0].innerHTML = "Send Message";
+						nameSet = true;
+					}
+					
+					// Otherwise, send message
+					else {
+						socket.emit('chat message', web3.eth.accounts[0], name, $('#m').val());
+					}
+					$('#m').val('');
 				}
-				
-				// Otherwise, send message
-				else {
-					socket.emit('chat message', web3.eth.accounts[0], name, $('#m').val());
-				}
-			    $('#m').val('');
 			    return false;
 			});
 			
 			// What happens when we receive a chat message
 			socket.on('chat message', function(address, name, msg){
 				
-				if(msg=="") return; 
-				
-				// If it's a relevant address sending the message
-				if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
-					var content = $('#messages');
+				// Don't show messages twice if the user keeps playing (only allow one chat controller to exist)
+				if(that == that.dilemmaController.chatController) {
+					if(msg=="") return; 
 					
-					// Get class depending on whose address
-					var classType = "betray";
-					if(address == web3.eth.accounts[0]) classType = "ally";
-					
-					// Append message
-					content.append($('<li>').html("<div class=" + classType + ">" + name + "</div>" + ": " + msg));
-					
-					// Make scrollbar go up
-					content[0].scrollTop = content[0].scrollHeight;
+					// If it's a relevant address sending the message
+					if(address == web3.eth.accounts[0] || address == that.dilemmaController.partnerAddress) {
+						var content = $('#messages');
+						
+						// Get class depending on whose address
+						var classType = "betray";
+						if(address == web3.eth.accounts[0]) classType = "ally";
+						
+						// Append message
+						content.append($('<li>').html("<div class=" + classType + ">" + name + "</div>" + ": " + msg));
+						
+						// Make scrollbar go up
+						content[0].scrollTop = content[0].scrollHeight;
+					}
 				}
 			});
 			

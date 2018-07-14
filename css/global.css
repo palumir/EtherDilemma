@@ -312,7 +312,6 @@ img.etherDilemma {
     width: 200px;
     height: 90px;
     font-size: 40pt;
-    margin-top: 40px;
     border-radius: 10px;
     background: linear-gradient(to top, rgb(0, 102, 0) 43%, rgb(0, 153, 38) 56%);
     border: 1px black solid;
@@ -525,6 +524,7 @@ body h3 {
 
 #loader, #loaderAFK {
 	margin-top: 15px;
+	margin-bottom: 46px;
 	text-align: center;
 }
 
@@ -621,6 +621,23 @@ body h3 {
 #metaMaskWarning .line1 {
 	border-bottom: 1px solid white;
 	margin-top: 10px;
+}
+
+/* Stats */
+@media screen and (min-width: 992px) {
+	#statsView {
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+}
+
+#statsView {
+	border: 1px dotted white;
+    margin: 20px;
+	padding: 20px;
+    background: rgba(0,0,0,0.3);
+	text-align: center;
 }
 
 /* End screen */
