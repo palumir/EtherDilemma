@@ -19,6 +19,6 @@ class StatsView {
 		
 	// Create table w/ styling in $(display) for $(who)
 	createInterface(display) {
-		$("#" + display).append("<div id='statsView'></div>");
+		if($("#statsView")[0] == undefined) $("#" + display).append("<div id='statsView'></div>");
 	}
 }

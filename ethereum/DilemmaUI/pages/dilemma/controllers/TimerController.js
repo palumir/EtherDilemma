@@ -38,7 +38,7 @@ class TimerController {
 			// Get move controller input
 			var move = $("#moveSelector .selected")[0];
 			
-			if(move == undefined) move = 1; // Defaults to betray
+			if(move == undefined) move = 3; // Defaults to miss
 			else {
 				move = parseInt(move.slot);
 			}
@@ -91,6 +91,9 @@ class TimerController {
 				// Reset that the current turn data was not sent
 				if(result.args["_who"] == web3.eth.accounts[0]) {
 					setCookie("turnDataSent","false");
+					
+					// Set the variable that a miss has occurred
+					that.dilemmaController.hasMissed = true;
 					
 					// Set that a turn was missed
 					var updateBlock = $("#updateBlock")[0];

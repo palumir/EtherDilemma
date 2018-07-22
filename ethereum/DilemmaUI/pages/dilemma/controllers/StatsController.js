@@ -47,13 +47,13 @@ class StatsController {
 					if(event.args["_who"] == that.dilemmaController.partnerAddress) {
 						if(event.args["_whoMove"] == 0) allies++;
 						else if(event.args["_whoMove"] == 1) betrays++;
-						else calls++;
+						else if(event.args["_whoMove"] == 2) calls++;
 					}
 				}
 			}
 			
 			// Load the stats and create fancy HTML
-			var statsHTML = "Your partner's history:<br>" + allies + " allies<br>" + betrays + " betrays <br>" + calls + " calls<br>";
+			var statsHTML = "Your opponent's history:<br>" + allies + " allies<br>" + betrays + " betrays <br>" + calls + " calls<br>";
 			
 			// Set the div
 			$("#" + display)[0].innerHTML = statsHTML;

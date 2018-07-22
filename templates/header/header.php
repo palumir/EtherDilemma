@@ -1,2 +1,2 @@
-
-<?php include("particles.php"); ?>
+<div id="background">
+</div>

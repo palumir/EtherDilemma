@@ -42,7 +42,8 @@ class TimerView {
 											
 											// Make result an int
 											result = parseInt(result);
-											var turnTime = result+8; 
+											var turnTime = result+that.controller.dilemmaController.blocksUntilTurn; 
+											if(that.controller.dilemmaController.hasMissed) turnTime = result+that.controller.dilemmaController.blocksUntilTurnAfterMiss; 
 											
 											// Make Metamask pop-up if we are on the right block and we haven't popped up before
 											if(currentBlockNumber >= turnTime 
@@ -70,7 +71,7 @@ class TimerView {
 											that.controller.displayDiv[0].innerHTML += blockView;
 
 											// If we go over 10 blocks, display to report the enemy for AFK, but only once (do not keep resetting this)
-											if(currentBlockNumber > partnerLastTurnBlock + 15 && result > partnerLastTurnBlock && partnerLastTurnBlock != that.partnerLastTurnBlock) { 
+											if(currentBlockNumber > partnerLastTurnBlock + that.controller.dilemmaController.blocksUntilAFK && result > partnerLastTurnBlock && partnerLastTurnBlock != that.partnerLastTurnBlock) { 
 											
 												// Set timestamp
 												that.partnerLastTurnBlock = partnerLastTurnBlock;

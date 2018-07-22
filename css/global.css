@@ -3,8 +3,16 @@
 	font-family: 'Lato', sans-serif;
 }
 
+/* Discord link */
+.discord {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin: 15px;
+}
+
 /* Particles styling */
-.particles-js-canvas-el {
+.background-canvas-el {
 	width: 100%;
 	height: 100%;
 	z-index: -2;
@@ -14,7 +22,7 @@
 	float: left;
 }
 
-#particles-js {
+#background {
 	z-index: -1;
 	position: fixed;
 	width: 100%;
@@ -82,22 +90,22 @@
 	z-index: 100;
 }
 
-#particles-js.blue {
+#background.blue {
 	background-color: #005266;
 	transition: background 1.0s;
 }
 
-#particles-js.red {
+#background.red {
 	background-color: #600000;
 	transition: background 1.0s;
 }
 
-#particles-js.green {
+#background.green {
 	background-color: #009933;
 	transition: background 1.0s;
 }
 
-#particles-js.purple {
+#background.purple {
 	background-color: #9e00d2;
 	transition: background 1.0s;
 }
@@ -358,9 +366,9 @@ img.etherDilemma {
 #yourMovePanel .ally {
 	position: absolute;
     height: 78px;
-    left: 25px;
-    top: 89px;
-	width: 150px;
+    left: 35px;
+    top: 78px;
+    width: 150px;
     background-image: url(../images/Ally-icon-plain.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -372,11 +380,11 @@ img.etherDilemma {
 }
 
 #yourMovePanel .betray {
-    position: absolute;
+	position: absolute;
     height: 98px;
-    top: 70px;
-    right: 45px;
-	width: 150px;
+    top: 64px;
+    right: 31px;
+    width: 150px;
     background-image: url(../images/Betray-icon-plain.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -390,9 +398,9 @@ img.etherDilemma {
 #yourMovePanel .call {
 	position: absolute;
     height: 77px;
-    bottom: 27px;
-    right: 167px;
-	width: 150px;
+    bottom: 26px;
+    right: 156px;
+    width: 150px;
     background-image: url(../images/Call-icon-plain.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -641,6 +649,43 @@ body h3 {
 }
 
 /* End screen */
+@media screen and (min-width: 992px) {
+	#yourMove {
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+	#theirMove {
+		position: fixed;
+		top: 0;
+		right: 0;
+	}
+}
+
+#yourMove img, #theirMove img {
+	width: 100px;
+	margin-top: 20px;
+}
+
+#yourMove {
+    border: 1px dotted white;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+	min-height: 205px;
+	min-width: 300px;
+}
+
+#theirMove {
+    border: 1px dotted white;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+	min-height: 205px;
+	min-width: 300px;
+}
 
 #endScreen h3 {
 	font-size: 75pt;
@@ -709,6 +754,12 @@ body h3 {
 	color: white;
 	padding-left: 0px;
 	padding-top: 13px;
+}
+
+/* Tutorail */
+.tutorial {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* FAQ */
@@ -792,8 +843,8 @@ p.ui-accordion-content {
 	width: 100%;
 	text-align: center;
 	color: white;
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	margin-top: 30px;
 	border-top: 1px dotted white;
 }

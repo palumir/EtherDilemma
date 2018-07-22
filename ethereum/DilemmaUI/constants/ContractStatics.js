@@ -1,6 +1,6 @@
 const STORAGE_CONTRACT_ADDRESS = "0xf77715d28fe7821377f75695f27433fd187c78dd";
 /* 0x80a64a376b3f73df7669893a96e252dd103b93f7 */
-const CODE_CONTRACT_ADDRESS = "0x64c875c2bb1b89980094a2d9c6399df1d4670083";
+const CODE_CONTRACT_ADDRESS = "0x4904ea0cf271cba60477871c7591820d3d8776a8";
 /* 0x55edeb086759767e367706d919a4239f84e1ee6c */
 
 const CODE_CONTRACT_ABI = [
@@ -24,6 +24,53 @@ const CODE_CONTRACT_ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "hostChallenge",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_move",
+				"type": "uint256"
+			}
+		],
+		"name": "makeMove",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "dilemmaStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "challengeCanceled",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -73,53 +120,6 @@ const CODE_CONTRACT_ABI = [
 		],
 		"name": "dilemmaFinished",
 		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "dilemmaStarted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "challengeCanceled",
-		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "hostChallenge",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_move",
-				"type": "uint256"
-			}
-		],
-		"name": "makeMove",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"constant": false,
@@ -249,6 +249,20 @@ const CODE_CONTRACT_ABI = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "getBlocksToDecideAfterMiss",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "getBlocksUntilAFK",
 		"outputs": [
 			{
@@ -310,6 +324,25 @@ const CODE_CONTRACT_ABI = [
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "hasMissed",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,

@@ -46,7 +46,7 @@
 							// Change the update user block to reflect our choice
 							if(that.selectedDiv == 0) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='allyUnderline'>ALLY</div></div></div>");
 							else if(that.selectedDiv == 1) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='betrayUnderline'>BETRAY</div></div></div>");
-							else $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='callUnderline'>CALL</div></div></div>");
+							else if(that.selectedDiv == 2) $('#updateBlock').html("<div id='updateBlock' class='col-sm-12' ><div class='title'>You have selected:</div><div class='text'><div class='callUnderline'>CALL</div></div></div>");
 							
 							// Add class to the moveSelector
 							var moveSelector = $('#moveSelector');
@@ -88,6 +88,10 @@ class DilemmaController {
 	// $partnerAddress = partner address for the dilemma
 	// $dilemmaActive = whether or not the dilemma is actually active
 	// $storageLocked = whether the storage contract is locked. If locked, you cannot play.
+	// $blocksUntilTurn = blocks until turn must go through
+	// $blocksUntilAFK = blocks until AFK goes through
+	// $hasMissed = has there been a miss in this dilemma?
+	// $blocksUntilTurnAfterMiss = blocks until turn must go through AFTER a miss occurs
 	// $chatController = the chat controller
 	
 	// Constructor
@@ -108,6 +112,46 @@ class DilemmaController {
 			function (error, result){
 				if(!error){
 					that.partnerAddress = result;
+				} 
+				else {
+					console.log(error);
+				}
+			});
+			
+			that.dilemmaUI.codeContract.getBlocksUntilAFK.call(
+			function (error, result){
+				if(!error){
+					that.blocksUntilAFK = parseInt(result);
+				} 
+				else {
+					console.log(error);
+				}
+			});
+			
+			that.dilemmaUI.codeContract.getBlocksToDecideAfterMiss.call(
+			function (error, result){
+				if(!error){
+					that.blocksUntilTurnAfterMiss = parseInt(result);
+				} 
+				else {
+					console.log(error);
+				}
+			});
+			
+			that.dilemmaUI.codeContract.getBlocksToDecide.call(
+			function (error, result){
+				if(!error){
+					that.blocksUntilTurn = parseInt(result);
+				} 
+				else {
+					console.log(error);
+				}
+			});
+			
+			that.dilemmaUI.codeContract.hasMissed.call(web3.eth.accounts[0],
+			function (error, result){
+				if(!error){
+					that.hasMissed = result;
 				} 
 				else {
 					console.log(error);
@@ -166,7 +210,7 @@ class DilemmaController {
 		warningView.createDisplay(display);
 		
 		// Display attack selector
-		var statsView = new StatsView(dilemmaUI, this);
+		var statsView = new StatsView(dilemmaUI);
 		var statsController = new StatsController(dilemmaUI, this);
 		statsView.setController(statsController);
 		statsController.setView(statsView);
@@ -230,6 +274,16 @@ class DilemmaController {
 		var payout = result.args["_payout"]/1000000000000000;
 		var title = "";
 		var endMessage = "";
+		var yourMoveImage = "";
+		var theirMoveImage = "";
+		
+		// Get the right images
+		if(result.args["_whoMove"] == 0) yourMoveImage = "<img src='/images/Results-Ally-Icon.png'>";
+		if(result.args["_whoMove"] == 1) yourMoveImage = "<img src='/images/Results-Betray-Icon.png'>";
+		if(result.args["_whoMove"] == 2) yourMoveImage = "<img src='/images/Results-Call-Icon.png'>";
+		if(result.args["_partnerMove"] == 0) theirMoveImage = "<img src='/images/Results-Ally-Icon.png'>";
+		if(result.args["_partnerMove"] == 1) theirMoveImage = "<img src='/images/Results-Betray-Icon.png'>";
+		if(result.args["_partnerMove"] == 2) theirMoveImage = "<img src='/images/Results-Call-Icon.png'>";
 		
 		// Remove all backgrounds
 		/*var particlesjs = $('#particles-js');
@@ -239,7 +293,7 @@ class DilemmaController {
 		particlesjs.removeClass("betrayed");*/
 		
 		// Change the background color
-		var background = $('#particles-js');
+		var background = $('#background');
 		background.removeClass();
 		
 		// Acquire display JQuery object
@@ -324,7 +378,13 @@ class DilemmaController {
 		
 		// Edit the display
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
-		displayObj.append("<div id='endScreen' class='col-sm-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded' class='col-sm-7'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
+		
+		// Append your move and their's
+		displayObj.append("<div id='yourMove'><h3>YOU</h3>" + yourMoveImage + "</div>");
+		displayObj.append("<div id='theirMove'><h3>YOUR OPPONENT</h3>" + theirMoveImage + "</div>");
+	
+		// Append end messages
+		displayObj.append("<div id='endScreen' class='col-md-12 col-lg-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded' class='col-sm-7'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
 		
 		// Make it a block chain button
@@ -354,6 +414,7 @@ class DilemmaController {
 				function (error, result){
 					if(!error){
 						that.partnerAddress = result;
+						that.hasMissed = false;
 						
 						// Recreate display
 						$("#" + display).empty();
@@ -448,7 +509,7 @@ class DilemmaController {
 			if(this.contractLocked) displayObj[0].outerHTML = "<div id='bottomText'>The contract is currently locked, so playing is temporarily disabled. We apologize for the inconvenience.</div>";
 			else if(this.challengeActive) { 
 				if(displayObj[0] == undefined) displayObj = $("#loader");
-				displayObj[0].outerHTML =  "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching for partner. <a href='' onclick='return false;' id='cancelSearch'>Click here</a> to cancel. <img width='30px' height='30px' src='images/loading.gif'></div>";
+				if(displayObj[0] != undefined) displayObj[0].outerHTML =  "<div id='loader'><img width='30px' height='30px' src='images/loading.gif'> Searching for partner. <a href='' onclick='return false;' id='cancelSearch'>Click here</a> to cancel. <img width='30px' height='30px' src='images/loading.gif'></div>";
 				$('#cancelSearch').blockChainButtonCancel(this.dilemmaUI.codeContract.cancelChallenge);
 			}
 			else { 
@@ -489,10 +550,10 @@ class DilemmaController {
 	waitDilemma(func, display) {
 		
 		var that = this;
-		
+
 		// Wait until MetaMask account is set
 		var accountInterval = setInterval(function() {
-				if(that.partnerAddress !== undefined && that.dilemmaActive !== undefined && that.contractLocked != undefined && that.challengeActive != undefined) {
+				if(that.partnerAddress !== undefined && that.dilemmaActive !== undefined && that.contractLocked != undefined && that.challengeActive != undefined && that.hasMissed != undefined && that.blocksUntilTurn != undefined && that.blocksUntilTurnAfterMiss != undefined && that.blocksUntilAFK != undefined) {
 					func(display);
 					clearInterval(accountInterval);
 				}
