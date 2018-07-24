@@ -53,7 +53,7 @@ class StatsController {
 			}
 			
 			// Is there no stats
-			boolean noStats = allies + betrays + calls == 0;
+			var noStats = (allies + betrays + calls == 0);
 			
 			// Load the stats and create fancy HTML
 			var statsHTML = "<div class='centerText'>Your opponent's history:<br><canvas id='theirStats'></canvas></div>";
