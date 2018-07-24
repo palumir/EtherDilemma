@@ -11,6 +11,7 @@
 		<?php include('ethereum/DilemmaUI/DilemmaUI.php') ?>
 		<?php include('ethereum/DilemmaUI/pages/dilemma/Dilemma.php') ?>
 		<main id="main" role="main" class="container-full">
+			<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>
 			<div id='stats' class='col-sm-12'>
 			</div>
 		</main>
@@ -84,41 +85,17 @@
 		var title = "";
 		var container = "";
 		if(yours) {
-			title = "Your stats";
+			title = "YOUR STATS";
 			container = 'yourStats';
 		}
 		else { 
-			title = "Global stats";
+			title = "GLOBAL STATS";
 			container = 'globalStats';
 		}
 		
-		displayDiv.append("<div style='background: none;' id='" + container + "'></div>");
+		displayDiv.append("<div class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas></div>");
 		
-		google.charts.load("current", {packages:["corechart"]});
-		google.charts.setOnLoadCallback(drawChart);
-
-		  function drawChart() {
-			  
-			  console.log("fart");
-
-			var data = google.visualization.arrayToDataTable([
-				['Title', 'Number'],
-				[ "Duplicities", duplicities],
-				[ "Alliances", alliances],
-				[ "Betrayals", betrayals],
-				[ "Mistrusts", mistrusts],
-				[ "Revelations", revelations],
-				[ "Standoffs", standoffs]
-			]);
-			
-						
-			var chart = new google.visualization.PieChart(document.getElementById(container));
-			chart.draw(data, { 
-			backgroundColor: { fill:'transparent' },
-			hAxis: { textStyle: {color: '#FFF'}},
-			legendTextStyle: { color: '#FFF' },
-			});
-		  }
+		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Duplicities","Alliances","Betrayals","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[duplicities,alliances,betrayals,mistrusts,revelations,standoffs],"backgroundColor":["#600000","#005266","#009933","#005266","#9e00d2","#600000"]}]}});
 		
 	}
 
@@ -129,6 +106,7 @@
 	});
 	
 </script>
+
 
 	</body>
 </html>
