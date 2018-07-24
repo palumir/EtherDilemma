@@ -478,7 +478,7 @@ img.etherDilemma {
 /* preload these images */
 body:after{
  display:none; 
- content: url(../images/3-buttons-no-click-no-icons.png) url(../images/3-button-ally-clicked-no-icon.png) url(../images/3-button-betray-clicked-no-icon.png) url(../images/3-button-call-clicked-no-icon.png);
+ content: url(../images/3-buttons-no-click-no-icons.png) url(../images/3-button-ally-clicked-no-icon.png) url(../images/3-button-betray-clicked-no-icon.png) url(../images/3-button-call-clicked-no-icon.png) url(../images/Betray-icon-hover.png) url(../images/Betray-icon-plain.png) url(../images/Ally-icon-hover.png) url(../images/Ally-icon-plain.png) url(../images/Call-icon-hover.png) url(../images/Call-icon-plain.png);
 }
 
 #moveSelector {
@@ -669,6 +669,10 @@ body h3 {
 #yourMove img, #theirMove img {
 	width: 200px;
 	margin-top: 20px;
+}
+
+#yourMove h3, #theirMove h3 {
+	font-weight: bold;
 }
 
 #yourMove {

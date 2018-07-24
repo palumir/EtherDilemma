@@ -20,7 +20,7 @@ class ChallengeView {
 		displayObj.empty();
 		displayObj.append("<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>");
 		displayObj.append("<div id='trusted'>The blockchain can be trusted... can you?</div>");
-		displayObj.append("<br><div class='center'>Thank you to everybody who played the beta!<br><br>We appreciate your interest and your time. <br><br>Please direct any inquiries to EtherDilemma@gmail.com or join us on Discord at <a href='https://discord.gg/sB8rVns'>https://discord.gg/sB8rVns</a></div>");
+		displayObj.append("<br><div class='center'>Thank you to everybody who played the beta!<br><br>We appreciate your interest and your time. <br><br>Please direct any inquiries to EtherDilemma@gmail.com or join us on Discord at <a href='https://discord.gg/ZNbrQbc'>https://discord.gg/ZNbrQbc</a></div>");
 	}
 	
 	// Create challenge button
@@ -45,7 +45,7 @@ class ChallengeView {
 		
 		displayObj.append(middleSection);
 		displayObj.append("<div class='col-sm-7' id='bottomText'><button id='challengeButton' title='Please install and login to MetaMask to play Ether Dilemma'>PLAY</button><br>Please download <a href='http://metamask.io'>MetaMask</a> to play Ether Dilemma. See the <a href='/faq.php'>FAQ</a> for more information on installing MetaMask.</div>");
-		displayObj.append("<a target='_blank' class='discord' href='https://discord.gg/z9q6rs'><img src='/images/discord.png' style='height:75px; width:75px'></a>");
+		displayObj.append("<a target='_blank' class='discord' href='https://discord.gg/ZNbrQbc'><img src='/images/discord.png' style='height:75px; width:75px'></a>");
 		createFooter(display);
 				
 		// Add tooltip javascript

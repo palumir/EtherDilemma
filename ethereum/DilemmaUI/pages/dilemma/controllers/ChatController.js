@@ -49,7 +49,6 @@ class ChatController {
 					
 					// Set name
 					if(!nameSet) {
-						console.log("farter");
 						var input = $('#m');
 						name = input.val();
 						$('#sendMessage')[0].innerHTML = "Send Message";

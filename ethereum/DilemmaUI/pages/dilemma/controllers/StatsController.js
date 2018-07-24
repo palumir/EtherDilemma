@@ -60,8 +60,6 @@ class StatsController {
 			
 			new Chart(document.getElementById('theirStats'),{"type":"doughnut","data":{"labels":["Ally","Betray","Call"],"datasets":[{"label":"Your opponent's stats:","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
 			
-			console.log(allies);
-			
 		});
 		
 	}

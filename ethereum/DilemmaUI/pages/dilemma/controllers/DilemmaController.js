@@ -276,6 +276,7 @@ class DilemmaController {
 		var endMessage = "";
 		var yourMoveImage = "";
 		var theirMoveImage = "";
+		var tooltipText = "";
 		
 		// Get the right images
 		if(result.args["_whoMove"] == 0) yourMoveImage = "<img src='/images/Results-Ally-Icon.png'>";
@@ -284,13 +285,6 @@ class DilemmaController {
 		if(result.args["_partnerMove"] == 0) theirMoveImage = "<img src='/images/Results-Ally-Icon.png'>";
 		if(result.args["_partnerMove"] == 1) theirMoveImage = "<img src='/images/Results-Betray-Icon.png'>";
 		if(result.args["_partnerMove"] == 2) theirMoveImage = "<img src='/images/Results-Call-Icon.png'>";
-		
-		// Remove all backgrounds
-		/*var particlesjs = $('#particles-js');
-		particlesjs.removeClass("betrayBetray");
-		particlesjs.removeClass("allyAlly");
-		particlesjs.removeClass("betrayer");
-		particlesjs.removeClass("betrayed");*/
 		
 		// Change the background color
 		var background = $('#background');
@@ -303,6 +297,7 @@ class DilemmaController {
 		if(result.args['_youAreAFK']) { 
 			title = "AFK";
 			endMessage = "You went AFK and lost by default!";
+			tooltipText = "-20 from player + 36 from bank = +16 net finney";
 			background.addClass("red");
 		}
 		
@@ -310,6 +305,7 @@ class DilemmaController {
 		else if(result.args['_theyAreAFK']) { 
 			title = "AFK";
 			endMessage = "Your partner went AFK and you won by default!";
+			tooltipText = "-20 from player + 0 from bank = -20 net finney";
 			background.addClass("green");
 		}
 		
@@ -317,6 +313,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 1) { 
 			title = "Duplicity";
 			endMessage = "You and your opponent have both betrayed!";
+			tooltipText = "-20 from player + 4 from bank = -16 net finney";
 			background.addClass("red");
 		}
 		
@@ -324,6 +321,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 0) { 
 			title = "Alliance";
 			endMessage = "You have successfully allied your opponent!";
+			tooltipText = "-20 from player + 26 from bank = +6 net finney";
 			background.addClass("blue");
 		}
 		
@@ -331,6 +329,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 2) { 
 			title = "Standoff";
 			endMessage = "You and your opponent have both called!";
+			tooltipText = "-20 from player + 17 from bank = -3 net finney";
 			background.addClass("red");
 		}
 		
@@ -338,6 +337,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 0) { 
 			title = "Betrayal";
 			endMessage = "You have successfully betrayed your opponent!";
+			tooltipText = "-20 from player + 36 from bank = +16 net finney";
 			background.addClass("green");
 		}
 		
@@ -345,6 +345,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 1) {
 			title = "Betrayal";
 			endMessage = "You have been betrayed by your opponent!"; 
+			tooltipText = "-20 from player + 0 from bank = -20 net finney";
 			background.addClass("red");
 		}
 		
@@ -352,6 +353,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 1) {
 			title = "Revelation";
 			endMessage = "You have exposed your opponent!"; 
+			tooltipText = "-20 from player + 23 from bank = +3 net finney";
 			background.addClass("purple");
 		}
 		
@@ -359,6 +361,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 2 && result.args["_partnerMove"] == 0) {
 			title = "Mistrust";
 			endMessage = "You have incorrectly predicted your opponent's betrayal!"; 
+			tooltipText = "-20 from player + 17 from bank = -3 net finney";
 			background.addClass("red");
 		}
 		
@@ -366,6 +369,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 0 && result.args["_partnerMove"] == 2) {
 			title = "Mistrust";
 			endMessage = "Your opponent has incorrectly predicted your betrayal!"; 
+			tooltipText = "-20 from player + 29 from bank = +9 net finney";
 			background.addClass("blue");
 		}
 		
@@ -373,6 +377,7 @@ class DilemmaController {
 		else if(result.args["_whoMove"] == 1 && result.args["_partnerMove"] == 2) {
 			title = "Revelation";
 			endMessage = "You have been exposed by your opponent!"; 
+			tooltipText = "-20 from player + 17 from bank = -3 net finney";
 			background.addClass("red");
 		}
 		
@@ -384,8 +389,24 @@ class DilemmaController {
 		displayObj.append("<div id='theirMove'><h3>YOUR OPPONENT</h3>" + theirMoveImage + "</div>");
 	
 		// Append end messages
-		displayObj.append("<div id='endScreen' class='col-md-12 col-lg-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded' class='col-sm-7'>You have been awarded <div class='finney'>" + payout + " finney</div>.</div></div>");
+		displayObj.append("<div id='endScreen' class='col-md-12 col-lg-8'><h3>" + title + "</h3><div id='endMessage'>" + endMessage + "</div><div id='awarded' class='col-sm-7'>You have been awarded <div title='" + tooltipText + "' class='finney'>" + payout + " finney</div>.</div></div>");
 		displayObj.append("<br><button id='challengeButton' class='challengeButtonEnd'>PLAY AGAIN</button>");
+		
+		// Add tooltip javascript
+		$( document ).tooltip({
+		  position: {
+			my: "center bottom-10",
+			at: "center top",
+			using: function( position, feedback ) {
+			  $( this ).css( position );
+			  $( "<div>" )
+				.addClass( "arrow" )
+				.addClass( feedback.vertical )
+				.addClass( feedback.horizontal )
+				.appendTo( this );
+			}
+		  }
+		});
 		
 		// Make it a block chain button
 		$('#challengeButton').blockChainButtonChallenge(this.dilemmaUI.codeContract.hostChallenge);
