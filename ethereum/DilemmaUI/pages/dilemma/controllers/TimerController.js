@@ -98,7 +98,8 @@ class TimerController {
 					// Set that a turn was missed
 					var updateBlock = $("#updateBlock")[0];
 					
-					updateBlock.innerHTML = "<div class='title'>Miss!</div><div class='text'>The round has been reset because somebody did not hit Submit quick enough. Many missed turns may result in forfeit.</div>";
+					// Missed turn
+					updateBlock.innerHTML = "<div class='title'>Miss!</div><div class='text'>The round has been reset because someone did not 'Submit' quickly enough.</div>";
 					
 					// Unlock the selectors
 					var selectors = $(".selectable");
