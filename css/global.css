@@ -667,25 +667,21 @@ body h3 {
 }
 
 #yourMove img, #theirMove img {
-	width: 100px;
+	width: 200px;
 	margin-top: 20px;
 }
 
 #yourMove {
-    border: 1px dotted white;
     margin: 20px;
     padding: 20px;
-    background: rgba(0,0,0,0.3);
     text-align: center;
 	min-height: 205px;
 	min-width: 300px;
 }
 
 #theirMove {
-    border: 1px dotted white;
     margin: 20px;
     padding: 20px;
-    background: rgba(0,0,0,0.3);
     text-align: center;
 	min-height: 205px;
 	min-width: 300px;

@@ -53,10 +53,14 @@ class StatsController {
 			}
 			
 			// Load the stats and create fancy HTML
-			var statsHTML = "Your opponent's history:<br>" + allies + " allies<br>" + betrays + " betrays <br>" + calls + " calls<br>";
-			
+			var statsHTML = "<div class='centerText'>Your opponent's history:<br><canvas id='theirStats'></canvas></div>";
+		
 			// Set the div
 			$("#" + display)[0].innerHTML = statsHTML;
+			
+			new Chart(document.getElementById('theirStats'),{"type":"doughnut","data":{"labels":["Ally","Betray","Call"],"datasets":[{"label":"Your opponent's stats:","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
+			
+			console.log(allies);
 			
 		});
 		
