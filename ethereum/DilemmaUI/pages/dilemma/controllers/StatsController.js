@@ -52,8 +52,12 @@ class StatsController {
 				}
 			}
 			
+			// Is there no stats
+			boolean noStats = allies + betrays + calls == 0;
+			
 			// Load the stats and create fancy HTML
 			var statsHTML = "<div class='centerText'>Your opponent's history:<br><canvas id='theirStats'></canvas></div>";
+			if(noStats) statsHTML = "<div class='centerText'>Your opponent's history:<br>First timer!</div>";
 		
 			// Set the div
 			$("#" + display)[0].innerHTML = statsHTML;

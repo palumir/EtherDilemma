@@ -39,10 +39,13 @@
 		<div dir="ltr">Click ‘Submit’ </div>
 		<br>
 		</li>
-		<img src="https://lh4.googleusercontent.com/mljX_BENvaJwHA10dVp1u6CYw67kxI3vGscMB2zBPG8GMhol-JUxHUDRAoNTwvvAJGmtfHPFodty52Xzu8CtIS7S5XW1WS9zViDLMOed87vtng4kOF8cWQaMVTWLw9iTkWTGr3MR" style="height:364px; width:329px" />
 	</ol>
 	</li>
 </ol>
+		<img src="https://lh4.googleusercontent.com/mljX_BENvaJwHA10dVp1u6CYw67kxI3vGscMB2zBPG8GMhol-JUxHUDRAoNTwvvAJGmtfHPFodty52Xzu8CtIS7S5XW1WS9zViDLMOed87vtng4kOF8cWQaMVTWLw9iTkWTGr3MR" style="height:364px; width:329px; margin-left: auto;
+    margin-right: auto;
+    display: block;
+	margin-bottom: 20px;" />
 
 <ol type='a' start="3">
 	<li dir="ltr">

@@ -646,10 +646,18 @@ body h3 {
 
 #statsView {
 	border: 1px dotted white;
-    margin: 20px;
+	margin: 20px;
 	padding: 20px;
     background: rgba(0,0,0,0.3);
 	text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+	
+	#statsView {
+		margin: 0px;
+		margin-bottom: 10px;
+	}
 }
 
 /* End screen */
