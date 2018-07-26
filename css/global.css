@@ -745,6 +745,7 @@ body h3 {
 	background: #ddd; 
 	border-radius: 2px; 
 	overflow-y: scroll;
+	overflow-x: hidden;
 	border: 1px solid #CCC; 
 	margin-top:10px; 
 	height: 125px; 
