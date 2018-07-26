@@ -256,8 +256,12 @@ img.etherDilemma {
 	text-align: center;
 }
 
-#thePayout .payouts img, #theGame .gameStuff img {
-	width: 100%;
+#thePayout .payouts img {
+	width: 50%;
+}
+
+#theGame .gameStuff img {
+	width:100%;
 }
 
 #theGame .gameStuff img {
