@@ -55,6 +55,8 @@ class StatsController {
 			// Is there no stats
 			var noStats = (allies + betrays + calls == 0);
 			
+
+			
 			// Load the stats and create fancy HTML
 			var statsHTML = "<div class='centerText'>Your opponent's history:<br><canvas id='theirStats'></canvas></div>";
 			if(noStats) statsHTML = "<div class='centerText'>Your opponent's history:<br>First timer!</div>";
@@ -62,7 +64,28 @@ class StatsController {
 			// Set the div
 			$("#" + display)[0].innerHTML = statsHTML;
 			
-			new Chart(document.getElementById('theirStats'),{"type":"doughnut","data":{"labels":["Ally","Betray","Call"],"datasets":[{"label":"Your opponent's stats:","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
+			new Chart(document.getElementById('theirStats'),{
+			"type":"doughnut",
+			options: {
+				tooltips: {
+					callbacks: {
+					  label: function(tooltipItem, data) {
+						var dataset = data.datasets[tooltipItem.datasetIndex];
+						var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+						var total = meta.total;
+						var currentValue = dataset.data[tooltipItem.index];
+						var percentage = parseFloat((currentValue/total*100).toFixed(1));
+						return percentage + '%';
+					  },
+					  title: function(tooltipItem, data) {
+						return data.labels[tooltipItem[0].index];
+					  }
+					}
+				  },
+			},
+			"data":{"labels":["Ally","Betray","Call"], 
+			"datasets":[{"label":"Your opponent's stats:","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}
+			});
 			
 		});
 		

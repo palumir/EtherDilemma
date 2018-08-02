@@ -27,7 +27,7 @@
 	var events = codeContract.allEvents({fromBlock: 0, toBlock: "latest"});
 	
 	// Print stats div
-	function printStatsDiv(logs, yours = false) {
+	function printStatsDiv(logs, yours = false /* your stats or global? */, window = 0 /* in hours */) {
 		
 		// Variables
 		var allies = 0;
@@ -49,6 +49,8 @@
 			if(event.event == "dilemmaFinished") {
 				var whoMove = event.args["_whoMove"];
 				var partnerMove = event.args["_partnerMove"];
+				
+				console.dir(event);
 				
 				// Tally total results
 				if(!yours || web3.eth.accounts[0] == event.args['_who']) {
@@ -83,19 +85,26 @@
 		
 		// Block title, text, and div
 		var title = "";
+		var titleMoves = "";
 		var container = "";
+		var containerMoves = "";
 		if(yours) {
 			title = "YOUR STATS";
+			titleMoves = "YOUR MOVE STATS";
 			container = 'yourStats';
+			containerMoves = 'yourMoveStats';
 		}
 		else { 
 			title = "GLOBAL STATS";
+			titleMoves = "GLOBAL MOVE STATS";
 			container = 'globalStats';
+			containerMoves = 'globalMoveStats';
 		}
 		
-		displayDiv.append("<div class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas></div>");
+		displayDiv.append("<div class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas><h2>" + titleMoves + "</h2><canvas id='" + containerMoves + "'></canvas></div>");
 		
-		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Duplicities","Alliances","Betrayals","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[duplicities,alliances,betrayals,mistrusts,revelations,standoffs],"backgroundColor":["#600000","#005266","#009933","#005266","#9e00d2","#600000"]}]}});
+		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Alliances","Betrayals","Duplicities","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[duplicities,alliances,betrayals,mistrusts,revelations,standoffs],"backgroundColor":["#005266","#009933","#600000","#005266","#9e00d2","#600000"]}]}});
+		new Chart(document.getElementById(containerMoves),{"type":"doughnut","data":{"labels":["Allies","Betrays","Calls"],"datasets":[{"label":title + " MOVES","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
 		
 	}
 
