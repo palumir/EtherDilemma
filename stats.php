@@ -13,7 +13,8 @@
 		<main id="main" role="main" class="container-full">
 			<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>
 			<div id="appendToMe"><button id='allStats'>All Time</button><button id='weekStats'>1 Week</button><button id='24hStats'>24 Hours</button><button id='1hrStats'>1 Hour</button></div>
-			<div id='stats' class='col-sm-12'>
+			<div id='stats' class='col-sm-12' style='text-align:center; margin-top:15px;'>
+			<img width='30px' height='30px' src='images/loading.gif'> Loading stats from the blockchain. This may take a moment. <img width='30px' height='30px' src='images/loading.gif'>
 			</div>
 		</main>
 
