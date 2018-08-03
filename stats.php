@@ -26,7 +26,7 @@
 	var codeContract = web3.eth.contract(CODE_CONTRACT_ABI);
 	codeContract = codeContract.at(CODE_CONTRACT_ADDRESS);
 	
-	var events = codeContract.allEvents({fromBlock: 0, toBlock: "latest"});
+	var events = codeContract.allEvents({fromBlock: 6078453, toBlock: "latest"});
 	
 	// Print stats div
 	function printStatsDiv(logs, yours = false /* your stats or global? */, window = 0 /* in hours */) {
