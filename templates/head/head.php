@@ -21,7 +21,7 @@
 	<script>
 	function createFooter(display) {
 		var displayObj = $("#" + display);
-		displayObj.append('<div id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tutorial.php"> Tutorial</a> | <a href="/contracts.php"> The Smart Contracts</a> | <a href="/contact.php"> Contact </a> | <a href="/tou.php"> Terms of Use </a> | <a href="/privacypolicy.php">Privacy Policy </a></div>');
+		displayObj.append('<div id="footerContent"> <a href="/faq.php"> FAQ</a> | <a href="/tutorial.php"> Tutorial</a> | <a href="/stats.php"> Stats</a> | <a href="/contracts.php"> The Smart Contracts</a> | <a href="/contact.php"> Contact </a> | <a href="/tou.php"> Terms of Use </a> | <a href="/privacypolicy.php">Privacy Policy </a></div>');
 	}
 	</script>
 </head>

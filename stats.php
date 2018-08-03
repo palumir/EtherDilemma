@@ -12,6 +12,7 @@
 		<?php include('ethereum/DilemmaUI/pages/dilemma/Dilemma.php') ?>
 		<main id="main" role="main" class="container-full">
 			<a href='/index.php'><img class='etherDilemma' src='images/logo.png'></a>
+			<div id="appendToMe"><button id='allStats'>All Time</button><button id='weekStats'>1 Week</button><button id='24hStats'>24 Hours</button><button id='1hrStats'>1 Hour</button></div>
 			<div id='stats' class='col-sm-12'>
 			</div>
 		</main>
@@ -29,6 +30,10 @@
 	// Print stats div
 	function printStatsDiv(logs, yours = false /* your stats or global? */, window = 0 /* in hours */) {
 		
+		// Convert window to milliseconds from hours
+		var window = window*60*60;
+		var now = Math.round(Date.now()/1000);
+		
 		// Variables
 		var allies = 0;
 		var betrays = 0;
@@ -43,14 +48,18 @@
 	
 		// Loop through event logs
 		for(var i = 0; i < logs.length; i++) {
-			
+		
 			// Only look at dilemmas that finished
+
 			var event = logs[i];
-			if(event.event == "dilemmaFinished") {
+									
+			console.dir(parseInt(event.args["_timeStamp"]));
+			console.dir(now);
+			console.dir(window);
+			
+			if(event.event == "dilemmaFinished" && (window == 0 || parseInt(event.args["_timeStamp"]) > now - window)) {
 				var whoMove = event.args["_whoMove"];
 				var partnerMove = event.args["_partnerMove"];
-				
-				console.dir(event);
 				
 				// Tally total results
 				if(!yours || web3.eth.accounts[0] == event.args['_who']) {
@@ -101,17 +110,51 @@
 			containerMoves = 'globalMoveStats';
 		}
 		
-		displayDiv.append("<div class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas><h2>" + titleMoves + "</h2><canvas id='" + containerMoves + "'></canvas></div>");
+		displayDiv.append("<div id='totalStats' class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas><h2>" + titleMoves + "</h2><canvas id='" + containerMoves + "'></canvas></div>");
 		
 		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Alliances","Betrayals","Duplicities","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[duplicities,alliances,betrayals,mistrusts,revelations,standoffs],"backgroundColor":["#005266","#009933","#600000","#005266","#9e00d2","#600000"]}]}});
 		new Chart(document.getElementById(containerMoves),{"type":"doughnut","data":{"labels":["Allies","Betrays","Calls"],"datasets":[{"label":title + " MOVES","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
 		
 	}
+	
+	function newDiv() {
+		var totalStats = $('#stats');
+		if(totalStats[0] != undefined) totalStats.remove();
+		$('#appendToMe').append("<div id='stats' class='col-sm-12'></div>");
+	}
+	
+	function newStats(logs, window) {
+		printStatsDiv(logs, false, window);
+		if(web3.eth.accounts[0] != undefined) printStatsDiv(logs, true, window);
+	}
+	
+	var globalLogs = "";
 
 	// Get all past logs again
 	events.get(function(error, logs){ 
-		printStatsDiv(logs);
-		if(web3.eth.accounts[0] != undefined) printStatsDiv(logs, true);
+	
+		// Delete stats div and redraw it to begin with
+		globalLogs = logs;
+		newDiv();
+		newStats(logs,0);
+		
+		$('#allStats')[0].onclick = function() {
+			newDiv();
+			newStats(globalLogs,0);
+		};
+		$('#weekStats')[0].onclick = function() {
+			newDiv();
+			newStats(globalLogs,24*7);
+		};
+		$('#24hStats')[0].onclick = function() {
+			newDiv();
+			newStats(globalLogs,24);
+		};
+		$('#1hrStats')[0].onclick = function() {
+			newDiv();
+			console.dir(globalLogs);
+			newStats(globalLogs,1);
+		};
 	});
 	
 </script>

@@ -1,6 +1,6 @@
 const STORAGE_CONTRACT_ADDRESS = "0xf77715d28fe7821377f75695f27433fd187c78dd";
 /* 0x80a64a376b3f73df7669893a96e252dd103b93f7 */
-const CODE_CONTRACT_ADDRESS = "0x82ed4221cfd4354c06a8977fdae9fc19b81c268a";
+const CODE_CONTRACT_ADDRESS = "0x10c64a38b4a58d900a133e1f67985925c3eb9c60";
 /* 0x55edeb086759767e367706d919a4239f84e1ee6c */
 
 const CODE_CONTRACT_ABI = [
@@ -26,27 +26,16 @@ const CODE_CONTRACT_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "hostChallenge",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
+		"anonymous": false,
 		"inputs": [
 			{
-				"name": "_move",
-				"type": "uint256"
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
 			}
 		],
-		"name": "makeMove",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "challengeHosted",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -79,18 +68,6 @@ const CODE_CONTRACT_ABI = [
 				"indexed": false,
 				"name": "_who",
 				"type": "address"
-			}
-		],
-		"name": "challengeHosted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
 			},
 			{
 				"indexed": false,
@@ -109,17 +86,40 @@ const CODE_CONTRACT_ABI = [
 			},
 			{
 				"indexed": false,
-				"name": "_youAreAFK",
-				"type": "bool"
+				"name": "_whoIsAFK",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "_theyAreAFK",
-				"type": "bool"
+				"name": "_timeStamp",
+				"type": "uint256"
 			}
 		],
 		"name": "dilemmaFinished",
 		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "hostChallenge",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_move",
+				"type": "uint256"
+			}
+		],
+		"name": "makeMove",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -146,14 +146,14 @@ const CODE_CONTRACT_ABI = [
 		"inputs": [
 			{
 				"name": "",
-				"type": "address"
+				"type": "uint256"
 			}
 		],
-		"name": "challenges",
+		"name": "allChallenges",
 		"outputs": [
 			{
-				"name": "active",
-				"type": "bool"
+				"name": "",
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -162,11 +162,20 @@ const CODE_CONTRACT_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "currentChallenger",
-		"outputs": [
+		"inputs": [
 			{
 				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "challenges",
+		"outputs": [
+			{
+				"name": "active",
+				"type": "bool"
+			},
+			{
+				"name": "lastPartner",
 				"type": "address"
 			}
 		],

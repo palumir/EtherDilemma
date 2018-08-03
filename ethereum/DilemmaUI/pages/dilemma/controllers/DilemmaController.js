@@ -294,7 +294,7 @@ class DilemmaController {
 		var displayObj = $("#" + display);
 		
 		// You went AFK
-		if(result.args['_youAreAFK']) { 
+		if(result.args['_whoIsAFK'] == 1) { 
 			title = "AFK";
 			endMessage = "You went AFK and lost by default!";
 			tooltipText = "-20 from player + 36 from bank = +16 net finney";
@@ -302,7 +302,7 @@ class DilemmaController {
 		}
 		
 		// They went AFK
-		else if(result.args['_theyAreAFK']) { 
+		else if(result.args['_whoIsAFK'] == 2) { 
 			title = "AFK";
 			endMessage = "Your partner went AFK and you won by default!";
 			tooltipText = "-20 from player + 0 from bank = -20 net finney";
