@@ -26,7 +26,7 @@ class StatsController {
 		var that = this;
 		
 		// watch for an event with {some: 'args'}
-		var events = dilemmaUI.codeContract.allEvents({fromBlock: 3000000, toBlock: "latest"});
+		var events = dilemmaUI.codeContract.allEvents({fromBlock: 6078453, toBlock: "latest"});
 		
 		// Variables
 		var allies = 0;
