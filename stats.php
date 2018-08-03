@@ -160,6 +160,6 @@
 	
 </script>
 
-
+<?php include('templates/footer/footer.php'); ?>
 	</body>
 </html>

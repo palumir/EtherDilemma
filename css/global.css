@@ -889,6 +889,10 @@ p.ui-accordion-content {
     cursor: pointer;
 }
 
+#stats {
+	display:inline-block;
+}
+
 #stats h2 {
 	margin-top: 30px;
 }
