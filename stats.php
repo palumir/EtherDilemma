@@ -93,14 +93,14 @@
 		var container = "";
 		var containerMoves = "";
 		if(yours) {
-			title = "YOUR STATS";
-			titleMoves = "YOUR MOVE STATS";
+			title = "PERSONAL OUTCOME STATS";
+			titleMoves = "PERSONAL CHOICE STATS";
 			container = 'yourStats';
 			containerMoves = 'yourMoveStats';
 		}
 		else { 
-			title = "GLOBAL STATS";
-			titleMoves = "GLOBAL MOVE STATS";
+			title = "WORLDWIDE OUTCOME STATS";
+			titleMoves = "WORLDWIDE CHOICE STATS";
 			container = 'globalStats';
 			containerMoves = 'globalMoveStats';
 		}
@@ -113,14 +113,20 @@
 	}
 	
 	function newDiv() {
-		var totalStats = $('#stats');
-		if(totalStats[0] != undefined) totalStats.remove();
-		$('#appendToMe').append("<div id='stats' class='col-sm-12'></div>");
+		if(web3 == undefined) $('#appendToMe').append("<div id='stats' class='col-sm-12'>Please install MetaMask to see stats for EtherDilemma. Stats are pulled directly from the blockchain through MetaMask.</div>");
+		else {
+			var totalStats = $('#stats');
+			if(totalStats[0] != undefined) totalStats.remove();
+			$('#appendToMe').append("<div id='stats' class='col-sm-12'></div>");
+		}
 	}
 	
 	function newStats(logs, window) {
 		printStatsDiv(logs, false, window);
 		if(web3.eth.accounts[0] != undefined) printStatsDiv(logs, true, window);
+		else {
+			$('#stats').append("<div id='totalStats' class='col-sm-6 left centerText'><h2>PERSONAL STATS</h2>Please log-in to MetaMask to see your personal stats.</div>");
+		}
 	}
 	
 	var globalLogs = "";
