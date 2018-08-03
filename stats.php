@@ -50,13 +50,7 @@
 		for(var i = 0; i < logs.length; i++) {
 		
 			// Only look at dilemmas that finished
-
 			var event = logs[i];
-									
-			console.dir(parseInt(event.args["_timeStamp"]));
-			console.dir(now);
-			console.dir(window);
-			
 			if(event.event == "dilemmaFinished" && (window == 0 || parseInt(event.args["_timeStamp"]) > now - window)) {
 				var whoMove = event.args["_whoMove"];
 				var partnerMove = event.args["_partnerMove"];
