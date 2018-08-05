@@ -35,8 +35,7 @@ class TimerView {
 			var name = "";
 			
 			// What happens when we receive a chat message
-			socket.on('blockNumber', function(blockNumber){
-				console.log("fart");
+			socket.on('getBlockNumber', function(blockNumber){
 				
 				// Don't show messages twice if the user keeps playing (only allow one chat controller to exist)
 				if(that == that.controller.dilemmaController.timerController) {
@@ -50,7 +49,20 @@ class TimerView {
 		// Add the Javascript timer, counting down every one second
 		that.timer = setInterval(function() {
 			
-				socket.emit('blockNumber');
+				$.ajax({
+				url: 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=NIVSKG1ICGAIPM3SJAZG1I3ISMPS395UWS',
+					type: 'GET',
+					success: function(data){ 
+								
+						// Set the new block number for everybody
+						var number = data['result'];
+						blockNumber = number;
+						socket.emit('setBlockNumber', data['result']);
+					},
+					error: function(data) {
+						// Do nothing
+					}
+				});
 				
 				// Set current block number, so we may use it in another callback
 				console.log(that.currentBlock);
