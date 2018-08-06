@@ -51,7 +51,7 @@ class TimerController {
 			
 			// Make move
 			this.dilemmaUI.codeContract.makeMove.sendTransaction(move, 
-				{from:web3.eth.accounts[0], gas: 250000},
+				{from:web3.eth.accounts[0], gas: 160000},
 				function (error, result){
 					if(!error) {
 						
