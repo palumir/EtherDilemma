@@ -15,7 +15,7 @@
 						
 						// Then call the function
 						contractFunction.sendTransaction(
-						{from:web3.eth.accounts[0], gas: 160000, value: 20000000000000000, gasPrice: 5000000000},
+						{from:web3.eth.accounts[0], gas: 200000, value: 20000000000000000, gasPrice: 5000000000},
 						
 						// Callback
 						function (error, result){
