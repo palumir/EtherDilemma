@@ -9,6 +9,8 @@ app.get('/', function(req, res){
 
 var blockNumber = 0;
 
+var $ = require('jQuery');
+
 // Get the block number
 function intervalFunc() {
 	/* api.etherscan.io */
