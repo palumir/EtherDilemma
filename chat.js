@@ -16,6 +16,10 @@ var $ = require('jquery');
 function intervalFunc() {
 	/* api.etherscan.io */
 	
+	/* 	blockNumber = parseInt(data.result,16);
+		console.log(status);
+		console.log(blockNumber); */
+	
 	"use strict";
 	
 	https.get('https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6', (resp) => {
@@ -28,7 +32,7 @@ function intervalFunc() {
 
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
-		console.log(JSON.parse(data).explanation);
+		console.log(JSON.parse(data).result);
 	  });
 
 	}).on("error", (err) => {
