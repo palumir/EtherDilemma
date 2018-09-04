@@ -32,7 +32,8 @@ function intervalFunc() {
 
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
-		console.log(JSON.parse(data).result);
+		blockNumber = parseInt(JSON.parse(data).result.result,16);
+		console.log(blockNumber);
 	  });
 
 	}).on("error", (err) => {
