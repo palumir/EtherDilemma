@@ -19,6 +19,7 @@ function intervalFunc() {
 		
 		// Set current block number, so we may use it in another callback
 		blockNumber = parseInt(data.result,16);
+		console.log(status);
 		console.log(blockNumber);
 	
 	});
