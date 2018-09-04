@@ -16,6 +16,8 @@ var $ = require('jquery');
 function intervalFunc() {
 	/* api.etherscan.io */
 	
+	"use strict";
+	
 	https.get('https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6', (resp) => {
 	  let data = '';
 
