@@ -97,5 +97,6 @@ class TimerView {
 						else console.log(error);
 					});
 		});
+	});
 	}
 }

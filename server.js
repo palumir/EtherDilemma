@@ -14,15 +14,12 @@ var $ = require('jquery');
 
 // Get the block number
 function intervalFunc() {
-	/* api.etherscan.io */
-	
-	/* 	blockNumber = parseInt(data.result,16);
-		console.log(status);
-		console.log(blockNumber); */
+	/* api.etherscan.io live*/
+	/* ropsten.etherscan.io test */
 	
 	"use strict";
 	
-	https.get('https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6', (resp) => {
+	https.get('https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6', (resp) => {
 	  let data = '';
 
 	  // A chunk of data has been recieved.
