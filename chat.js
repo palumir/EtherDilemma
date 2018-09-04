@@ -33,7 +33,7 @@ function intervalFunc() {
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
 		blockNumber = parseInt(JSON.parse(data).result,16);
-		console.log(blockNumber);
+		io.emit('setBlockNumber',blockNumber);
 	  });
 
 	}).on("error", (err) => {
@@ -57,12 +57,6 @@ io.on('connection', function(socket){
 		
 		// Emit to partner
 		io.emit('chat message', address, name, msg);
-	});
-	
-	socket.on('getBlockNumber', function(){
-		
-		// Emit new block number to all players
-		io.emit('setBlockNumber',blockNumber);
 	});
 	
 });
