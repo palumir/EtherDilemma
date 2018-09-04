@@ -9,6 +9,19 @@ app.get('/', function(req, res){
 
 var blockNumber = 0;
 
+// Get the block number
+function intervalFunc() {
+	/* api.etherscan.io */
+	$.get("https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6", function(data, status) {
+		
+		// Set current block number, so we may use it in another callback
+		blockNumber = parseInt(data.result,16);
+	
+	});
+}
+
+setInterval(intervalFunc, 250);
+
 io.on('connection', function(socket){
 	
 	socket.on('chat message', function(address, name, msg){
@@ -25,11 +38,10 @@ io.on('connection', function(socket){
 		io.emit('chat message', address, name, msg);
 	});
 	
-	socket.on('setBlockNumber', function(blockNum){
-		blockNumber = blockNum;
+	socket.on('getBlockNumber', function(){
 		
 		// Emit new block number to all players
-		io.emit('getBlockNumber',blockNumber);
+		io.emit('setBlockNumber',blockNumber);
 	});
 	
 });
