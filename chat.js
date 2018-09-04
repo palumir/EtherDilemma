@@ -15,13 +15,22 @@ var $ = require('jquery');
 // Get the block number
 function intervalFunc() {
 	/* api.etherscan.io */
-	https.get("https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6", function(data, status) {
-		
-		// Set current block number, so we may use it in another callback
-		blockNumber = parseInt(data.result,16);
-		console.log(status);
-		console.log(blockNumber);
 	
+	https.get('https://ropsten.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=BPTZH8Z2RVE1ZRSHZEBET72NNIREUIFHJ6', (resp) => {
+	  let data = '';
+
+	  // A chunk of data has been recieved.
+	  resp.on('data', (chunk) => {
+		data += chunk;
+	  });
+
+	  // The whole response has been received. Print out the result.
+	  resp.on('end', () => {
+		console.log(JSON.parse(data).explanation);
+	  });
+
+	}).on("error", (err) => {
+	  console.log("Error: " + err.message);
 	});
 }
 
