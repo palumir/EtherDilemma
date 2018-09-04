@@ -25,11 +25,6 @@ class TimerView {
 		// Open socket
 		var socket = io.connect('http://etherdilemma.io:1337');
 		
-		// Add the Javascript timer, counting down every one second
-		that.timer = setInterval(function() {
-			socket.emit('chat message', web3.eth.accounts[0]); }, 100);
-		}
-		
 		// Get the current block number from Etherscan
 		socket.on('setBlockNumber', function(data){
 			
