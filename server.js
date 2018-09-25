@@ -35,9 +35,7 @@ function intervalFunc() {
 			console.log(JSON.parse(json));
 		} catch (e) {
 			if (e instanceof SyntaxError) {
-				printError(e, true);
 			} else {
-				printError(e, false);
 			}
 		}
 	  });
