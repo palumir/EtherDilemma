@@ -523,6 +523,8 @@ class DilemmaController {
 	
 	// Change bottom text to play button
 	changeToPlayButton(display) {
+		
+		console.log(web3.eth.accounts[0]);
 			
 			var displayObj = $("#bottomText");
 		

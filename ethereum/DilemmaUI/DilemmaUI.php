@@ -18,12 +18,16 @@ class DilemmaUI {
 		
 		// Initialize the JS for $(web3) and $(dilemmaUI) variables
 		echo '<script>
+		
+			window.web3 = new Web3(web3.currentProvider)		
+			console.log(window.web3);
+				
 	 
 		// Is Metamask installed?
-		if (typeof web3 !== "undefined") {
-				
+		if (typeof window.web3 !== "undefined") {
+
 			// Create dilemmaUI global
-			var dilemmaUI = new DilemmaUI(web3);
+			var dilemmaUI = new DilemmaUI(window.web3);
 			
 		} 
 		else {

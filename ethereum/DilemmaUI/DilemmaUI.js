@@ -1,3 +1,4 @@
+
 // GeodeUI class to provide an interface between Geode Contracts on Ethereum Network and local Javascript
 // Requires web3 to function.
 // Requires ContractStatics.js to function
@@ -23,6 +24,7 @@ class DilemmaUI {
 	constructor(web3Instance) {
 		
 		// Set web3 so we may use it in methods
+		web3 = web3Instance;
 		this.web3 = web3Instance;
 		
 		// Load the contracts

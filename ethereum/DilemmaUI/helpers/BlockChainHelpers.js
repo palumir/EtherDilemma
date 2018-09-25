@@ -1,4 +1,12 @@
 
+// Set the fast gas price
+var fastGasPrice = 9000000000; // Defaults to 5, updated by API call
+
+// Pull from Etherchain
+$.get("https://www.etherchain.org/api/gasPriceOracle", function(data) {
+	fastGasPrice = data.fast*1000000000;
+});
+
 // Custom JQuery plugins
 (function ( $ ) {
 	
@@ -7,7 +15,7 @@
         this.click(function() {
 
 			// First estimate gas
-			contractFunction.estimateGas({from:web3.eth.accounts[0], value: 20000000000000000},
+			contractFunction.estimateGas({from:web3.eth.accounts[0], value: 20000000000000000, gasPrice: fastGasPrice},
 			
 			// Callback
 			function(error,result) {
@@ -15,7 +23,7 @@
 						
 						// Then call the function
 						contractFunction.sendTransaction(
-						{from:web3.eth.accounts[0], gas: 200000, value: 20000000000000000, gasPrice: 5000000000},
+						{from:web3.eth.accounts[0], gas: 200000, value: 20000000000000000, gasPrice: fastGasPrice},
 						
 						// Callback
 						function (error, result){
@@ -94,7 +102,7 @@
 						
 						// Then call the function
 						contractFunction.sendTransaction(
-						{from:web3.eth.accounts[0], gas: 200000, gasPrice: 5000000000},
+						{from:web3.eth.accounts[0], gas: 200000, gasPrice: fastGasPrice},
 						
 						// Callback
 						function (error, result){
@@ -119,7 +127,7 @@
 						
 						// Then call the function
 						contractFunction.sendTransaction(
-						{from:web3.eth.accounts[0], gas: 150000, gasPrice: 5000000000},
+						{from:web3.eth.accounts[0], gas: 150000, gasPrice: fastGasPrice},
 						
 						// Callback
 						function (error, result){
@@ -145,12 +153,18 @@
 // Watch for an $(event), then call $(callBack). If another event with the same $(module) and event fields comes through, it's considered a duplicate
 // Requires geodeUI global to be defined by geodeUI
 function watchForEvent(event, callback, module) {
+		console.dir(event);
+		
+	event.options.fromBlock = 'latest';
+	event.options.toBlock = 'latest';
 	
 	// Watch for the event
 	event.watch(function(error, result) { 
 	
 		// If we receive no error
 		if(!error) {
+			
+			console.log(result);
 					
 			// If it's our inventory, and not a duplicate event, update it.
 			if(!dilemmaUI.checkForDuplicateEvent(result,module)) {

@@ -8,18 +8,10 @@
 		
 		<?php include('ethereum/DilemmaUI/DilemmaUI.php') ?>
 		<?php include('ethereum/DilemmaUI/pages/dilemma/Dilemma.php') ?>
+		<script src='/ethereum/DilemmaUI/helpers/BlockChainHelpers.js'></script>
 <script>
 
-$.ajax({
-    url: 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=NIVSKG1ICGAIPM3SJAZG1I3ISMPS395UWS',
-    type: 'GET',
-    success: function(data){ 
-        console.log("fart");
-    },
-    error: function(data) {
-        console.log(data);
-    }
-});
+
 
 </script>
 

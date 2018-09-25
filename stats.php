@@ -93,13 +93,13 @@
 		var container = "";
 		var containerMoves = "";
 		if(yours) {
-			title = "WORLDWIDE DILEMMAS";
-			titleMoves = "YOUR DILEMMAS";
+			title = "YOUR DILEMMAS";
+			titleMoves = "YOUR DECISIONS";
 			container = 'yourStats';
 			containerMoves = 'yourMoveStats';
 		}
 		else { 
-			title = "WORLDWIDE DECISIONS";
+			title = "WORLDWIDE DILEMMAS";
 			titleMoves = "WORLDWIDE DECISIONS";
 			container = 'globalStats';
 			containerMoves = 'globalMoveStats';
@@ -107,7 +107,7 @@
 		
 		displayDiv.append("<div id='totalStats' class='col-sm-6 left centerText'><h2>" + title + "</h2><canvas id='" + container + "'></canvas><h2>" + titleMoves + "</h2><canvas id='" + containerMoves + "'></canvas></div>");
 		
-		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Alliances","Betrayals","Duplicities","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[duplicities,alliances,betrayals,mistrusts,revelations,standoffs],"backgroundColor":["#005266","#009933","#600000","#005266","#9e00d2","#600000"]}]}});
+		new Chart(document.getElementById(container),{"type":"doughnut","data":{"labels":["Alliances","Betrayals","Duplicities","Mistrusts","Revelations","Standoffs"],"datasets":[{"label":title,"data":[alliances,betrayals,duplicities,mistrusts,revelations,standoffs],"backgroundColor":["#005266","#009933","#600000","#005266","#9e00d2","#600000"]}]}});
 		new Chart(document.getElementById(containerMoves),{"type":"doughnut","data":{"labels":["Allies","Betrays","Calls"],"datasets":[{"label":title + " MOVES","data":[allies,betrays,calls],"backgroundColor":["#00add7","#f40000","#9e00d2"]}]}});
 		
 	}
