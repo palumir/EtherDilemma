@@ -30,7 +30,7 @@ function intervalFunc() {
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
 		blockNumber = parseInt(data.result,16);
-		console.log(data);
+		console.log(typeof data);
 		io.emit('setBlockNumber',blockNumber);
 	  });
 
