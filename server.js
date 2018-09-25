@@ -29,7 +29,8 @@ function intervalFunc() {
 
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
-		if(typeof(data) == "string") blockNumber = parseInt(data.result,16);
+		blockNumber = parseInt(data.result,16);
+		console.log(data.result);
 		io.emit('setBlockNumber',blockNumber);
 	  });
 
