@@ -32,7 +32,7 @@ function intervalFunc() {
 		 try {
 			blockNumber = parseInt((JSON.parse(data)).result,16);
 			io.emit('setBlockNumber',blockNumber);
-			console.log(JSON.parse(json));
+			console.log(blockNumber);
 		} catch (e) {
 			if (e instanceof SyntaxError) {
 			} else {
