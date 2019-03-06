@@ -44,10 +44,10 @@ class TimerController {
 			}
 			
 			// Lock the selectors
-			var selectors = $(".selectable");
+			/*var selectors = $(".selectable");
 			for(var i = 0; i < selectors.length; i++) {
 				selectors[i].classList.add("locked");
-			}
+			}*/
 			
 			// Make move
 			this.dilemmaUI.codeContract.makeMove.sendTransaction(move, 
@@ -102,10 +102,10 @@ class TimerController {
 					updateBlock.innerHTML = "<div class='title'>Miss!</div><div class='text'>The round has been reset because someone did not 'Submit' quickly enough.</div>";
 					
 					// Unlock the selectors
-					var selectors = $(".selectable");
+					/*var selectors = $(".selectable");
 					for(var i = 0; i < selectors.length; i++) {
 						selectors[i].classList.remove("locked");
-					}
+					}*/
 				}
 			},
 		

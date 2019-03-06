@@ -20,7 +20,6 @@ class DilemmaUI {
 		echo '<script>
 		
 			window.web3 = new Web3(web3.currentProvider)		
-			console.log(window.web3);
 				
 	 
 		// Is Metamask installed?

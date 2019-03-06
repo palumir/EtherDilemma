@@ -269,11 +269,6 @@ img.etherDilemma {
 	width:100%;
 }
 
-#theGame .gameStuff img {
-	max-height: 160px;
-}
-	
-
 #thePayout h4, #theStakes h4, #theGame h4 {
 	margin-bottom: 0px;
 }
@@ -343,6 +338,7 @@ img.etherDilemma {
 	font-size: 21pt;
 	margin-left: auto;
     margin-right: auto;
+	margin-bottom: 20px;
     text-align: center;
 	color: white;
     display: Block;
