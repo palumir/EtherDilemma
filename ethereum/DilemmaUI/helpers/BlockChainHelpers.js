@@ -153,7 +153,6 @@ $.get("https://www.etherchain.org/api/gasPriceOracle", function(data) {
 // Watch for an $(event), then call $(callBack). If another event with the same $(module) and event fields comes through, it's considered a duplicate
 // Requires geodeUI global to be defined by geodeUI
 function watchForEvent(event, callback, module) {
-		console.dir(event);
 		
 	event.options.fromBlock = 'latest';
 	event.options.toBlock = 'latest';
@@ -163,8 +162,6 @@ function watchForEvent(event, callback, module) {
 	
 		// If we receive no error
 		if(!error) {
-			
-			console.log(result);
 					
 			// If it's our inventory, and not a duplicate event, update it.
 			if(!dilemmaUI.checkForDuplicateEvent(result,module)) {
