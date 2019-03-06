@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.5;
 
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////////// STORAGE ////////////////////////////////
@@ -115,12 +115,12 @@ contract PrisonersDilemmaStorage {
     }
     
     // Fallback function
-    function () public payable {
+    function () external payable {
         
     }
     
     // Payout Ether -- only code contract can ever make this call
-    function payoutEther(uint _amount, address _toWho, uint _addToStopLoss) onlyCode() external {
+    function payoutEther(uint _amount, address payable _toWho, uint _addToStopLoss) onlyCode() external {
         
         // Can be ran if contract is locked, but won't do anything
         if(!contractLocked) {
@@ -141,13 +141,13 @@ contract PrisonersDilemmaStorage {
     // Function for pulling Ether from the contract and changing the stoploss 
     // - to deter any kind of foul play (botting, match-fixing, etc.), a buffer of Ether will be maintained in the contract 
     // such that the game will be playable legitimately, but cheating will not be worth 
-    function payoutAndFixStopLoss(uint _amount, address _toWho, uint _newStopLoss) onlyAdmin() public {
+    function payoutAndFixStopLoss(uint _amount, address payable _toWho, uint _newStopLoss) onlyAdmin() public {
         _toWho.transfer(_amount);
         stopLoss = _newStopLoss;
     }
     
     // Payout ignore stoploss (for cancelling)
-    function payoutAndIgnoreStopLoss(uint _amount, address _toWho) onlyCode() public {
+    function payoutAndIgnoreStopLoss(uint _amount, address payable _toWho) onlyCode() public {
         _toWho.transfer(_amount);
     }
     
@@ -198,7 +198,7 @@ contract PrisonersDilemmaCode {
     /////////////////
     
     // Constructor
-    constructor(address _storageAddress) public {
+    constructor(address payable _storageAddress) public {
         
         // Set storage contract
         storageContract = PrisonersDilemmaStorage(_storageAddress);
@@ -250,7 +250,7 @@ contract PrisonersDilemmaCode {
     }
     
     struct dilemma {
-		address partner; // Address of partner they are dilemma...ing?
+		address payable partner; // Address of partner they are dilemma...ing?
         bool active; // Whether or not the user is actively dilemmaing
 		uint lastTurnBlock; // Block time of last turn
 		uint move; // The move that the user last used (0 = ally, 1 = betray, 2 = call, 3 = miss)
@@ -261,7 +261,7 @@ contract PrisonersDilemmaCode {
     // Local Storage //
     ///////////////////
     
-    address public currentChallenger; // Current challenge
+    address payable public currentChallenger; // Current challenge
     mapping(address => challenge) public challenges; // Mapping of all challenges
     
     mapping(address => dilemma) public dilemmas; // Mapping of all dilemma data (current dilemmas in progress)
@@ -409,10 +409,10 @@ contract PrisonersDilemmaCode {
     }
     
     // Find a partner in challenge list for the sender
-    function findPartner() private returns(address) {
+    function findPartner() private returns(address payable) {
         
         // Get current challenger challenge
-        address c = currentChallenger;
+        address payable c = currentChallenger;
         currentChallenger = address(0);
         
         // No match found, return a dummy address
@@ -441,7 +441,7 @@ contract PrisonersDilemmaCode {
     function hostChallenge() canPlay() public payable {
         
         // Get who
-        address who = msg.sender;
+        address payable who = msg.sender;
         
         // Make sure the payment is enough
         require(msg.value == COST_IN_GAS);
@@ -450,7 +450,7 @@ contract PrisonersDilemmaCode {
         storageContract.receiveEther.value(msg.value)();
                     
         // Select the first person for now.
-        address partner = findPartner();
+        address payable partner = findPartner();
         
         // If there's another challenge that matches, accept it
         if(partner != address(0)) {
@@ -507,7 +507,7 @@ contract PrisonersDilemmaCode {
     event missedTurn(address _who);
     
     // End dilema with payouts
-    function endDilemma(address _who, address _partner, uint _whoPayout, uint _partnerPayout, bool _youAreAFK, bool _theyAreAFK) private {
+    function endDilemma(address payable _who, address payable _partner, uint _whoPayout, uint _partnerPayout, bool _youAreAFK, bool _theyAreAFK) private {
         
         // Load dilemmas from storage
     	dilemma storage whoDilemma = dilemmas[_who];
@@ -543,7 +543,7 @@ contract PrisonersDilemmaCode {
     }
     
     // Start the dilemma between addresses $(who) and $(partner)
-	function startDilemma(address _who, address _partner) private {
+	function startDilemma(address payable _who, address payable _partner) private {
 		
 		// Load dilemmas from storage
     	dilemma storage whoDilemma = dilemmas[_who];
@@ -616,8 +616,8 @@ contract PrisonersDilemmaCode {
 		    	whoDilemma.move = _move;
 		    	
 		    	// Get addresses
-		    	address who = partnerDilemma.partner;
-		    	address partner = whoDilemma.partner;
+		    	address payable who = partnerDilemma.partner;
+		    	address payable partner = whoDilemma.partner;
 		    	
 		    	// Payouts
 		    	whoPayout = GET_PAYOUT(whoDilemma.move, partnerDilemma.move);

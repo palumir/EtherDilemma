@@ -1,23 +1,11 @@
-const STORAGE_CONTRACT_ADDRESS = "0x33d01fead949d769d227cba958d34c394aa213e1";
+const STORAGE_CONTRACT_ADDRESS = "0x089db847b9105bf03cf4c9fd84707f26205bcde6";
 // live: 0x33d01fead949d769d227cba958d34c394aa213e1
 // test: 0x5e054220527988eed6bf808ecffa9fc1004aa027
-const CODE_CONTRACT_ADDRESS = "0x0be90df499723aaf314dd871939f1d8e3602bd39";
+const CODE_CONTRACT_ADDRESS = "0xcfca8643dacd2f7acdea29fda201d02d8f88f78b";
 // live: 0x649219490d8f13a175924c0634219a9593f21fe2
 // test: 0xeb41645fc9de531a4028cd5c6d7bc2464ed26bc4
 
 const CODE_CONTRACT_ABI = [
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "missedTurn",
-		"type": "event"
-	},
 	{
 		"constant": false,
 		"inputs": [],
@@ -26,79 +14,6 @@ const CODE_CONTRACT_ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "challengeHosted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "dilemmaStarted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			}
-		],
-		"name": "challengeCanceled",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_who",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_payout",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_whoMove",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_partnerMove",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_whoIsAFK",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "_timeStamp",
-				"type": "uint256"
-			}
-		],
-		"name": "dilemmaFinished",
-		"type": "event"
 	},
 	{
 		"constant": false,
@@ -144,23 +59,89 @@ const CODE_CONTRACT_ABI = [
 		"type": "constructor"
 	},
 	{
-		"constant": true,
+		"anonymous": false,
 		"inputs": [
 			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allChallenges",
-		"outputs": [
-			{
-				"name": "",
+				"indexed": false,
+				"name": "_who",
 				"type": "address"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"name": "challengeHosted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "challengeCanceled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "dilemmaStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_payout",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_whoMove",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_partnerMove",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_youAreAFK",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"name": "_theyAreAFK",
+				"type": "bool"
+			}
+		],
+		"name": "dilemmaFinished",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_who",
+				"type": "address"
+			}
+		],
+		"name": "missedTurn",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -175,9 +156,19 @@ const CODE_CONTRACT_ABI = [
 			{
 				"name": "active",
 				"type": "bool"
-			},
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "currentChallenger",
+		"outputs": [
 			{
-				"name": "lastPartner",
+				"name": "",
 				"type": "address"
 			}
 		],
@@ -463,6 +454,10 @@ const STORAGE_CONTRACT_ABI = [
 			{
 				"name": "_toWho",
 				"type": "address"
+			},
+			{
+				"name": "_addToStopLoss",
+				"type": "uint256"
 			}
 		],
 		"name": "payoutEther",
@@ -555,9 +550,13 @@ const STORAGE_CONTRACT_ABI = [
 		"type": "function"
 	},
 	{
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "fallback"
+		"constant": false,
+		"inputs": [],
+		"name": "unlock",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -566,13 +565,9 @@ const STORAGE_CONTRACT_ABI = [
 		"type": "constructor"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "unlock",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
 	},
 	{
 		"constant": true,
